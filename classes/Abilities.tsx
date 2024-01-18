@@ -1,6 +1,6 @@
 export default class Ability {
     private name: string;
-    private heroClassType: ('Melee' | 'Range' | 'Mage')[];
+    private heroClassType: ( 'Melee'| 'Range' | 'Mage')[];
     private cooldown: number;
     private cost: number;
     private effect: string;

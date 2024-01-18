@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Title from './App.tsx';
+import StartScreen from './startScreen/screen.tsx';
 import './index.less';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Title />
+    <StartScreen />
   </React.StrictMode>,
 );

@@ -16,4 +16,8 @@
     public getDamage(): number {
         return this.damage;
     }
+
+    public getHeroClass(): string {
+      return this.heroClassType;
+    }
 }
