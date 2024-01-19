@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "scr/startScreen/screen.tsx", "scr/main.tsx", "start/utils.ts", "scr/vite-env.d.ts"],
+  "include": ["src", "src/startScreen/screen.tsx", "src/main.tsx", "start/utils.ts", "src/vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,9 +1,11 @@
+type POTION_FIELDS = 'Melee' | 'Range' | 'Mage';
+
 export default class Potion {
   private name: string;
-  private affectingField: 'HealthPoints' | 'Strength' | 'Mana';
+  private affectingField: POTION_FIELDS;
   private affectingValue: number;
 
-  constructor(name: string, affectingField: 'HealthPoints' | 'Strength' | 'Mana', affectingValue: number) {
+  constructor(name: string, affectingField: POTION_FIELDS, affectingValue: number) {
     this.name = name;
     this.affectingField = affectingField;
     this.affectingValue = affectingValue;
@@ -13,7 +15,7 @@ export default class Potion {
     return this.name;
   }
 
-  public getAffectingField(): 'HealthPoints' | 'Strength' | 'Mana' {
+  public getAffectingField(): POTION_FIELDS {
     return this.affectingField;
   }
 

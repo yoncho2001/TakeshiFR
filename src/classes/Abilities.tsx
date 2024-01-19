@@ -1,12 +1,14 @@
+type HERO_TYPES = 'Melee' | 'Range' | 'Mage';
+
 export default class Ability {
     private name: string;
-    private heroClassType: ( 'Melee'| 'Range' | 'Mage')[];
+    private heroClassType: HERO_TYPES[];
     private cooldown: number;
     private cost: number;
     private effect: string;
     private useEffect: () => void;
 
-    constructor(name: string, heroClassType: ('Melee' | 'Range' | 'Mage')[], cooldown: number, cost: number, effect: string, useEffect: () => void) {
+    constructor(name: string, heroClassType: HERO_TYPES[], cooldown: number, cost: number, effect: string, useEffect: () => void) {
         this.name = name;
         this.heroClassType = heroClassType;
         this.cooldown = cooldown;
@@ -19,7 +21,7 @@ export default class Ability {
         return this.name;
     }
 
-    public getHeroClassType(): ('Melee' | 'Range' | 'Mage')[] {
+    public getHeroClassType(): HERO_TYPES[] {
         return this.heroClassType;
     }
 

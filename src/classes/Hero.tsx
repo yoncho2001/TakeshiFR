@@ -1,7 +1,8 @@
 import WeaponItem from './Weapon.tsx';
 import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
-const levelDef = 1;
+const levelDefault = 1;
+type HERO_TYPES = 'Melee' | 'Range' | 'Mage';
 
 export default class Hero {
   private name: string;
@@ -11,11 +12,11 @@ export default class Hero {
   private abilities: Ability[];
   private potions: Potion[];
   private primaryWeapon: WeaponItem;
-  private type: 'Melee' | 'Range' | 'Mage';
+  private type: HERO_TYPES;
   private level: number;
 
   constructor(name: string, health: number, strength: number, armor: number
-    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem, type:'Melee' | 'Range' | 'Mage' = 'Melee', level:number = levelDef) {
+    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem, type:HERO_TYPES = 'Melee', level:number = levelDefault) {
     this.name = name;
     this.health = health;
     this.strength = strength;
@@ -63,7 +64,7 @@ export default class Hero {
     return this.primaryWeapon;
   }
 
-  public getType(): string {
+  public getType(): HERO_TYPES {
     return this.type;
   }
 
