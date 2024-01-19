@@ -1,6 +1,6 @@
 import React from 'react';
-import './screen.less';
-import Players from './Buttons';
+import './startScreen.less';
+import Players from './renderPlayers';
 import Stack from '@mui/material/Stack';
 
 export default function StartScreen() {

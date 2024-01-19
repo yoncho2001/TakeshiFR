@@ -1,7 +1,7 @@
 import WeaponItem from './Weapon.tsx';
 import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
-const levelDefault = 1;
+const defaultLevel = 1;
 
 export default class Hero {
   private name: string;
@@ -15,7 +15,7 @@ export default class Hero {
   private level: number;
 
   constructor(name: string, health: number, strength: number, armor: number
-    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem, type:HERO_TYPES = 'Melee', level:number = levelDefault) {
+    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem, type:HERO_TYPES = 'Melee', level:number = defaultLevel) {
     this.name = name;
     this.health = health;
     this.strength = strength;
