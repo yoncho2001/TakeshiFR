@@ -2,7 +2,6 @@ import WeaponItem from './Weapon.tsx';
 import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
 const levelDefault = 1;
-type HERO_TYPES = 'Melee' | 'Range' | 'Mage';
 
 export default class Hero {
   private name: string;

@@ -1,5 +1,3 @@
-type HERO_TYPES = 'Melee' | 'Range' | 'Mage';
-
 export default class Ability {
     private name: string;
     private heroClassType: HERO_TYPES[];

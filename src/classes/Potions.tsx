@@ -1,5 +1,3 @@
-type POTION_FIELDS = 'Melee' | 'Range' | 'Mage';
-
 export default class Potion {
   private name: string;
   private affectingField: POTION_FIELDS;

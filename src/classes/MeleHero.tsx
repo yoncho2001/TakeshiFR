@@ -9,9 +9,9 @@ export default class MeleeHero extends Hero {
 
   constructor(name: string, health: number, strength: number, armor: number
     , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
-    , secondaryWeapon: WeaponItem,level: number = levelDefault) {
+    , secondaryWeapon: WeaponItem, level: number = levelDefault) {
     super(name, health, strength, armor, abilities, potions, primaryWeapon
-          , "Melee", level);
+      , "Melee", level);
     this.secondaryWeapon = secondaryWeapon;
   }
 
@@ -19,12 +19,12 @@ export default class MeleeHero extends Hero {
     return this.secondaryWeapon;
   }
 
-  static fromJSON(json: any): MeleeHero {
-    const abilities = json.abilities.map((a: any) => new Ability(a.name, a.heroClassType, a.cooldown, a.cost, a.effect, () => { }));
-    const potions = json.potions.map((p: any) => new Potion(p.name, p.affectingField, p.affectingValue));
+  static fromJSON(json: MeleeHeroJSON): MeleeHero {
+    const abilities = json.abilities.map(a => new Ability(a.name, a.heroClassType, a.cooldown, a.cost, a.effect, () => { }));
+    const potions = json.potions.map(p => new Potion(p.name, p.affectingField, p.affectingValue));
     const primaryWeapon = new WeaponItem(json.primaryWeapon.name, json.primaryWeapon.damage, json.primaryWeapon.heroClassType);
-    const secondaryWeapon = new WeaponItem(json.secondaryWeapon.name, json.primaryWeapon.damage, json.primaryWeapon.heroClassType);
+    const secondaryWeapon = new WeaponItem(json.secondaryWeapon.name, json.secondaryWeapon.damage, json.secondaryWeapon.heroClassType);
 
     return new MeleeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, secondaryWeapon, json.level);
-  } 
-}
+  }
+} 

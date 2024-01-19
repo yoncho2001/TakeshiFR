@@ -3,7 +3,6 @@ import MageHero from '../../classes/MageHero.tsx';
 import Button from '../button.tsx';
 import React, { useEffect } from 'react';
 
-type HERO_TYPES = "Mage" | "Melee";
 type HeroInfo = MeleeHero | MageHero | null | undefined;
 type HeroSerializer = (hero: any) => HeroInfo;
 
@@ -25,7 +24,7 @@ export default function withPlayerInfo(WrappedComponent: typeof Button, player: 
     if (playerInfoSerializer) {
         playerInfo = playerInfoSerializer(player);
     }
-
+    
     const content = (
         <div>
             <div>{playerInfo?.getName()}</div>

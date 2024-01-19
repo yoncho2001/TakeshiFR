@@ -1,5 +1,3 @@
-type HERO_TYPES = 'Melee' | 'Range' | 'Mage';
-
 export default class WeaponItem {
   private name: string;
   private damage: number;
