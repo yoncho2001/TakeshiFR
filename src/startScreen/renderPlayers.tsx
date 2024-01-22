@@ -1,6 +1,5 @@
 import Button from '../components/button.tsx';
 import withPlayerInfo from '../components/hoc/withPlayerInfo.tsx';
-import React from 'react';
 
 export default function Players() {
 

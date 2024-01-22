@@ -1,30 +1,32 @@
 import MeleeHero from '../../classes/MeleHero.tsx';
 import MageHero from '../../classes/MageHero.tsx';
+import RangeHero from '../../classes/RangeHero.tsx';
 import Button from '../button.tsx';
-import React, { useEffect } from 'react';
 
-type HeroInfo = MeleeHero | MageHero | null | undefined;
+type HeroToJSON = MageHeroJSON | MeleeHeroJSON | RangeHeroJSON;
+type HeroInfo = MeleeHero | MageHero | RangeHero | null | undefined;
 type HeroSerializer = (hero: any) => HeroInfo;
 
 const heroesSerializersRegister = new Map<HERO_TYPES, HeroSerializer>([
     ["Mage", MageHero.fromJSON],
-    ["Melee", MeleeHero.fromJSON]
+    ["Melee", MeleeHero.fromJSON],
+    ["Range", RangeHero.fromJSON],
 ]);
 
 
-export default function withPlayerInfo(WrappedComponent: typeof Button, player: any, index: number) {
+export default function withPlayerInfo(WrappedComponent: typeof Button, player: HeroToJSON, index: number) {
 
     const playerHeroType = player.type as HERO_TYPES;
 
     const playerInfoSerializer: HeroSerializer | undefined =
         heroesSerializersRegister.get(playerHeroType);
 
-    let playerInfo: HeroInfo = MageHero.fromJSON(player);
+    let playerInfo: HeroInfo ;
 
     if (playerInfoSerializer) {
         playerInfo = playerInfoSerializer(player);
     }
-    
+
     const content = (
         <div>
             <div>{playerInfo?.getName()}</div>

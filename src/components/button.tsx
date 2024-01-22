@@ -6,10 +6,10 @@ interface ButtonProps {
     variant?: "text" | "outlined" | "contained",
     content: string | React.ReactNode,
     herf?:string,
-    icon?: React.ReactNode 
+    icon?: React.ReactNode,
 }
 
-export default function Button({ className, variant, content, icon, herf }:ButtonProps ) {
+export default function Button({ className, variant, content, herf, icon}:ButtonProps ) {
     return (
         <MuiButton variant={variant} className={className} href= {herf} startIcon={icon} >
             {content}

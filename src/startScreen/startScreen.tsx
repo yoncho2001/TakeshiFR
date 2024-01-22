@@ -1,4 +1,3 @@
-import React from 'react';
 import './startScreen.less';
 import Players from './renderPlayers';
 import Stack from '@mui/material/Stack';
