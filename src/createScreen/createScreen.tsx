@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import './playerScreen.less';
+import './createScreen.less';
 import Button from '../components/button.tsx';
 import InsertName from './insertName.tsx';
 import RenderTypes from './renderTypes.tsx';
 import Stack from '@mui/material/Stack';
 
-export default function PlayerScreen() {
+export default function CreateScreen() {
   const [playerName, setPlayerName] = useState('');
 
   useEffect(() => {
