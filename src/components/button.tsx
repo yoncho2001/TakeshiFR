@@ -9,9 +9,9 @@ interface ButtonProps {
     icon?: React.ReactNode,
 }
 
-export default function Button({ className, variant, content, herf, icon}:ButtonProps ) {
+export default function Button({ content, herf,icon, ...restProps}:ButtonProps ) {
     return (
-        <MuiButton variant={variant} className={className} href= {herf} startIcon={icon} >
+        <MuiButton  href= {herf} startIcon={icon} {...restProps}>
             {content}
         </MuiButton>
     );

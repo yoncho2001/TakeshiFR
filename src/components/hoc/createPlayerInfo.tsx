@@ -1,11 +1,8 @@
 import Button from '../button.tsx';
 
-export default function createPlayer(WrappedComponent: typeof Button,type: string, index?: number) {
-
+export default function createPlayer(WrappedComponent: typeof Button, type: string, index?: number) {
     const content = (
-        <div>
-            <div>{type}</div>
-        </div>
+        <div>{type}</div>
     )
 
     return <WrappedComponent
@@ -16,6 +13,7 @@ export default function createPlayer(WrappedComponent: typeof Button,type: strin
         icon={
             <img src={`../../../Picture${type}.svg`}
                 alt="icon"
-            />}
+            />
+        }
     />
 }

@@ -42,6 +42,7 @@ export default function withPlayerInfo(WrappedComponent: typeof Button, player: 
         icon={
             <img src={`../../../Picture${playerInfo?.getType()}.svg`}
                 alt="icon"
-            />}
+            />
+        }
     />
 }

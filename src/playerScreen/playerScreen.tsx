@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './playerScreen.less';
 import Button from '../components/button.tsx';
 import InsertName from './insertName.tsx';
 import RenderTypes from './renderTypes.tsx';

@@ -15,9 +15,10 @@ export default function Players() {
     return (
         <>
             {players.map((player, index) =>
-                player === null 
-                    ? <Button key={index} variant='outlined' className='emptyButton' herf = {'/player'} content={'Create new Character'}/>
+                player === null
+                    ? <Button key={index} variant='outlined' className='emptyButton' herf={'/player'} content={'Create new Character'} />
                     : withPlayerInfo(Button, player, index)
             )}
-        </>);
+        </>
+    );
 }
