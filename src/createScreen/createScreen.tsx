@@ -8,18 +8,14 @@ import Stack from '@mui/material/Stack';
 export default function CreateScreen() {
   const [playerName, setPlayerName] = useState('');
 
-  useEffect(() => {
-    console.log('zdr');
-  }, [playerName])
-
   return (
     <>
       <h1>Yoncho Takeshi</h1>
-      <InsertName onChange={setPlayerName}/>
+      <InsertName onChange={setPlayerName} />
       <Stack className="players" direction="row" spacing={2}>
-        <RenderTypes playerName={playerName}/>
+        <RenderTypes playerName={playerName} />
       </Stack>
-      <Button variant='outlined' className='emptyButton' herf = {'/'} content={'go back'} onClick={()=>{}}/>
+      <Button variant='outlined' className='emptyButton' herf={'/'} content={'go back'} onClick={() => { }} />
     </>
   );
 }

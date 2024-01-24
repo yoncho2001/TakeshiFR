@@ -8,13 +8,12 @@ export default function savePlayer(player: HeroInfo) {
     if (playersRaw !== null) {
         players = JSON.parse(playersRaw);
     }
-    console.log(players);
+
     const indexToReplace = players.indexOf(null);
     if (indexToReplace !== -1) {
         players[indexToReplace] = player;
-    } 
-    console.log(players);
-    
+    }
+
     localStorage.setItem(playersKey, JSON.stringify(players));
     showPlayer(player);
 }

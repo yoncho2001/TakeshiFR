@@ -19,15 +19,15 @@ function createHero(type: HERO_TYPES, playerName: string) {
         defaultHeroesRegister.get(type);
 
     let playerInfo: HeroInfo;
-   
+
     if (defaultPlayerSerializer) {
-        if (playerNameToSave == null || playerNameToSave == '' ) {
+        if (playerNameToSave == null || playerNameToSave == '') {
             playerNameToSave = 'Default';
         }
 
         playerInfo = defaultPlayerSerializer(playerNameToSave);
     }
- 
+
     savePlayer(playerInfo);
 }
 

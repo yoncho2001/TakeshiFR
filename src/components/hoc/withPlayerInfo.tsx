@@ -20,7 +20,7 @@ export default function withPlayerInfo(WrappedComponent: typeof Button, player: 
     const playerInfoSerializer: HeroSerializer | undefined =
         heroesSerializersRegister.get(playerHeroType);
 
-    let playerInfo: HeroInfo ;
+    let playerInfo: HeroInfo;
 
     if (playerInfoSerializer) {
         playerInfo = playerInfoSerializer(player);
