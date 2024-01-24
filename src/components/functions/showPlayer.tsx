@@ -1,4 +1,4 @@
 export default function showPlayer(player:HeroInfo) {
-    localStorage.setItem('currentPlayer', JSON.stringify(player));
+    localStorage.setItem('curentPlayer', JSON.stringify(player));
     window.location.href = '/player';
 }

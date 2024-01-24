@@ -6,14 +6,14 @@ type InsertNameProps = {
 export default function InsertName({ onChange }: InsertNameProps) {
     return (
         <>
-            <section className="textField">
+            <div className="textField">
                 <h2>NAME:</h2>
                 <TextField id="playerName" label="Enter Name"
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         onChange(event.target.value);
                     }}
                 />
-            </section>
+            </div>
         </>
     );
 }
