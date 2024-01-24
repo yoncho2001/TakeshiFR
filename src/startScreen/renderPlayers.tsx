@@ -1,6 +1,5 @@
 import Button from '../components/button.tsx';
 import withPlayerInfo from '../components/hoc/withPlayerInfo.tsx';
-import React from 'react';
 
 export default function Players() {
 
@@ -16,9 +15,10 @@ export default function Players() {
     return (
         <>
             {players.map((player, index) =>
-                player === null 
-                    ? <Button key={index} variant='outlined' className='emptyButton' herf = {'/player'} content={'Create new Character'}/>
+                player === null
+                    ? <Button key={index} variant='outlined' className='emptyButton' herf={'/create'} content={'Create new Character'} onClick={() => { }} />
                     : withPlayerInfo(Button, player, index)
             )}
-        </>);
+        </>
+    );
 }
