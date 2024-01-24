@@ -15,12 +15,11 @@ export default function CreateScreen() {
   return (
     <>
       <h1>Yoncho Takeshi</h1>
-      <h2>{playerName}</h2>
       <InsertName onChange={setPlayerName}/>
       <Stack className="players" direction="row" spacing={2}>
-        <RenderTypes/>
+        <RenderTypes playerName={playerName}/>
       </Stack>
-      <Button variant='outlined' className='emptyButton' herf = {'/'} content={'go back'}/>
+      <Button variant='outlined' className='emptyButton' herf = {'/'} content={'go back'} onClick={()=>{}}/>
     </>
   );
 }

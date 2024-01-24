@@ -16,7 +16,7 @@ export default function Players() {
         <>
             {players.map((player, index) =>
                 player === null
-                    ? <Button key={index} variant='outlined' className='emptyButton' herf={'/player'} content={'Create new Character'} />
+                    ? <Button key={index} variant='outlined' className='emptyButton' herf={'/create'} content={'Create new Character'} onClick={()=>{}} />
                     : withPlayerInfo(Button, player, index)
             )}
         </>

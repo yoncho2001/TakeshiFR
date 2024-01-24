@@ -7,11 +7,12 @@ interface ButtonProps {
     content: string | React.ReactNode,
     herf?:string,
     icon?: React.ReactNode,
+    onClick : (event: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
-export default function Button({ content, herf,icon, ...restProps}:ButtonProps ) {
+export default function Button({ content, herf,icon, onClick,...restProps}:ButtonProps ) {
     return (
-        <MuiButton  href= {herf} startIcon={icon} {...restProps}>
+        <MuiButton  href= {herf} startIcon={icon} onClick={onClick} {...restProps} >
             {content}
         </MuiButton>
     );
