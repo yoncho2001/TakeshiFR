@@ -1,14 +1,11 @@
-import showPlayer from '../functions/showPlayer.tsx'
-import fromJSONToHero from '../functions/fromJSONToHero.tsx'
+import { saveCurrentPlayer } from '../../functions/heroFunctions/savePlayer.tsx';
 import Button from '../button.tsx';
 
-export default function withPlayerInfo(WrappedComponent: typeof Button, player: HeroToJSON, index: number) {
-
-    let playerInfo = fromJSONToHero(player);
+export default function withPlayerInfo(WrappedComponent: typeof Button, player: HeroToJSON, index: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
     const content = (
         <div>
-            <div>{playerInfo?.getName()}</div>
-            <div>level {playerInfo?.getLevel()} {playerInfo?.getType()}</div>
+            <div>{player.name}</div>
+            <div>level {player.level} {player.type}</div>
         </div>
     )
 
@@ -18,10 +15,10 @@ export default function withPlayerInfo(WrappedComponent: typeof Button, player: 
         variant="outlined"
         content={content}
         icon={
-            <img src={`../../../Picture${playerInfo?.getType()}.svg`}
+            <img src={`../../../Picture${player.type}.svg`}
                 alt="icon"
             />
         }
-        onClick={() => { showPlayer(playerInfo) }}
+        onClick={() => { saveCurrentPlayer(player.name, callbackFunction) }}
     />
 }

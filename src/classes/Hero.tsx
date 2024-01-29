@@ -1,5 +1,3 @@
-import WeaponItem from './Weapon.tsx';
-import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 

@@ -1,6 +1,6 @@
-import MeleeHero from '../../classes/MeleHero.tsx';
-import MageHero from '../../classes/MageHero.tsx';
-import RangeHero from '../../classes/RangeHero.tsx';
+/*import MeleeHero from '../classes/MeleHero.tsx';
+import MageHero from '../classes/MageHero.tsx';
+import RangeHero from '../classes/RangeHero.tsx';
 
 type HeroSerializer = (hero: any) => HeroInfo;
 
@@ -23,4 +23,4 @@ export default function fromJSONToHero(player:HeroToJSON):HeroInfo{
     }
 
     return playerInfo;
-}
+}*/

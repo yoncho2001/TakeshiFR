@@ -1,6 +1,4 @@
-import WeaponItem from './Weapon.tsx';
 import Hero from './Hero.tsx';
-import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 
@@ -19,18 +17,40 @@ export default class MeleeHero extends Hero {
     return this.secondaryWeapon;
   }
 
-  public static fromJSON(json: MeleeHeroJSON): MeleeHero {
+  /*public static fromJSON(json: MeleeHeroJSON): MeleeHero {
     const abilities = json.abilities.map(a => new Ability(a.name, a.heroClassType, a.cooldown, a.cost, a.effect, () => {}));
     const potions = json.potions.map(p => new Potion(p.name, p.affectingField, p.affectingValue));
     const primaryWeapon = new WeaponItem(json.primaryWeapon.name, json.primaryWeapon.damage, json.primaryWeapon.heroClassType);
     const secondaryWeapon = new WeaponItem(json.secondaryWeapon.name, json.secondaryWeapon.damage, json.secondaryWeapon.heroClassType);
 
     return new MeleeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.level, secondaryWeapon);
-  }
+  }*/
 
-  public static toDefault(playerName: string): MeleeHero {
-    const primaryWeapon = new WeaponItem('Sword', 5, 'Melee');
-    const secondaryWeapon = new WeaponItem('BigSword', 5, 'Melee');
-    return new MeleeHero(playerName, 5, 5, 5, [], [], primaryWeapon,1, secondaryWeapon);
-  } 
+  public static DefoultToJSON(playerName: string): MeleeHeroJSON {
+    const primaryWeapon: WeaponItemJSON =
+    {
+      name: 'Sword',
+      damage: 20,
+      heroClassType: 'Melee'
+    };
+    const secondaryWeapon: WeaponItemJSON =
+    {
+      name: 'BigSword',
+      damage: 20,
+      heroClassType: 'Melee'
+    };
+
+    return {
+      name: playerName,
+      health: 10,
+      strength: 10,
+      armor: 10,
+      abilities: [],
+      potions: [],
+      primaryWeapon: primaryWeapon,
+      type: "Melee",
+      level: 1,
+      secondaryWeapon: secondaryWeapon
+    }
+  }
 } 
