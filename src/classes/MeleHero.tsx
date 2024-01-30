@@ -26,7 +26,7 @@ export default class MeleeHero extends Hero {
     return new MeleeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.level, secondaryWeapon);
   }*/
 
-  public static DefoultToJSON(playerName: string): MeleeHeroJSON {
+  public static toJSON(playerName: string): MeleeHeroJSON {
     const primaryWeapon: WeaponItem =
     {
       name: 'Sword',
@@ -42,9 +42,9 @@ export default class MeleeHero extends Hero {
 
     return {
       name: playerName,
-      health: 10,
-      strength: 10,
-      armor: 10,
+      health: 30,
+      strength: 15,
+      armor: 20,
       abilities: [],
       potions: ['HealthPotion','HealthPotion','HealthPotion'],
       primaryWeapon: primaryWeapon,

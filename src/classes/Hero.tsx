@@ -83,6 +83,8 @@ export default class Hero {
     }
   }
 
+  protected toJSON?():HeroToJSON;
+
   public Hi(): void {
     console.log("hi hero");
   }

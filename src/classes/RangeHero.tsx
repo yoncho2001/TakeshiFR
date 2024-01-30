@@ -24,7 +24,7 @@ export default class RangeHero extends Hero {
     return new RangeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.ammo, json.level);
   } */
 
-  public static DefoultToJSON(playerName: string): RangeHeroJSON {
+  public static toJSON(playerName: string): RangeHeroJSON {
     const primaryWeapon: WeaponItem =
     {
       name: 'Bow',
@@ -33,9 +33,9 @@ export default class RangeHero extends Hero {
     };
     return {
       name: playerName,
-      health: 10,
+      health: 50,
       strength: 10,
-      armor: 10,
+      armor: 20,
       abilities: [],
       potions: ['HealthPotion','HealthPotion','HealthPotion','HealthPotion'],
       primaryWeapon: primaryWeapon,

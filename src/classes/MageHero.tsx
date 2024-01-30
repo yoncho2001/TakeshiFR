@@ -24,7 +24,7 @@ export default class MageHero extends Hero {
     return new MageHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.mana, json.level);
   }*/
 
-  public static DefoultToJSON(playerName: string): MageHeroJSON {
+  public static toJSON(playerName: string): MageHeroJSON {
     const primaryWeapon: WeaponItem =
     {
       name: 'Staf',
@@ -34,15 +34,15 @@ export default class MageHero extends Hero {
     
     return {
       name: playerName,
-      health: 5,
-      strength: 5,
-      armor: 5,
+      health: 20,
+      strength: 10,
+      armor: 20,
       abilities: [],
       potions: ['HealthPotion','HealthPotion','ManaPotion'],
       primaryWeapon: primaryWeapon,
       type: "Mage",
       level: 1,
-      mana: 5
+      mana: 30
     }
   }
 }

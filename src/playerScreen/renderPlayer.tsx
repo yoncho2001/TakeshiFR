@@ -49,8 +49,8 @@ export default function CurrentPlayer() {
                         </div>
                         <div id='stats'>
                         <LinearProgress className="statProgress" variant="determinate" color="success" value={player.health} />
-                        <LinearProgress className="statProgress" variant="determinate" color="error"value={player.health} />
-                        {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.health} />}
+                        <LinearProgress className="statProgress" variant="determinate" color="error"value={player.armor} />
+                        {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.mana} />}
                         </div>
                     </div>
                     <div id='items'>
