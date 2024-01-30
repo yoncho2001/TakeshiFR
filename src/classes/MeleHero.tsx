@@ -1,6 +1,4 @@
-import WeaponItem from './Weapon.tsx';
 import Hero from './Hero.tsx';
-import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 
@@ -9,7 +7,7 @@ export default class MeleeHero extends Hero {
 
   constructor(name: string, health: number, strength: number, armor: number
     , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
-    , secondaryWeapon: WeaponItem, level: number = defaultLevel) {
+    , level: number = defaultLevel, secondaryWeapon: WeaponItem) {
     super(name, health, strength, armor, abilities, potions, primaryWeapon
       , "Melee", level);
     this.secondaryWeapon = secondaryWeapon;
@@ -19,12 +17,40 @@ export default class MeleeHero extends Hero {
     return this.secondaryWeapon;
   }
 
-  static fromJSON(json: MeleeHeroJSON): MeleeHero {
+  /*public static fromJSON(json: MeleeHeroJSON): MeleeHero {
     const abilities = json.abilities.map(a => new Ability(a.name, a.heroClassType, a.cooldown, a.cost, a.effect, () => {}));
     const potions = json.potions.map(p => new Potion(p.name, p.affectingField, p.affectingValue));
     const primaryWeapon = new WeaponItem(json.primaryWeapon.name, json.primaryWeapon.damage, json.primaryWeapon.heroClassType);
     const secondaryWeapon = new WeaponItem(json.secondaryWeapon.name, json.secondaryWeapon.damage, json.secondaryWeapon.heroClassType);
 
-    return new MeleeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, secondaryWeapon, json.level);
+    return new MeleeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.level, secondaryWeapon);
+  }*/
+
+  public static toJSON(playerName: string): MeleeHeroJSON {
+    const primaryWeapon: WeaponItem =
+    {
+      name: 'Sword',
+      damage: 20,
+      heroClassType: 'Melee'
+    };
+    const secondaryWeapon: WeaponItem =
+    {
+      name: 'BigSword',
+      damage: 20,
+      heroClassType: 'Melee'
+    };
+
+    return {
+      name: playerName,
+      health: 30,
+      strength: 15,
+      armor: 20,
+      abilities: [],
+      potions: ['HealthPotion','HealthPotion','HealthPotion'],
+      primaryWeapon: primaryWeapon,
+      type: "Melee",
+      level: 1,
+      secondaryWeapon: secondaryWeapon
+    }
   }
 } 

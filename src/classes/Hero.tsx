@@ -1,5 +1,3 @@
-import WeaponItem from './Weapon.tsx';
-import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 
@@ -15,7 +13,8 @@ export default class Hero {
   private level: number;
 
   constructor(name: string, health: number, strength: number, armor: number
-    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem, type:HERO_TYPES = 'Melee', level:number = defaultLevel) {
+    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
+    , type: HERO_TYPES = 'Melee', level: number = defaultLevel) {
     this.name = name;
     this.health = health;
     this.strength = strength;
@@ -77,12 +76,14 @@ export default class Hero {
   public takeDamage(value: number): void {
     if (value > 0) {
       this.health -= value;
-      
+
       if (this.health < 0) {
         this.health = 0;
       }
     }
   }
+
+  protected toJSON?():HeroToJSON;
 
   public Hi(): void {
     console.log("hi hero");

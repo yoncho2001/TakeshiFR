@@ -1,6 +1,4 @@
-import WeaponItem from './Weapon.tsx';
 import Hero from './Hero.tsx';
-import Potion from './Potions.tsx';
 import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 const defaulAmmo = 100;
@@ -19,10 +17,31 @@ export default class RangeHero extends Hero {
     return this.ammo;
   }
 
-  static fromJSON(json: RangeHeroJSON): RangeHero {
+  /*public static fromJSON(json: RangeHeroJSON): RangeHero {
     const abilities = json.abilities.map(a=> new Ability(a.name, a.heroClassType, a.cooldown, a.cost, a.effect, () => { }));
     const potions = json.potions.map(p => new Potion(p.name, p.affectingField, p.affectingValue));
     const primaryWeapon = new WeaponItem(json.primaryWeapon.name, json.primaryWeapon.damage, json.primaryWeapon.heroClassType);
     return new RangeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.ammo, json.level);
-  } 
+  } */
+
+  public static toJSON(playerName: string): RangeHeroJSON {
+    const primaryWeapon: WeaponItem =
+    {
+      name: 'Bow',
+      damage: 20,
+      heroClassType: 'Range'
+    };
+    return {
+      name: playerName,
+      health: 50,
+      strength: 10,
+      armor: 20,
+      abilities: [],
+      potions: ['HealthPotion','HealthPotion','HealthPotion','HealthPotion'],
+      primaryWeapon: primaryWeapon,
+      type: "Range",
+      level: 1,
+      ammo: 20
+    }
+  }
 }
