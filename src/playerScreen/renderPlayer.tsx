@@ -7,19 +7,6 @@ import { Link } from "react-router-dom";
 import deleteHero from "../functions/heroFunctions/deleteHero.tsx";
 import getStoredPlayers from "../functions/heroFunctions/getStoredPlayers.tsx";
 
-const healthPotion = 'HealthPotion';
-const manaPotion = 'ManaPotion';
-
-function countPotions(potions:string[], typePotion:string) {
-    let countPotion= 0;
-    potions.forEach(potion => {
-        if (potion === typePotion) {
-            countPotion++;
-        }
-    });
-    return countPotion;
-}
-
 export default function CurrentPlayer() {
     let players: { [key: string]: HeroToJSON } = getStoredPlayers();
     const currentPlayer = useContext(PlayerContext).currentPlayer;
@@ -32,9 +19,6 @@ export default function CurrentPlayer() {
         </>
     }
 
-    let countHealtP:number = countPotions([...player.potions],healthPotion);
-    let countManaP:number = countPotions(player.potions,manaPotion);
-
     return (
         <>
             <section id='characterInfo'>
@@ -43,25 +27,25 @@ export default function CurrentPlayer() {
                 </div>
                 <div id='inventory'>
                     <div id='statsInfo'>
-                        <div id = "tytle">
+                        <div id="tytle">
                             <b>{player.name}</b>
                             <b>lv {player.level}  {player.type}</b>
                         </div>
                         <div id='stats'>
-                        <LinearProgress className="statProgress" variant="determinate" color="success" value={player.health} />
-                        <LinearProgress className="statProgress" variant="determinate" color="error"value={player.armor} />
-                        {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.mana} />}
+                            <LinearProgress className="statProgress" variant="determinate" color="success" value={player.health} />
+                            <LinearProgress className="statProgress" variant="determinate" color="error" value={player.armor} />
+                            {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.mana} />}
                         </div>
                     </div>
                     <div id='items'>
                         <b>Items</b>
-                        <RenderItems player= {player}/>
+                        <RenderItems player={player} />
                     </div>
                 </div>
             </section>
             <section id='navButtons'>
                 <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'< Go to Heroes'} /></Link>
-                <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Delete'} onClick={() => {deleteHero(players, player.name)}}/></Link>
+                <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Delete'} onClick={() => { deleteHero(players, player.name) }} /></Link>
                 <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Next >'} /></Link>
             </section>
         </>

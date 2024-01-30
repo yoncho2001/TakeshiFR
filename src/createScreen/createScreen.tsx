@@ -16,7 +16,7 @@ export default function CreateScreen() {
         <RenderTypes playerName={playerName} />
       </Stack>
       <Link to='/' >
-        <Button variant='outlined' className='emptyButton' content={"Go back"}/>
+        <Button variant='outlined' className='emptyButton' content={"Go back"} />
       </Link>
     </>
   );
