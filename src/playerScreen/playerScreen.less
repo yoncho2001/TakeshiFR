@@ -7,12 +7,13 @@
 #characterInfo {
     display: flex;
     justify-content: center;
+    min-height: 25em;
 }
 
 #typeIcon {
     display: flex;
     align-items: center;
-    margin-right: 4em;
+    margin-right: 10em;
     img {
         scale: 1.3;
     }
@@ -21,46 +22,53 @@
 #inventory {
     display: flex;
     flex-direction: column;
-    font: 1.25em sans-serif;
+    justify-content: center;
+    scale: 1.5;
+    line-height: 2em;
+
     #tytle{
-        font-size: 1.7em;
+        font-size: 1.5em;
         display: flex;
         flex-direction: column;
         margin-right: 1em;
     }
-    #stats {
+    #statsInfo {
         display: flex;
         flex-direction: row;
+        margin-bottom: 1.5em;
+        #stats{
+            width: 10em;
+            .statProgress{
+                margin-bottom: 1em;
+                border-radius: 0.5em;
+            }
+        }
     }
 }
-
 
 #items {
     display: flex;
     align-items: center;
     flex-direction: column;
     font-size:larger;
-
+    .badgeItem{
+        font-size: 2em;
+        height: auto;
+        width: auto;
+    }
     #icon {
         display: flex;
 
-        p {
+        b {
             display: flex;
             align-items: flex-end;
         }
     }
-
-    #imgHealt {
-        width: 6em;
-        height: 6em;
-        margin: 1em;
+    img{
+        margin-right: 0.8em;
+        width: 2em;
+        height: auto;
     }
-
-    #imgMana {
-        width: 8em;
-        height: 8em;
-    }
-
 }
 
 #navButtons {

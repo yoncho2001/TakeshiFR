@@ -27,13 +27,13 @@ export default class MeleeHero extends Hero {
   }*/
 
   public static DefoultToJSON(playerName: string): MeleeHeroJSON {
-    const primaryWeapon: WeaponItemJSON =
+    const primaryWeapon: WeaponItem =
     {
       name: 'Sword',
       damage: 20,
       heroClassType: 'Melee'
     };
-    const secondaryWeapon: WeaponItemJSON =
+    const secondaryWeapon: WeaponItem =
     {
       name: 'BigSword',
       damage: 20,
@@ -46,7 +46,7 @@ export default class MeleeHero extends Hero {
       strength: 10,
       armor: 10,
       abilities: [],
-      potions: [],
+      potions: ['HealthPotion','HealthPotion','HealthPotion'],
       primaryWeapon: primaryWeapon,
       type: "Melee",
       level: 1,

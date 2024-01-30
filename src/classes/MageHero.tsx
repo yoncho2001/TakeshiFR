@@ -25,7 +25,7 @@ export default class MageHero extends Hero {
   }*/
 
   public static DefoultToJSON(playerName: string): MageHeroJSON {
-    const primaryWeapon: WeaponItemJSON =
+    const primaryWeapon: WeaponItem =
     {
       name: 'Staf',
       damage: 20,
@@ -38,7 +38,7 @@ export default class MageHero extends Hero {
       strength: 5,
       armor: 5,
       abilities: [],
-      potions: [],
+      potions: ['HealthPotion','HealthPotion','ManaPotion'],
       primaryWeapon: primaryWeapon,
       type: "Mage",
       level: 1,

@@ -5,7 +5,7 @@ type MageHeroJSON = {
     armor: number,
     abilities: string[],
     potions: string[],
-    primaryWeapon: WeaponItemJSON,
+    primaryWeapon: WeaponItem,
     type: HERO_TYPES,
     level: number,
     mana: number

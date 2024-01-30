@@ -1,25 +1,40 @@
 import { useContext } from 'react';
 import PlayerContext from '../components/PlayerContext.tsx';
+import RenderItems from "./renderItems.tsx";
 import Button from '../components/button.tsx';
+import LinearProgress from '@mui/material/LinearProgress';
 import { Link } from "react-router-dom";
 import deleteHero from "../functions/heroFunctions/deleteHero.tsx";
 import getStoredPlayers from "../functions/heroFunctions/getStoredPlayers.tsx";
+
+const healthPotion = 'HealthPotion';
+const manaPotion = 'ManaPotion';
+
+function countPotions(potions:string[], typePotion:string) {
+    let countPotion= 0;
+    potions.forEach(potion => {
+        if (potion === typePotion) {
+            countPotion++;
+        }
+    });
+    return countPotion;
+}
 
 export default function CurrentPlayer() {
     let players: { [key: string]: HeroToJSON } = getStoredPlayers();
     const currentPlayer = useContext(PlayerContext).currentPlayer;
     let player = players[currentPlayer];
 
-    let countHealtP = 0;
-    let countManaP = 0;
-
     if (!player) {
         return <>
             <div>Loading player data or player not found...</div>
             <Link to='/'><Button variant='outlined' className='emptyButton' content={'go to Heroes'} /></Link>
         </>
-
     }
+
+    let countHealtP:number = countPotions([...player.potions],healthPotion);
+    let countManaP:number = countPotions(player.potions,manaPotion);
+
     return (
         <>
             <section id='characterInfo'>
@@ -27,21 +42,20 @@ export default function CurrentPlayer() {
                     <img src={`../../../Picture${player.type}.svg`} alt="icon" />
                 </div>
                 <div id='inventory'>
-                    <div id='stats'>
+                    <div id='statsInfo'>
                         <div id = "tytle">
-                            <text>{player.name}</text>
-                            <text>lv {player.level}  {player.type}</text>
+                            <b>{player.name}</b>
+                            <b>lv {player.level}  {player.type}</b>
                         </div>
-                        <div>stats</div>
+                        <div id='stats'>
+                        <LinearProgress className="statProgress" variant="determinate" color="success" value={player.health} />
+                        <LinearProgress className="statProgress" variant="determinate" color="error"value={player.health} />
+                        {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.health} />}
+                        </div>
                     </div>
                     <div id='items'>
-                        <h2>items</h2>
-                        <div id='icon'>
-                            <p>{countHealtP}x</p>
-                            <img src={`../../../PictureHealthPotion.svg`} alt="icon" id= "imgHealt" />
-                            <p>{countManaP}x</p>
-                            <img src={`../../../PictureManaPotion.svg`} alt="icon" id= "imgMana"/>
-                        </div>
+                        <b>Items</b>
+                        <RenderItems player= {player}/>
                     </div>
                 </div>
             </section>
