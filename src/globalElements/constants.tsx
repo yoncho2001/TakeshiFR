@@ -7,11 +7,7 @@ export const defaultHero: MageHeroJSON = {
     armor: 5,
     abilities: [],
     potions: [],
-    primaryWeapon: {
-        name: 'Staf',
-        damage: 20,
-        heroClassType: "Mage"
-    },
+    primaryWeapon: 'Staf',
     type: "Mage",
     level: 1,
     mana: 5

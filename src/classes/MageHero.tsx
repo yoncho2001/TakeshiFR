@@ -1,5 +1,4 @@
 import Hero from './Hero.tsx';
-import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 const defaultMana = 100;
 
@@ -7,7 +6,7 @@ export default class MageHero extends Hero {
   private mana: number;
 
   constructor(name: string, health: number, strength: number, armor: number
-    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
+    , abilities: string[], potions: string[], primaryWeapon: string
     , mana: number = defaultMana, level: number = defaultLevel) {
     super(name, health, strength, armor, abilities, potions, primaryWeapon
           , "Mage", level);
@@ -24,14 +23,23 @@ export default class MageHero extends Hero {
     return new MageHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.mana, json.level);
   }*/
 
-  public static toJSON(playerName: string): MageHeroJSON {
-    const primaryWeapon: WeaponItem =
-    {
-      name: 'Staf',
-      damage: 20,
-      heroClassType: 'Mage'
-    };
-    
+  public toJSON(): MageHeroJSON {
+    return {
+      name: this.name,
+      health: this.health,
+      strength: this.strength,
+      armor: this.armor,
+      abilities: this.abilities,
+      potions: this.potions,
+      primaryWeapon: this.name,
+      type: this.type,
+      level: this.level,
+      mana: this.mana
+    }
+  }
+
+
+  public static createCharacterJSON (playerName: string): MageHeroJSON {   
     return {
       name: playerName,
       health: 20,
@@ -39,8 +47,8 @@ export default class MageHero extends Hero {
       armor: 20,
       abilities: [],
       potions: ['HealthPotion','HealthPotion','ManaPotion'],
-      primaryWeapon: primaryWeapon,
-      type: "Mage",
+      primaryWeapon: 'Staf',
+      type: 'Mage',
       level: 1,
       mana: 30
     }

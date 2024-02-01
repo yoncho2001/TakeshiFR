@@ -1,15 +1,15 @@
 import MageHero from '../../classes/MageHero.tsx';
 import MeleeHero from '../../classes/MeleHero.tsx';
 import RangeHero from '../../classes/RangeHero.tsx';
-import savePlayer from '../../functions/heroFunctions/savePlayer.tsx'
+import CharacterManager from '../../functions/characterManager.tsx'
 import Button from '../button.tsx';
-import { defaultHero } from '../../typesAndConstants/constants.tsx'
+import { defaultHero } from '../../globalElements/constants.tsx'
 
 type DefaultHeroSerializer = (playerName: string) => HeroInfo;
 const createHeroMap = new Map<HERO_TYPES, DefaultHeroSerializer>([
-    ["Mage", MageHero.toJSON],
-    ["Melee", MeleeHero.toJSON],
-    ["Range", RangeHero.toJSON]
+    ["Mage", MageHero.createCharacterJSON ],
+    ["Melee", MeleeHero.createCharacterJSON ],
+    ["Range", RangeHero.createCharacterJSON ]
 ]);
 
 export default function createPlayer(WrappedComponent: typeof Button, type: HERO_TYPES, playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>, index?: number) {
@@ -32,20 +32,16 @@ export default function createPlayer(WrappedComponent: typeof Button, type: HERO
 }
 
 function createHero(type: HERO_TYPES, playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
-    let playerNameToSave = playerName;
-
+    let characterManager = new CharacterManager();
+    let playerNameToSave = playerName ? playerName : 'Default';
     const defaultPlayerSerializer: DefaultHeroSerializer | undefined =
         createHeroMap.get(type);
 
     let playerInfo: HeroToJSON = defaultHero;
 
     if (defaultPlayerSerializer) {
-        if (playerNameToSave == null || playerNameToSave == '') {
-            playerNameToSave = 'Default';
-        }
-
         playerInfo = defaultPlayerSerializer(playerNameToSave);
     }
 
-    savePlayer(playerInfo, callbackFunction);
+    characterManager.savePlayer(playerInfo, callbackFunction);
 }

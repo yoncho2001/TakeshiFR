@@ -1,5 +1,4 @@
 import Hero from './Hero.tsx';
-import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 const defaulAmmo = 100;
 
@@ -7,12 +6,13 @@ export default class RangeHero extends Hero {
   private ammo: number;
 
   constructor(name: string, health: number, strength: number, armor: number
-    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
+    , abilities: string[], potions: string[], primaryWeapon: string
     , ammo: number = defaulAmmo, level: number = defaultLevel) {
     super(name, health, strength, armor, abilities, potions, primaryWeapon
           , "Range", level);
     this.ammo = ammo;
   }
+  
   public getAmmo(): number {
     return this.ammo;
   }
@@ -24,13 +24,22 @@ export default class RangeHero extends Hero {
     return new RangeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.ammo, json.level);
   } */
 
-  public static toJSON(playerName: string): RangeHeroJSON {
-    const primaryWeapon: WeaponItem =
-    {
-      name: 'Bow',
-      damage: 20,
-      heroClassType: 'Range'
-    };
+  public toJSON(): RangeHeroJSON {
+    return {
+      name: this.name,
+      health: this.health,
+      strength: this.strength,
+      armor: this.armor,
+      abilities: this.abilities,
+      potions: this.potions,
+      primaryWeapon: this.name,
+      type: this.type,
+      level: this.level,
+      ammo: this.ammo
+    }
+  }
+
+  public static createCharacterJSON (playerName: string): RangeHeroJSON {
     return {
       name: playerName,
       health: 50,
@@ -38,8 +47,8 @@ export default class RangeHero extends Hero {
       armor: 20,
       abilities: [],
       potions: ['HealthPotion','HealthPotion','HealthPotion','HealthPotion'],
-      primaryWeapon: primaryWeapon,
-      type: "Range",
+      primaryWeapon: 'Bow',
+      type: 'Range',
       level: 1,
       ammo: 20
     }

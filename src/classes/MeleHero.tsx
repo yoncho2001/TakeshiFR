@@ -1,19 +1,18 @@
 import Hero from './Hero.tsx';
-import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 
 export default class MeleeHero extends Hero {
-  private secondaryWeapon: WeaponItem;
+  private secondaryWeapon: string;
 
   constructor(name: string, health: number, strength: number, armor: number
-    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
-    , level: number = defaultLevel, secondaryWeapon: WeaponItem) {
+    , abilities: string[], potions: string[], primaryWeapon: string
+    , level: number = defaultLevel, secondaryWeapon: string) {
     super(name, health, strength, armor, abilities, potions, primaryWeapon
       , "Melee", level);
     this.secondaryWeapon = secondaryWeapon;
   }
 
-  public getSecondaryWeapon(): WeaponItem {
+  public getSecondaryWeapon(): string {
     return this.secondaryWeapon;
   }
 
@@ -26,20 +25,22 @@ export default class MeleeHero extends Hero {
     return new MeleeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon, json.level, secondaryWeapon);
   }*/
 
-  public static toJSON(playerName: string): MeleeHeroJSON {
-    const primaryWeapon: WeaponItem =
-    {
-      name: 'Sword',
-      damage: 20,
-      heroClassType: 'Melee'
-    };
-    const secondaryWeapon: WeaponItem =
-    {
-      name: 'BigSword',
-      damage: 20,
-      heroClassType: 'Melee'
-    };
+  public toJSON(): MeleeHeroJSON {
+    return {
+      name: this.name,
+      health: this.health,
+      strength: this.strength,
+      armor: this.armor,
+      abilities: this.abilities,
+      potions: this.potions,
+      primaryWeapon: this.name,
+      type: this.type,
+      level: this.level,
+      secondaryWeapon: this.secondaryWeapon
+    }
+  }
 
+  public static createCharacterJSON (playerName: string): MeleeHeroJSON {
     return {
       name: playerName,
       health: 30,
@@ -47,10 +48,10 @@ export default class MeleeHero extends Hero {
       armor: 20,
       abilities: [],
       potions: ['HealthPotion','HealthPotion','HealthPotion'],
-      primaryWeapon: primaryWeapon,
-      type: "Melee",
+      primaryWeapon: 'Sword',
+      type: 'Melee',
       level: 1,
-      secondaryWeapon: secondaryWeapon
+      secondaryWeapon: 'BigSword'
     }
   }
 } 

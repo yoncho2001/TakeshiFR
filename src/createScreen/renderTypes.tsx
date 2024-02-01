@@ -3,12 +3,14 @@ import createPlayer from '../components/hoc/createPlayerInfo.tsx';
 import { useContext } from 'react';
 import PlayerContext from '../components/PlayerContext.tsx'
 import { Link } from "react-router-dom";
+
 const heroesTypes = ["Mage", "Melee", "Range"];
 interface RenderTypesProps {
     playerName: string;
 }
 
 export default function RenderTypes({ playerName }: RenderTypesProps) {
+    
     const { setCurrentPlayer } = useContext(PlayerContext);
 
     if (!setCurrentPlayer) {
@@ -20,7 +22,7 @@ export default function RenderTypes({ playerName }: RenderTypesProps) {
             {
                 heroesTypes.map((element, index) => {
                     return <div key={index}>
-                        <Link to='/player' >
+                        <Link to='/player'>
                             {createPlayer(Button, element as HERO_TYPES, playerName, setCurrentPlayer)}
                         </Link>
                     </div>;

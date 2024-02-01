@@ -12,7 +12,7 @@ export default function CreateScreen() {
   return (
     <>
       <InsertName onChange={setPlayerName} />
-      <Stack className="players" direction="row" spacing={2}>
+      <Stack direction="row" spacing={2}>
         <RenderTypes playerName={playerName} />
       </Stack>
       <Link to='/' >

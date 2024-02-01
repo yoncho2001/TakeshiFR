@@ -1,5 +1,5 @@
 import Badge from '../components/badge';
-
+import CharacterManager from '../functions/characterManager';
 const healthPotion = 'HealthPotion';
 const manaPotion = 'ManaPotion';
 interface RenderPlayerProps {
@@ -7,11 +7,7 @@ interface RenderPlayerProps {
 }
 
 export default function RenderItems({ player }: RenderPlayerProps) {
-    if (!player) {
-        return <>
-            <div>Loading player data or player not found...</div>
-        </>
-    }
+    let characterManager = new CharacterManager();
     let countHealtP = countPotions(player.potions, healthPotion);
     let countManaP = countPotions(player.potions, manaPotion);
 
@@ -28,9 +24,9 @@ export default function RenderItems({ player }: RenderPlayerProps) {
                         <img src={`../../../PictureManaPotion.svg`} alt="icon" id="imgMana" />
                     </Badge>
                 }
-                {'secondaryWeapon' in player &&
+                {'secondaryWeapon' in player && characterManager.isWeaponCorect(player,player.secondaryWeapon) &&
 
-                    <img src={`../../../Picture${player.secondaryWeapon.name}.svg`} alt="icon" id="imgHealt" />
+                    <img src={`../../../Picture${player.secondaryWeapon}.svg`} alt="icon" id="imgHealt" />
 
                 }
                 {'ammo' in player &&

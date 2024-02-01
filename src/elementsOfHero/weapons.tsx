@@ -1,4 +1,4 @@
-const weapons = new Map<string, WeaponItem>([
+export const weapons = new Map<string, WeaponItem>([
      ["Sword", {
         name: "Sword",
         damage: 20,

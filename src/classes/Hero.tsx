@@ -1,19 +1,18 @@
-import Ability from './Abilities.tsx';
 const defaultLevel = 1;
 
 export default class Hero {
-  private name: string;
-  private health: number;
-  private strength: number;
-  private armor: number;
-  private abilities: Ability[];
-  private potions: Potion[];
-  private primaryWeapon: WeaponItem;
-  private type: HERO_TYPES;
-  private level: number;
+  protected name: string;
+  protected health: number;
+  protected strength: number;
+  protected armor: number;
+  protected abilities: string[];
+  protected potions: string[];
+  protected primaryWeapon: string;
+  protected type: HERO_TYPES;
+  protected level: number;
 
   constructor(name: string, health: number, strength: number, armor: number
-    , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
+    , abilities: string[], potions: string[], primaryWeapon: string
     , type: HERO_TYPES = 'Melee', level: number = defaultLevel) {
     this.name = name;
     this.health = health;
@@ -42,23 +41,23 @@ export default class Hero {
     return this.armor;
   }
 
-  public getAbilities(): Ability[] {
+  public getAbilities(): string[] {
     return this.abilities;
   }
 
-  public addAbility(ability: Ability): void {
+  public addAbility(ability: string): void {
     this.abilities.push(ability);
   }
 
-  public getPotions(): Potion[] {
+  public getPotions(): string[] {
     return this.potions;
   }
 
-  public addPotion(potion: Potion): void {
+  public addPotion(potion: string): void {
     this.potions.push(potion);
   }
 
-  public getPrimaryWeapon(): WeaponItem {
+  public getPrimaryWeapon(): string {
     return this.primaryWeapon;
   }
 

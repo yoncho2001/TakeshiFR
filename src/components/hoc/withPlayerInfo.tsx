@@ -1,7 +1,8 @@
-import { saveCurrentPlayer } from '../../functions/heroFunctions/savePlayer.tsx';
+import CharacterManager from '../../functions/characterManager.tsx';
 import Button from '../button.tsx';
 
 export default function withPlayerInfo(WrappedComponent: typeof Button, player: HeroToJSON, index: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
+    let characterManager = new CharacterManager();
     const content = (
         <div>
             <div>{player.name}</div>
@@ -19,6 +20,6 @@ export default function withPlayerInfo(WrappedComponent: typeof Button, player: 
                 alt="icon"
             />
         }
-        onClick={() => { saveCurrentPlayer(player.name, callbackFunction) }}
+        onClick={() => { characterManager.saveCurrentPlayer(player.name, callbackFunction) }}
     />
 }

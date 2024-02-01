@@ -1,12 +1,12 @@
-type MageHeroJSON = {
+type MeleeHeroJSON = {
     name: string,
     health: number,
     strength: number,
     armor: number,
     abilities: string[],
     potions: string[],
-    primaryWeapon: WeaponItem,
+    primaryWeapon: string,
     type: HERO_TYPES,
     level: number,
-    mana: number
+    secondaryWeapon: string
 }
