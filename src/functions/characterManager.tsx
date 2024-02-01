@@ -45,15 +45,13 @@ export default class CharacterManager {
         return players;
     }
 
-    public deleteHero(players: { [key: string]: HeroToJSON }, player: string) {
-        delete players[player];
-        this.updateRawPlayer(players);
-    }
-
     public isWeaponCorect(player: HeroToJSON, weaponKey:string) {
         return weapons.has(weaponKey)
              && player.type === weapons.get(weaponKey)?.heroClassType
     }       
 
-    
+    public deleteHero(players: { [key: string]: HeroToJSON }, player: string) {
+        delete players[player];
+        this.updateRawPlayer(players);
+    }
 }

@@ -1,7 +1,7 @@
 import './playerScreen.less';
 import { Link, useNavigate} from "react-router-dom";
 import Button from '../components/button.tsx';
-import { useContext, useEffect} from 'react';
+import { useCallback, useContext, useEffect, useMemo} from 'react';
 import PlayerContext from '../components/PlayerContext.tsx';
 import RenderItems from "./renderItems.tsx";
 import LinearProgress from '@mui/material/LinearProgress';
@@ -9,6 +9,9 @@ import CharacterManager from '../functions/characterManager.tsx';
 
 export default function PlayerScreen() {
   let characterManager = new CharacterManager();
+
+  const deleteHero = useCallback(() => { characterManager.deleteHero(players, player.name) }, []);
+
   let navigate = useNavigate();
   let players: { [key: string]: HeroToJSON } = characterManager.getStoredPlayers();
   const currentPlayer = useContext(PlayerContext).currentPlayer;
@@ -18,7 +21,7 @@ export default function PlayerScreen() {
     if (!player) {
       navigate('/');
     }
-  }, [player, navigate]);
+  }, []);
 
   if (!player) {
     return null;
@@ -32,7 +35,7 @@ export default function PlayerScreen() {
         </div>
         <div id='inventory'>
           <div id='statsInfo'>
-            <div id="tytle">
+            <div id="title">
               <b>{player.name}</b>
               <b>lv {player.level}  {player.type}</b>
             </div>
@@ -50,7 +53,7 @@ export default function PlayerScreen() {
       </section>
       <section id='navButtons'>
         <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'< Go to Heroes'} /></Link>
-        <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Delete'} onClick={() => { characterManager.deleteHero(players, player.name) }} /></Link>
+        <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Delete'} onClick={deleteHero} /></Link>
         <Link to='/levels' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Next >'} /></Link>
       </section>
     </>

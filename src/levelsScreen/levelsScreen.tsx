@@ -34,7 +34,7 @@ export default function LevelsScreen() {
                 <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={1}>
                     <img className='levelImg' src={`../../../PictureMountainGiant.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={3}>
+                <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={1}>
                     <img className='levelImg' src={`../../../PictureDiscoCrawler.svg`} alt="icon" />
                 </LevelLink>
                 <LevelLink className= "levelLink" to="/" level={player.level} levelToReach={5}>
