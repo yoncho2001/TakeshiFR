@@ -1,24 +1,37 @@
 import Button from '../components/button.tsx';
 import withPlayerInfo from '../components/hoc/withPlayerInfo.tsx';
-import React from 'react';
+import { useContext } from 'react';
+import PlayerContext from '../components/PlayerContext.tsx';
+import { Link } from "react-router-dom";
+import { PLAYER_COUNT_LIMIT } from "../globalElements/constants.tsx";
+import CharacterManager from '../functions/characterManager.tsx';
+
+function shouldRenderCreateButton(characterLength: number) {
+    return PLAYER_COUNT_LIMIT - characterLength > 0;
+}
 
 export default function Players() {
+    let characterManager = new CharacterManager();
+    const { setCurrentPlayer } = useContext(PlayerContext);
 
-    let players = [null, null, null];
-    let storedPlayers = localStorage.getItem('players');
+    let players: { [key: string]: HeroToJSON } = characterManager.getStoredPlayers();
 
-    if (storedPlayers) {
-        players = JSON.parse(storedPlayers);
-    } else {
-        localStorage.setItem('players', JSON.stringify(players));
+    const characterLength = Object.keys(players).length;
+
+    if (!setCurrentPlayer) {
+        return <div>Error: setCurrentPlayer is not available.</div>;
     }
 
     return (
         <>
-            {players.map((player, index) =>
-                player === null 
-                    ? <Button key={index} variant='outlined' className='emptyButton' herf = {'/player'} content={'Create new Character'}/>
-                    : withPlayerInfo(Button, player, index)
-            )}
-        </>);
+            {Object.values<HeroToJSON>(players).map((hero) => {
+                return <div key={hero.name}>
+                    <Link to='/player' >
+                        {withPlayerInfo(Button, hero, hero.name, setCurrentPlayer)}
+                    </Link>
+                </div>;
+            })}
+            {shouldRenderCreateButton(characterLength) && <Link to='/create' ><Button variant='outlined' className='emptyButton' content={'Create new Character'} /></Link>}
+        </>
+    );
 }

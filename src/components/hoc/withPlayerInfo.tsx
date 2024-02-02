@@ -1,34 +1,12 @@
-import MeleeHero from '../../classes/MeleHero.tsx';
-import MageHero from '../../classes/MageHero.tsx';
+import CharacterManager from '../../functions/characterManager.tsx';
 import Button from '../button.tsx';
-import React, { useEffect } from 'react';
 
-type HeroInfo = MeleeHero | MageHero | null | undefined;
-type HeroSerializer = (hero: any) => HeroInfo;
-
-const heroesSerializersRegister = new Map<HERO_TYPES, HeroSerializer>([
-    ["Mage", MageHero.fromJSON],
-    ["Melee", MeleeHero.fromJSON]
-]);
-
-
-export default function withPlayerInfo(WrappedComponent: typeof Button, player: any, index: number) {
-
-    const playerHeroType = player.type as HERO_TYPES;
-
-    const playerInfoSerializer: HeroSerializer | undefined =
-        heroesSerializersRegister.get(playerHeroType);
-
-    let playerInfo: HeroInfo = MageHero.fromJSON(player);
-
-    if (playerInfoSerializer) {
-        playerInfo = playerInfoSerializer(player);
-    }
-    
+export default function withPlayerInfo(WrappedComponent: typeof Button, player: HeroToJSON, index: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
+    let characterManager = new CharacterManager();
     const content = (
         <div>
-            <div>{playerInfo?.getName()}</div>
-            <div>level {playerInfo?.getLevel()} {playerInfo?.getType()}</div>
+            <div>{player.name}</div>
+            <div>level {player.level} {player.type}</div>
         </div>
     )
 
@@ -38,8 +16,10 @@ export default function withPlayerInfo(WrappedComponent: typeof Button, player: 
         variant="outlined"
         content={content}
         icon={
-            <img src={`../../../Picture${playerInfo?.getType()}.svg`}
+            <img src={`../../../Picture${player.type}.svg`}
                 alt="icon"
-            />}
+            />
+        }
+        onClick={() => { characterManager.saveCurrentPlayer(player.name, callbackFunction) }}
     />
 }

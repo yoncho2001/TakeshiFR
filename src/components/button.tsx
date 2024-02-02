@@ -1,17 +1,18 @@
 import { Button as MuiButton } from "@mui/material";
-import React from "react";
+import React, { CSSProperties } from "react";
 
 interface ButtonProps {
     className?: string,
     variant?: "text" | "outlined" | "contained",
-    content: string | React.ReactNode,
-    herf?:string,
-    icon?: React.ReactNode 
+    content?: string | React.ReactNode,
+    icon?: React.ReactNode,
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void,
+    style?:CSSProperties
 }
 
-export default function Button({ className, variant, content, icon, herf }:ButtonProps ) {
+export default function Button({ content, icon, onClick, style,...restProps }: ButtonProps) {
     return (
-        <MuiButton variant={variant} className={className} href= {herf} startIcon={icon} >
+        <MuiButton startIcon={icon} onClick={onClick} {...restProps} style={style}>
             {content}
         </MuiButton>
     );

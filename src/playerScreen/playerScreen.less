@@ -1,0 +1,89 @@
+#root .characterButton {
+    width: 15em;
+    height: 6em;
+    margin: 1em;
+}
+
+#characterInfo {
+    display: flex;
+    justify-content: center;
+    min-height: 25em;
+}
+
+#typeIcon {
+    display: flex;
+    align-items: center;
+    margin-right: 10em;
+
+    img {
+        scale: 1.3;
+    }
+}
+
+#inventory {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scale: 1.5;
+    line-height: 2em;
+
+    #title {
+        font-size: 1.5em;
+        display: flex;
+        flex-direction: column;
+        margin-right: 1em;
+    }
+
+    #statsInfo {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1.5em;
+
+        #stats {
+            width: 10em;
+
+            .statProgress {
+                margin-bottom: 1em;
+                border-radius: 0.5em;
+            }
+        }
+    }
+}
+
+#items {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: larger;
+
+    .badgeItem {
+        font-size: 2em;
+        height: auto;
+        width: auto;
+    }
+
+    #icon {
+        display: flex;
+
+        b {
+            display: flex;
+            align-items: flex-end;
+        }
+    }
+
+    img {
+        margin-right: 0.8em;
+        width: 2em;
+        height: auto;
+    }
+}
+
+#navButtons {
+    margin-top: 2em;
+}
+
+.buttonLink .emptyButton {
+    width: 15em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
