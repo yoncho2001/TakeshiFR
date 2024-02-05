@@ -4,28 +4,23 @@ import { constAbilities } from '../elementsOfHero/abilities.tsx';
 import { constPotions } from '../elementsOfHero/potions.tsx';
 import { constWeapons,defaultMeleeWeapon} from '../elementsOfHero/weapons.tsx';
 const defaultLevel = 1;
-const defaulAmmo = 100;
 
-export default class RangeHero extends Hero {
-  private ammo: number;
+export default class MeleeHero extends Hero {
+  private secondaryWeapon: WeaponItem;
 
   constructor(name: string, health: number, strength: number, armor: number
     , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
-    , level: number = defaultLevel, ammo: number = defaulAmmo) {
+    , level: number = defaultLevel, secondaryWeapon: WeaponItem) {
     super(name, health, strength, armor, abilities, potions, primaryWeapon
-          , "Range", level);
-    this.ammo = ammo;
-  }
-  
-  public getAmmo(): number {
-    return this.ammo;
+      , "Melee", level);
+    this.secondaryWeapon = secondaryWeapon;
   }
 
-  public useAmmo(){
-    this.ammo = this.ammo ===0 ? this.ammo=0: this.ammo -= 1;
+  public getSecondaryWeapon(): WeaponItem {
+    return this.secondaryWeapon;
   }
 
-  public static fromJSON(json: RangeHeroJSON): RangeHero {
+  public static fromJSON(json: MeleeHeroJSON): MeleeHero {
     const abilities: Ability[] = json.abilities.map(a => {
       return constAbilities.has(a) ? constAbilities.get(a) : null;
     }).filter((a): a is Ability => a !== null);
@@ -37,10 +32,13 @@ export default class RangeHero extends Hero {
     let primaryWeapon: WeaponItem = constWeapons.has(json.primaryWeapon)
       ? (constWeapons.get(json.primaryWeapon) || defaultMeleeWeapon) : defaultMeleeWeapon;
     
-    return new RangeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon,json.level, json.ammo);
+      let secondaryWeapon: WeaponItem = constWeapons.has(json.secondaryWeapon)
+      ? (constWeapons.get(json.secondaryWeapon) || defaultMeleeWeapon) : defaultMeleeWeapon;
+    
+    return new MeleeHero(json.name, json.health, json.strength, json.armor, abilities, potions, primaryWeapon,json.level, secondaryWeapon);
   }
 
-  public toJSON(): RangeHeroJSON {
+  public toJSON(): MeleeHeroJSON {
     return {
       name: this.name,
       health: this.health,
@@ -48,25 +46,25 @@ export default class RangeHero extends Hero {
       armor: this.armor,
       abilities: this.abilities.map(ability => ability.getName()),
       potions: this.potions.map(potion => potion.name),
-      primaryWeapon: this.name,
+      primaryWeapon: this.primaryWeapon.name,
       type: this.type,
       level: this.level,
-      ammo: this.ammo
+      secondaryWeapon: this.secondaryWeapon.name
     }
   }
 
-  public static createCharacterJSON (playerName: string): RangeHeroJSON {
+  public static createCharacterJSON (playerName: string): MeleeHeroJSON {
     return {
       name: playerName,
       health: 100,
-      strength: 10,
+      strength: 15,
       armor: 30,
       abilities: ["BasicAttack"],
-      potions: ['HealthPotion','HealthPotion','HealthPotion','HealthPotion'],
-      primaryWeapon: 'Bow',
-      type: 'Range',
+      potions: ['HealthPotion','HealthPotion','HealthPotion'],
+      primaryWeapon: 'Sword',
+      type: 'Melee',
       level: 1,
-      ammo: 20
+      secondaryWeapon: 'BigSword'
     }
   }
-}
+} 

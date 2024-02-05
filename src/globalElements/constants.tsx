@@ -1,3 +1,5 @@
+import MageHero from "../classes/MageHero";
+
 export const PLAYER_COUNT_LIMIT = 3;
 export const PLAYERS_KEY = 'players';
 export const defaultHero: MageHeroJSON = {
@@ -12,3 +14,19 @@ export const defaultHero: MageHeroJSON = {
     level: 1,
     mana: 5
 }
+
+export const defaultHeroClass: MageHero = new MageHero(
+    "Default",
+    5,
+    5,
+    5,
+    [],
+    [],
+    {
+        name: "Staf",
+        damage: 40,
+        heroClassType: "Mage"
+    },
+    20,
+    1
+);

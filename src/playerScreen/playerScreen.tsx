@@ -1,7 +1,7 @@
 import './playerScreen.less';
 import { Link, useNavigate} from "react-router-dom";
 import Button from '../components/button.tsx';
-import { useCallback, useContext, useEffect, useMemo} from 'react';
+import { useCallback, useContext, useEffect} from 'react';
 import PlayerContext from '../components/PlayerContext.tsx';
 import RenderItems from "./renderItems.tsx";
 import LinearProgress from '@mui/material/LinearProgress';

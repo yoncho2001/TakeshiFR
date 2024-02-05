@@ -1,18 +1,18 @@
 import MageHero from '../../classes/MageHero.tsx';
-import MeleeHero from '../../classes/MeleHero.tsx';
+import MeleeHero from '../../classes/MeleeHero.tsx';
 import RangeHero from '../../classes/RangeHero.tsx';
 import CharacterManager from '../../functions/characterManager.tsx'
 import Button from '../button.tsx';
 import { defaultHero } from '../../globalElements/constants.tsx'
 
-type DefaultHeroSerializer = (playerName: string) => HeroInfo;
+type DefaultHeroSerializer = (playerName: string) => HeroToJSON;
 const createHeroMap = new Map<HERO_TYPES, DefaultHeroSerializer>([
     ["Mage", MageHero.createCharacterJSON ],
     ["Melee", MeleeHero.createCharacterJSON ],
     ["Range", RangeHero.createCharacterJSON ]
 ]);
 
-export default function createPlayer(WrappedComponent: typeof Button, type: HERO_TYPES, playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>, index?: number) {
+export default function createPlayer(WrappedComponent: typeof Button, type: HERO_TYPES, playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<string>>, index?: number) {
     const content = (
         <div>{type}</div>
     )
@@ -31,7 +31,7 @@ export default function createPlayer(WrappedComponent: typeof Button, type: HERO
     />
 }
 
-function createHero(type: HERO_TYPES, playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
+function createHero(type: HERO_TYPES, playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<string>>) {
     let characterManager = new CharacterManager();
     let playerNameToSave = playerName ? playerName : 'Default';
     const defaultPlayerSerializer: DefaultHeroSerializer | undefined =

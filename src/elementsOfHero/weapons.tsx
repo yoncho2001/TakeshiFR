@@ -1,5 +1,5 @@
-export const weapons = new Map<string, WeaponItem>([
-     ["Sword", {
+export const constWeapons = new Map<string, WeaponItem>([
+    ["Sword", {
         name: "Sword",
         damage: 20,
         heroClassType: "Melee"
@@ -20,3 +20,19 @@ export const weapons = new Map<string, WeaponItem>([
         heroClassType: "Range"
     }]
 ]);
+
+export const defaultMeleeWeapon: WeaponItem = {
+    name: "Sword",
+    damage: 20,
+    heroClassType: "Melee"
+}
+export const defaultMageWeapon: WeaponItem = {
+    name: "Staf",
+    damage: 40,
+    heroClassType: "Mage"
+};
+export const defaultRangeWeapon: WeaponItem = {
+    name: "Bow",
+    damage: 20,
+    heroClassType: "Range"
+}

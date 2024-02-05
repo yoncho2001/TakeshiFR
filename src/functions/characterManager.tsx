@@ -1,9 +1,20 @@
-import { PLAYER_COUNT_LIMIT, PLAYERS_KEY } from '../globalElements/constants.tsx'
-import { weapons } from "../elementsOfHero/weapons";
+import { defaultHeroClass, PLAYER_COUNT_LIMIT, PLAYERS_KEY } from '../globalElements/constants.tsx'
+import { constWeapons } from "../elementsOfHero/weapons";
 import * as React from "react";
+
+import MeleeHero from '../classes/MeleeHero.tsx';
+import MageHero from '../classes/MageHero.tsx';
+import RangeHero from '../classes/RangeHero.tsx';
+type HeroSerializer = (hero: any) => HeroInfo;
+const heroesSerializersRegister = new Map<HERO_TYPES, HeroSerializer>([
+    ["Mage", MageHero.fromJSON],
+    ["Melee", MeleeHero.fromJSON],
+    ["Range", RangeHero.fromJSON]
+]);
 
 export default class CharacterManager {
     private updateRawPlayer(players:{ [key: string]: HeroToJSON }){
+        console.log(players);
         localStorage.setItem(PLAYERS_KEY, JSON.stringify(players));
     }
 
@@ -11,7 +22,7 @@ export default class CharacterManager {
         return localStorage.getItem(PLAYERS_KEY);
     }
 
-    public savePlayer(player: HeroToJSON, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
+    public updatePlayer(player: HeroToJSON):number {
         const playersRaw = this.getRawPlayer();
         let players: { [key: string]: HeroToJSON } = {};
     
@@ -23,12 +34,22 @@ export default class CharacterManager {
     
         if (heroCount < PLAYER_COUNT_LIMIT) {
             players[player.name] = player;
+            console.log(player);
             this.updateRawPlayer(players);
+        }
+
+        return heroCount;
+    }
+
+
+    public savePlayer(player: HeroToJSON, callbackFunction: React.Dispatch<React.SetStateAction<string>>) {
+        let heroCount = this.updatePlayer(player);
+        if (heroCount < PLAYER_COUNT_LIMIT) {
             this.saveCurrentPlayer(player.name, callbackFunction);
         }
     }
 
-    public saveCurrentPlayer(playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
+    public saveCurrentPlayer(playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<string>>) {
         callbackFunction(playerName);
     }
 
@@ -46,12 +67,25 @@ export default class CharacterManager {
     }
 
     public isWeaponCorect(player: HeroToJSON, weaponKey:string) {
-        return weapons.has(weaponKey)
-             && player.type === weapons.get(weaponKey)?.heroClassType
+        return constWeapons.has(weaponKey)
+             && player.type === constWeapons.get(weaponKey)?.heroClassType
     }       
 
     public deleteHero(players: { [key: string]: HeroToJSON }, player: string) {
         delete players[player];
         this.updateRawPlayer(players);
+    }
+
+    public fromJSONToHero(player: HeroToJSON): HeroInfo {
+        const playerHeroType = player.type as HERO_TYPES;
+        const playerInfoSerializer: HeroSerializer | undefined =
+            heroesSerializersRegister.get(playerHeroType);
+        let playerInfo: HeroInfo = defaultHeroClass;
+
+        if (playerInfoSerializer) {
+            playerInfo = playerInfoSerializer(player);
+        }
+
+        return playerInfo;
     }
 }

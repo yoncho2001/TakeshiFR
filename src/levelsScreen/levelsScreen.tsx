@@ -28,13 +28,13 @@ export default function LevelsScreen() {
         <>
             <h2>Chose level</h2>
             <div className="levelsStack" >
-                <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={1}>
+                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1}>
                     <img className='levelImg' src={`../../../PictureDesertDead.svg`} alt="icon" />
                 </LevelLink>
                 <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={1}>
                     <img className='levelImg' src={`../../../PictureMountainGiant.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={1}>
+                <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={3}>
                     <img className='levelImg' src={`../../../PictureDiscoCrawler.svg`} alt="icon" />
                 </LevelLink>
                 <LevelLink className= "levelLink" to="/" level={player.level} levelToReach={5}>

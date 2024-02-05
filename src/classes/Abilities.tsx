@@ -2,14 +2,16 @@ export default class Ability {
     private name: string;
     private heroClassType: HERO_TYPES[];
     private cooldown: number;
+    private cooldownCount: number;
     private cost: number;
     private effect: string;
-    private useEffect: () => void;
+    private useEffect: (hero: HeroInfo) => number;
 
-    constructor(name: string, heroClassType: HERO_TYPES[], cooldown: number, cost: number, effect: string, useEffect: () => void) {
+    constructor(name: string, heroClassType: HERO_TYPES[], cooldown: number, cost: number, effect: string, useEffect: (hero: HeroInfo) => number) {
         this.name = name;
         this.heroClassType = heroClassType;
         this.cooldown = cooldown;
+        this.cooldownCount = 0;
         this.cost = cost;
         this.effect = effect;
         this.useEffect = useEffect;
@@ -36,8 +38,19 @@ export default class Ability {
     }
 
     public lowerCooldown(): void {
-        if (this.cooldown > 0) {
-            this.cooldown -= 1;
+        if (this.cooldownCount > 0) {
+            this.cooldownCount -= 1;
         }
+    }
+
+    public use(player: HeroInfo): number {
+        let type = player.getType();
+        let damage = 0;
+
+        if (this.heroClassType.includes(type)) {
+            damage = this.useEffect(player);
+        }
+
+        return damage;
     }
 }

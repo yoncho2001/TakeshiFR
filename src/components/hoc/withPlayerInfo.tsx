@@ -1,7 +1,7 @@
 import CharacterManager from '../../functions/characterManager.tsx';
 import Button from '../button.tsx';
 
-export default function withPlayerInfo(WrappedComponent: typeof Button, player: HeroToJSON, index: string, callbackFunction: React.Dispatch<React.SetStateAction<HeroInfo>>) {
+export default function withPlayerInfo(WrappedComponent: typeof Button, player: HeroToJSON, index: string, callbackFunction: React.Dispatch<React.SetStateAction<string>>) {
     let characterManager = new CharacterManager();
     const content = (
         <div>

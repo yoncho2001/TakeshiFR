@@ -1,7 +1,6 @@
-
-const potions = new Map<string, Potion>([
+export const constPotions = new Map<string, Potion>([
     ["HealthPotion", {
-        name: "HealtPotion",
+        name: "HealthPotion",
         affectingField: "HealthPoints",
         affectingValue: 50
     }],
