@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import PlayerContext from '../components/PlayerContext.tsx';
 import { Link, useNavigate } from 'react-router-dom';
 import CharacterManager from '../functions/characterManager.tsx';
-import FightLogick from './fightLogick.tsx';
+import FightLogic from './fightLogic.tsx';
 
 export default function FightScreen() {
     let characterManager = new CharacterManager();
@@ -33,7 +33,7 @@ export default function FightScreen() {
 
     return (
         <>
-            <FightLogick player={player} />
+            <FightLogic player={player} />
         </>
     );
 }

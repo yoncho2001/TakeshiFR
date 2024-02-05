@@ -59,7 +59,7 @@ export default class RangeHero extends Hero {
     return {
       name: playerName,
       health: 100,
-      strength: 10,
+      strength: 20,
       armor: 30,
       abilities: ["BasicAttack"],
       potions: ['HealthPotion','HealthPotion','HealthPotion','HealthPotion'],

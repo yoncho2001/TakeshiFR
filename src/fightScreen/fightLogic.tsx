@@ -8,7 +8,7 @@ interface FightLogickProps {
     player:HeroInfo
 }
 
-export default function FightLogick({player}:FightLogickProps) {
+export default function FightLogic({player}:FightLogickProps) {
 
     const [health, setHealth] = useState(player.getHealth());
 
