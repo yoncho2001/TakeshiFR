@@ -2,7 +2,7 @@ import Ability from "./Abilities";
 
 const defaultLevel = 1;
 
-export default class Hero {
+export default class Character {
   protected name: string;
   protected health: number;
   protected strength: number;
@@ -85,8 +85,4 @@ export default class Hero {
   }
 
   protected toJSON?():HeroToJSON;
-
-  public Hi(): void {
-    console.log("hi hero");
-  }
 }

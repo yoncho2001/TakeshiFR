@@ -2,12 +2,12 @@ import { constAbilities } from '../elementsOfHero/abilities.tsx';
 import { constPotions } from '../elementsOfHero/potions.tsx';
 import { constWeapons,defaultMageWeapon} from '../elementsOfHero/weapons.tsx';
 import Ability from './Abilities.tsx';
-import Hero from './Hero.tsx';
+import Character from './Character.tsx';
 
 const defaultLevel = 1;
 const defaultMana = 100;
 
-export default class MageHero extends Hero {
+export default class MageHero extends Character {
   private mana: number;
 
   constructor(name: string, health: number, strength: number, armor: number
@@ -19,6 +19,16 @@ export default class MageHero extends Hero {
   }
   public getMana(): number {
     return this.mana;
+  }
+
+  public takeMana(value: number): void {
+    if (value > 0) {
+      this.mana -= value;
+
+      if (this.mana < 0) {
+        this.mana = 0;
+      }
+    }
   }
 
   public static fromJSON(json: MageHeroJSON): MageHero {
@@ -58,7 +68,7 @@ export default class MageHero extends Hero {
       health: 100,
       strength: 10,
       armor: 20,
-      abilities: ["BasicAttack"],
+      abilities: ["BasicAttack","Bolt"],
       potions: ['HealthPotion', 'HealthPotion', 'ManaPotion'],
       primaryWeapon: 'Staf',
       type: 'Mage',

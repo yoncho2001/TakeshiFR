@@ -1,13 +1,16 @@
 import './levelsScreen.less';
-import Button from '../components/button.tsx';
-import LevelLink from '../components/levelLink.tsx';
+import Button from '../../components/button.tsx';
+import LevelLink from '../../components/levelLink.tsx';
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from 'react';
-import PlayerContext from '../components/PlayerContext.tsx';
+import PlayerContext from '../../components/PlayerContext.tsx';
 import { useNavigate } from 'react-router-dom';
-import CharacterManager from '../functions/characterManager.tsx';
+import CharacterManager from '../../functions/characterManager.tsx';
+type InsertNameProps = {
+    setLevel: (input: string) => void
+}
 
-export default function LevelsScreen() {
+export default function LevelsScreen({ setLevel }: InsertNameProps) {
     let characterManager = new CharacterManager();
     let navigate = useNavigate();
     let players: { [key: string]: HeroToJSON } = characterManager.getStoredPlayers();
@@ -18,7 +21,7 @@ export default function LevelsScreen() {
         if (!player) {
           navigate('/');
         }
-      }, [player, navigate]);
+      }, []);
     
       if (!player) {
         return null;
@@ -28,16 +31,16 @@ export default function LevelsScreen() {
         <>
             <h2>Chose level</h2>
             <div className="levelsStack" >
-                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1}>
+                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1} levelName='DesertDead' setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureDesertDead.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={1}>
+                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1} levelName='MountainGiant' setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureMountainGiant.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to='/' level={player.level} levelToReach={3}>
+                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={3} levelName='DiscoCrawler' setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureDiscoCrawler.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to="/" level={player.level} levelToReach={5}>
+                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1} levelName='CastleJuggerknight' setLevel={setLevel}>
                     <img className="levelImg" src={`../../../PictureCastleJuggerknight.svg`} alt="icon" />
                 </LevelLink>
             </div>

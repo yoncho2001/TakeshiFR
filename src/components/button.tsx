@@ -2,6 +2,7 @@ import { Button as MuiButton } from "@mui/material";
 import React, { CSSProperties } from "react";
 
 interface ButtonProps {
+    id?:string
     className?: string,
     variant?: "text" | "outlined" | "contained",
     content?: string | React.ReactNode,

@@ -1,7 +1,7 @@
-import Button from '../components/button.tsx';
-import createPlayer from '../components/hoc/createPlayerInfo.tsx';
+import Button from '../../components/button.tsx';
+import createPlayer from '../../components/hoc/createPlayerInfo.tsx';
 import { useContext } from 'react';
-import PlayerContext from '../components/PlayerContext.tsx'
+import PlayerContext from '../../components/PlayerContext.tsx'
 import { Link } from "react-router-dom";
 
 const heroesTypes = ["Mage", "Melee", "Range"];

@@ -1,11 +1,11 @@
 import './playerScreen.less';
 import { Link, useNavigate} from "react-router-dom";
-import Button from '../components/button.tsx';
+import Button from '../../components/button.tsx';
 import { useCallback, useContext, useEffect} from 'react';
-import PlayerContext from '../components/PlayerContext.tsx';
+import PlayerContext from '../../components/PlayerContext.tsx';
 import RenderItems from "./renderItems.tsx";
 import LinearProgress from '@mui/material/LinearProgress';
-import CharacterManager from '../functions/characterManager.tsx';
+import CharacterManager from '../../functions/characterManager.tsx';
 
 export default function PlayerScreen() {
   let characterManager = new CharacterManager();

@@ -1,11 +1,11 @@
 import Ability from './Abilities.tsx';
-import Hero from './Hero.tsx';
+import Character from './Character.tsx';
 import { constAbilities } from '../elementsOfHero/abilities.tsx';
 import { constPotions } from '../elementsOfHero/potions.tsx';
 import { constWeapons,defaultMeleeWeapon} from '../elementsOfHero/weapons.tsx';
 const defaultLevel = 1;
 
-export default class MeleeHero extends Hero {
+export default class MeleeHero extends Character {
   private secondaryWeapon: WeaponItem;
 
   constructor(name: string, health: number, strength: number, armor: number
@@ -59,7 +59,7 @@ export default class MeleeHero extends Hero {
       health: 100,
       strength: 15,
       armor: 30,
-      abilities: ["BasicAttack"],
+      abilities: ["BasicAttack","HeavyAttack"],
       potions: ['HealthPotion','HealthPotion','HealthPotion'],
       primaryWeapon: 'Sword',
       type: 'Melee',

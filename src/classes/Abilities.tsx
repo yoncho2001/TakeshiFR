@@ -29,6 +29,10 @@ export default class Ability {
         return this.cooldown;
     }
 
+    public getCooldownCount(): number {
+        return this.cooldownCount;
+    }
+
     public getCost(): number {
         return this.cost;
     }

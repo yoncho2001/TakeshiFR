@@ -1,5 +1,5 @@
-import Badge from '../components/badge';
-import CharacterManager from '../functions/characterManager';
+import Badge from '../../components/badge';
+import CharacterManager from '../../functions/characterManager';
 const healthPotion = 'HealthPotion';
 const manaPotion = 'ManaPotion';
 interface RenderPlayerProps {

@@ -1,4 +1,4 @@
-import TextField from '../components/textField.tsx';
+import TextField from '../../components/textField.tsx';
 type InsertNameProps = {
     onChange: (input: string) => void
 }

@@ -1,10 +1,10 @@
-import Button from '../components/button.tsx';
-import withPlayerInfo from '../components/hoc/withPlayerInfo.tsx';
+import Button from '../../components/button.tsx';
+import withPlayerInfo from '../../components/hoc/withPlayerInfo.tsx';
 import { useContext } from 'react';
-import PlayerContext from '../components/PlayerContext.tsx';
+import PlayerContext from '../../components/PlayerContext.tsx';
 import { Link } from "react-router-dom";
-import { PLAYER_COUNT_LIMIT } from "../globalElements/constants.tsx";
-import CharacterManager from '../functions/characterManager.tsx';
+import { PLAYER_COUNT_LIMIT } from "../../globalElements/constants.tsx";
+import CharacterManager from '../../functions/characterManager.tsx';
 
 function shouldRenderCreateButton(characterLength: number) {
     return PLAYER_COUNT_LIMIT - characterLength > 0;

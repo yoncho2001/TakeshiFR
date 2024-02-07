@@ -1,12 +1,12 @@
 import Ability from './Abilities.tsx';
-import Hero from './Hero.tsx';
+import Character from './Character.tsx';
 import { constAbilities } from '../elementsOfHero/abilities.tsx';
 import { constPotions } from '../elementsOfHero/potions.tsx';
 import { constWeapons,defaultMeleeWeapon} from '../elementsOfHero/weapons.tsx';
 const defaultLevel = 1;
 const defaulAmmo = 100;
 
-export default class RangeHero extends Hero {
+export default class RangeHero extends Character {
   private ammo: number;
 
   constructor(name: string, health: number, strength: number, armor: number
