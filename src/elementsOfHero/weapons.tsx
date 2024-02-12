@@ -11,7 +11,7 @@ export const constWeapons = new Map<string, WeaponItem>([
     }],
     ["Staf", {
         name: "Staf",
-        damage: 40,
+        damage: 15,
         heroClassType: "Mage"
     }],
     ["Bow", {
@@ -28,7 +28,7 @@ export const defaultMeleeWeapon: WeaponItem = {
 }
 export const defaultMageWeapon: WeaponItem = {
     name: "Staf",
-    damage: 40,
+    damage: 15,
     heroClassType: "Mage"
 };
 export const defaultRangeWeapon: WeaponItem = {

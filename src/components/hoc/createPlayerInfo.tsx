@@ -7,9 +7,9 @@ import { defaultHero } from '../../globalElements/constants.tsx'
 
 type DefaultHeroSerializer = (playerName: string) => HeroToJSON;
 const createHeroMap = new Map<HERO_TYPES, DefaultHeroSerializer>([
-    ["Mage", MageHero.createCharacterJSON ],
-    ["Melee", MeleeHero.createCharacterJSON ],
-    ["Range", RangeHero.createCharacterJSON ]
+    ["Mage", MageHero.createCharacterJSON],
+    ["Melee", MeleeHero.createCharacterJSON],
+    ["Range", RangeHero.createCharacterJSON]
 ]);
 
 export default function createPlayer(WrappedComponent: typeof Button, type: HERO_TYPES, playerName: string, callbackFunction: React.Dispatch<React.SetStateAction<string>>, index?: number) {

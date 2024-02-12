@@ -19,28 +19,28 @@ export default function LevelsScreen({ setLevel }: InsertNameProps) {
 
     useEffect(() => {
         if (!player) {
-          navigate('/');
+            navigate('/');
         }
-      }, []);
-    
-      if (!player) {
+    }, []);
+
+    if (!player) {
         return null;
-      }
-      
+    }
+
     return (
         <>
             <h2>Chose level</h2>
             <div className="levelsStack" >
-                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1} levelName='DesertDead' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='DesertDead' setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureDesertDead.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1} levelName='MountainGiant' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='MountainGiant' setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureMountainGiant.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={3} levelName='DiscoCrawler' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='DiscoCrawler' setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureDiscoCrawler.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className= "levelLink" to='/fight' level={player.level} levelToReach={1} levelName='CastleJuggerknight' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='CastleJuggerknight' setLevel={setLevel}>
                     <img className="levelImg" src={`../../../PictureCastleJuggerknight.svg`} alt="icon" />
                 </LevelLink>
             </div>

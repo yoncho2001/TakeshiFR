@@ -1,30 +1,31 @@
 import Ability from '../classes/Abilities.tsx';
-import RangeHero from '../classes/RangeHero.tsx';
 
 export const constAbilities = new Map<string, Ability>([
-    ["BasicAttack", new Ability("BasicAttack", ["Melee", "Mage","Range"], 0, 0, "Do basic damage.", basicAttack)],
+    ["BasicAttack", new Ability("BasicAttack", ["Melee", "Mage", "Range"], 0, 0, "Do basic damage.", basicAttack)],
     ["HeavyAttack", new Ability("HeavyAttack", ["Melee", "Range"], 2, 0, "Do double basic damage.", heavyAttack)],
     //["BasicAttackRange", new Ability("BasicAttackRange", ["Range"], 0, 0, "Do basic damage.", () => { })],
     //["HeavyAttackRange", new Ability("HeavyAttackRange", ["Range"], 2, 0, "Do double basic damage.", () => { })],
-    ["Bolt", new Ability("Bolt", ["Mage"], 2, 20, "Do electric damage.", bolt)],
+    ["Bolt", new Ability("Bolt", ["Mage"], 3, 20, "Do electric damage.", bolt)],
+    ["Breathe", new Ability("Breathe", ["Melee", "Mage", "Range"], 0, 0, "Take a break.", breathe)],
     //["DoubleShot", new Ability("DoubleShot", ["Range"], 2, 0, "Shoot two arrows at once", () => { })],
 ]);
 
-export function basicAttack(player:HeroInfo):number {
-    if(player instanceof  RangeHero){
-        player.useAmmo();
-    }
-    return player.getStrength() +  player.getPrimaryWeapon().damage - player.getArmor();
+function calkStrength(dealer: AllCharacters): number {
+    return dealer.getStrength() + dealer.getPrimaryWeapon().damage;
 }
 
-export function heavyAttack(player:HeroInfo):number {
-    return 2 * basicAttack(player);
+export function basicAttack(dealer: AllCharacters, tanker:AllCharacters): number {
+    return calkStrength(dealer) - tanker.getArmor();
 }
 
-export function bolt(player:HeroInfo):number {
-    return 3 * basicAttack(player);
+export function heavyAttack(dealer: AllCharacters, tanker:AllCharacters): number {
+    return 2 * calkStrength(dealer) - tanker.getArmor();
 }
 
-export function miss(player:HeroInfo):number {
+export function bolt(dealer: AllCharacters, tanker:AllCharacters): number {
+    return 3 * calkStrength(dealer) - tanker.getArmor();
+}
+
+export function breathe(player: AllCharacters,tanker:AllCharacters): number {
     return 0;
 }

@@ -1,6 +1,6 @@
 type MageHeroJSON = {
     name: string,
-    health: number,
+    maxHealth: number,
     strength: number,
     armor: number,
     abilities: string[],

@@ -5,6 +5,7 @@ const defaultLevel = 1;
 export default class Character {
   protected name: string;
   protected health: number;
+  protected maxHealth:number;
   protected strength: number;
   protected armor: number;
   protected abilities: Ability[];
@@ -13,11 +14,12 @@ export default class Character {
   protected type: HERO_TYPES;
   protected level: number;
 
-  constructor(name: string, health: number, strength: number, armor: number
+  constructor(name: string, maxHealth: number, strength: number, armor: number
     , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
     , type: HERO_TYPES = 'Melee', level: number = defaultLevel) {
     this.name = name;
-    this.health = health;
+    this.health = maxHealth;
+    this.maxHealth = maxHealth;
     this.strength = strength;
     this.armor = armor;
     this.abilities = abilities;
@@ -33,6 +35,10 @@ export default class Character {
 
   public getHealth(): number {
     return this.health;
+  }
+
+  public getMaxHealth(): number {
+    return this.maxHealth;
   }
 
   public getStrength(): number {
@@ -55,6 +61,10 @@ export default class Character {
     return this.potions;
   }
 
+  public setPotions(potions:Potion[]) {
+    this.potions = potions;
+  }
+
   public addPotion(potion: Potion): void {
     this.potions.push(potion);
   }
@@ -70,8 +80,12 @@ export default class Character {
   public getLevel(): number {
     return this.level;
   }
-  public levelUp(): void {
-    this.level += 1;
+  public heal(value:number): void {
+    this.health += value;
+
+    if(this.health>this.maxHealth){
+      this.health = this.maxHealth;
+    }
   }
 
   public takeDamage(value: number): void {
@@ -84,5 +98,7 @@ export default class Character {
     }
   }
 
-  protected toJSON?():HeroToJSON;
+  public levelUp?(): void;
+  
+  protected toJSON?(): HeroToJSON;
 }

@@ -1,7 +1,7 @@
 import './playerScreen.less';
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from '../../components/button.tsx';
-import { useCallback, useContext, useEffect} from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import PlayerContext from '../../components/PlayerContext.tsx';
 import RenderItems from "./renderItems.tsx";
 import LinearProgress from '@mui/material/LinearProgress';
@@ -40,7 +40,7 @@ export default function PlayerScreen() {
               <b>lv {player.level}  {player.type}</b>
             </div>
             <div id='stats'>
-              <LinearProgress className="statProgress" variant="determinate" color="success" value={player.health} />
+              <LinearProgress className="statProgress" variant="determinate" color="success" value={characterManager.healtPercent(player.maxHealth, player.maxHealth)} />
               <LinearProgress className="statProgress" variant="determinate" color="error" value={player.armor} />
               {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.mana} />}
             </div>

@@ -8,8 +8,8 @@ interface RenderPlayerProps {
 
 export default function RenderItems({ player }: RenderPlayerProps) {
     let characterManager = new CharacterManager();
-    let countHealtP = countPotions(player.potions, healthPotion);
-    let countManaP = countPotions(player.potions, manaPotion);
+    let countHealtP = characterManager.countPotionsJSON(player.potions, healthPotion);
+    let countManaP = characterManager.countPotionsJSON(player.potions, manaPotion);
 
     return (
         <>
@@ -24,7 +24,7 @@ export default function RenderItems({ player }: RenderPlayerProps) {
                         <img src={`../../../PictureManaPotion.svg`} alt="icon" id="imgMana" />
                     </Badge>
                 }
-                {'secondaryWeapon' in player && characterManager.isWeaponCorect(player,player.secondaryWeapon) &&
+                {'secondaryWeapon' in player && characterManager.isWeaponCorectJSON(player, player.secondaryWeapon) &&
 
                     <img src={`../../../Picture${player.secondaryWeapon}.svg`} alt="icon" id="imgHealt" />
 
@@ -37,17 +37,4 @@ export default function RenderItems({ player }: RenderPlayerProps) {
             </div>
         </>
     );
-}
-
-function countPotions(potions: string[], typePotion: string) {
-    let countPotion = 0;
-    if (potions) {
-        potions.forEach(potion => {
-            if (potion === typePotion) {
-                countPotion++;
-            }
-        });
-    }
-
-    return countPotion;
 }

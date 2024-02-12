@@ -1,4 +1,5 @@
 import Character from '../../classes/Character';
+import CharacterManager from '../../functions/characterManager';
 import './fightScreen.less';
 import { LinearProgress } from '@mui/material';
 
@@ -9,11 +10,12 @@ interface FightSceneProps {
 }
 
 export default function FightScene({ player, villain }: FightSceneProps) {
+    const characterManager = new CharacterManager();
     return (
         <div id="scene">
             <div id='statsHero'>
                 <div className='stats'>
-                    <LinearProgress className="statProgress" variant="determinate" color="success" value={player.getHealth()} />
+                    <LinearProgress className="statProgress" variant="determinate" color="success" value={characterManager.healtPercent(player.getMaxHealth(), player.getHealth())} />
                     <LinearProgress className="statProgress" variant="determinate" color="error" value={player.getArmor()} />
                     {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.getMana()} />}
                 </div>
@@ -22,7 +24,7 @@ export default function FightScene({ player, villain }: FightSceneProps) {
 
             <div id='statsVillain' className='stats'>
                 <div className='stats'>
-                    <LinearProgress className="statProgress" variant="determinate" color="success" value={villain.getHealth()} />
+                    <LinearProgress className="statProgress" variant="determinate" color="success" value={characterManager.healtPercent(villain.getMaxHealth(), villain.getHealth())} />
                     <LinearProgress className="statProgress" variant="determinate" color="error" value={villain.getArmor()} />
                 </div>
                 <img id="villainImg" src={`../../../public/PictureBoss${villain.getName()}.svg`} alt="icon" />

@@ -1,18 +1,24 @@
 import { Link as MuiLink } from "react-router-dom";
 import React from "react";
+import { villainsRegister } from "../elementsOfHero/villains";
 
 interface LinkProps {
     className?: string;
     to: string;
     level: number;
-    levelToReach: number;
     children: React.ReactNode;
-    levelName:string;
-    setLevel:(input: string) => void;
+    levelName: string;
+    setLevel: (input: string) => void;
 }
 
-export default function LevelLink({ children, className, to, level, levelToReach,levelName ,setLevel}: LinkProps) {
-    const isLocked = level < levelToReach;
+export default function LevelLink({ children, className, to, level, levelName, setLevel }: LinkProps) {
+    let villainInfo = villainsRegister.get(levelName);
+    let isLocked = true;
+
+    if (villainInfo) {
+        isLocked = level < villainInfo?.levelToReech;
+    }
+
     const handleClick = () => {
         setLevel(levelName);
     };

@@ -1,5 +1,5 @@
 import './fightScreen.less';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PlayerContext from '../../components/PlayerContext.tsx';
 import { useNavigate } from 'react-router-dom';
 import CharacterManager from '../../functions/characterManager.tsx';
@@ -7,17 +7,22 @@ import { villainsRegister } from '../../elementsOfHero/villains.tsx';
 import Villain from '../../classes/Villain.tsx';
 import FightScene from './fightScene.tsx';
 import FightMenu from './fightMenu.tsx';
+import FightLogicManager from '../../functions/fightLogicManager.tsx';
+import WinScene from './winScene.tsx';
 
 interface FightScreenProps {
-    levelName: string,
+    levelName: string
 }
 
 export default function FightScreen({ levelName }: FightScreenProps) {
-    let characterManager = new CharacterManager();
-    let navigate = useNavigate();
+    const logicManager = new FightLogicManager();
+    const characterManager = new CharacterManager();
+    const navigate = useNavigate();
     const { currentPlayer } = useContext(PlayerContext);
     const [player, setPlayer] = useState<HeroInfo | null>(null);
     const [villain, setVillain] = useState<Villain | null>(null);
+    const [isGameOver, setIsGameOver] = useState<boolean>(false);
+    const [isWin, setisWin] = useState<boolean>(false);
     const [turn, setTurn] = useState<number>(0);
 
     useEffect(() => {
@@ -31,9 +36,10 @@ export default function FightScreen({ levelName }: FightScreenProps) {
         }
 
         const loadedPlayer = characterManager.fromJSONToHero(playerJson);
+        logicManager.resetCooldowns(loadedPlayer);
         setPlayer(loadedPlayer);
 
-        const villain = new Villain(villainInfo.name, villainInfo.level);
+        const villain = new Villain(villainInfo, loadedPlayer.getLevel());
         setVillain(villain);
 
         const rootElement = document.getElementById('root');
@@ -49,20 +55,34 @@ export default function FightScreen({ levelName }: FightScreenProps) {
         };
     }, []);
 
-    useEffect( () => console.log('updated'), [player, villain])
-
-    const endTurn = (player: any, villain: any) => {
+    const endTurn = (player: HeroInfo, villain: Villain) => {
         setTurn(turn + 1);
+
+        if (villain.getHealth() <= 0) {
+            setisWin(true);
+            setIsGameOver(true);
+        }
+
+        if (player.getHealth() <= 0) {
+            setisWin(false);
+            setIsGameOver(true);
+        }
     }
 
     if (!player || !villain) {
         return null;
     }
 
+    if (isGameOver && isWin) {
+        player.levelUp();
+        characterManager.updatePlayer(player.toJSON());
+    }
+
     return (
         <>
             <FightScene player={player} villain={villain} />
-            <FightMenu player={player} villain={villain} endTurn={endTurn} setPlayer={setPlayer} setVillain={setVillain} />  
+            <FightMenu player={player} villain={villain} endTurn={endTurn} />
+            {isGameOver && <WinScene isWin={isWin} levelName={levelName} />}
         </>
     );
 }

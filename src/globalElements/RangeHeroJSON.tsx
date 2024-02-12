@@ -1,6 +1,6 @@
 type RangeHeroJSON = {
     name: string,
-    health: number,
+    maxHealth: number,
     strength: number,
     armor: number,
     abilities: string[],

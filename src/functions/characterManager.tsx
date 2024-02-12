@@ -13,25 +13,25 @@ const heroesSerializersRegister = new Map<HERO_TYPES, HeroSerializer>([
 ]);
 
 export default class CharacterManager {
-    private updateRawPlayer(players:{ [key: string]: HeroToJSON }){
+    private updateRawPlayer(players: { [key: string]: HeroToJSON }) {
         console.log(players);
         localStorage.setItem(PLAYERS_KEY, JSON.stringify(players));
     }
 
-    private getRawPlayer(){
+    private getRawPlayer() {
         return localStorage.getItem(PLAYERS_KEY);
     }
 
-    public updatePlayer(player: HeroToJSON):number {
+    public updatePlayer(player: HeroToJSON): number {
         const playersRaw = this.getRawPlayer();
         let players: { [key: string]: HeroToJSON } = {};
-    
+
         if (playersRaw) {
             players = JSON.parse(playersRaw);
         }
-    
+
         const heroCount = Object.keys(players).length;
-    
+
         if (heroCount < PLAYER_COUNT_LIMIT) {
             players[player.name] = player;
             console.log(player);
@@ -40,7 +40,6 @@ export default class CharacterManager {
 
         return heroCount;
     }
-
 
     public savePlayer(player: HeroToJSON, callbackFunction: React.Dispatch<React.SetStateAction<string>>) {
         let heroCount = this.updatePlayer(player);
@@ -53,23 +52,23 @@ export default class CharacterManager {
         callbackFunction(playerName);
     }
 
-   public getStoredPlayers(): { [key: string]: HeroToJSON } {
+    public getStoredPlayers(): { [key: string]: HeroToJSON } {
         let players: { [key: string]: HeroToJSON } = {};
         let playersRaw = this.getRawPlayer();
-    
+
         if (playersRaw) {
             players = JSON.parse(playersRaw);
         } else {
             this.updateRawPlayer(players);
         }
-    
+
         return players;
     }
 
-    public isWeaponCorect(player: HeroToJSON, weaponKey:string) {
+    public isWeaponCorectJSON(player: HeroToJSON, weaponKey: string) {
         return constWeapons.has(weaponKey)
-             && player.type === constWeapons.get(weaponKey)?.heroClassType
-    }       
+            && player.type === constWeapons.get(weaponKey)?.heroClassType
+    }
 
     public deleteHero(players: { [key: string]: HeroToJSON }, player: string) {
         delete players[player];
@@ -87,5 +86,34 @@ export default class CharacterManager {
         }
 
         return playerInfo;
+    }
+
+    public countPotionsJSON(potions: string[], typePotion: string) {
+        let countPotion = 0;
+        if (potions) {
+            potions.forEach(potion => {
+                if (potion === typePotion) {
+                    countPotion++;
+                }
+            });
+        }
+
+        return countPotion;
+    }
+    public countPotions(potions: Potion[], typePotion: string) {
+        let countPotion = 0;
+        if (potions) {
+            potions.forEach(potion => {
+                if (potion.name === typePotion) {
+                    countPotion++;
+                }
+            });
+        }
+
+        return countPotion;
+    }
+
+    public healtPercent (maxValue:number, currentValue:number): number{
+        return (currentValue/maxValue) * 100;
     }
 }

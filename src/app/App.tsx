@@ -20,7 +20,7 @@ export default function App(){
                 <Route path="/create" element={ <CreateScreen /> }/>
                 <Route path="/player" element={ <PlayerScreen /> }/>
                 <Route path="/levels" element={ <LevelsScreen setLevel= {setCurrentLevel} /> }/>
-                <Route path="/fight" element={ <FightScreen levelName={currentLevel} /> }/>
+                <Route path="/fight" element={ <FightScreen levelName={currentLevel}/> }/>
             </Routes>
             </PlayerContext.Provider>
         </div>

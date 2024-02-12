@@ -4,7 +4,7 @@ export const PLAYER_COUNT_LIMIT = 3;
 export const PLAYERS_KEY = 'players';
 export const defaultHero: MageHeroJSON = {
     name: "Default",
-    health: 5,
+    maxHealth: 5,
     strength: 5,
     armor: 5,
     abilities: [],
@@ -17,14 +17,10 @@ export const defaultHero: MageHeroJSON = {
 
 export const defaultHeroClass: MageHero = new MageHero(
     "Default",
-    5,
-    5,
-    5,
-    [],
-    [],
+    5, 5, 5, [], [],
     {
         name: "Staf",
-        damage: 40,
+        damage: 10,
         heroClassType: "Mage"
     },
     20,

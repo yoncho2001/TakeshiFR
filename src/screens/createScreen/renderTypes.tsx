@@ -10,7 +10,7 @@ interface RenderTypesProps {
 }
 
 export default function RenderTypes({ playerName }: RenderTypesProps) {
-    
+
     const { setCurrentPlayer } = useContext(PlayerContext);
 
     if (!setCurrentPlayer) {
