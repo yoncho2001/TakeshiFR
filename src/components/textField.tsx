@@ -8,6 +8,9 @@ interface TextFieldProps {
 }
 
 export default function TextField({ className, id, label, ...restProps }: TextFieldProps) {
-    return <MuiTextField id={id} className={className} label={label}{...restProps} />;
-
+    return <MuiTextField 
+                id={id} 
+                className={className} 
+                label={label}{...restProps} 
+            />;
 }

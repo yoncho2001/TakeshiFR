@@ -31,7 +31,11 @@ export default function Players() {
                     </Link>
                 </div>;
             })}
-            {shouldRenderCreateButton(characterLength) && <Link to='/create' ><Button variant='outlined' className='emptyButton' content={'Create new Character'} /></Link>}
+            {shouldRenderCreateButton(characterLength) && 
+            <Link to='/create' >
+                <Button variant='outlined' className='emptyButton' content={'Create new Character'} />
+            </Link>
+            }
         </>
     );
 }

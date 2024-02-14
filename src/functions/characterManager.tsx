@@ -1,4 +1,4 @@
-import { defaultHeroClass, PLAYER_COUNT_LIMIT, PLAYERS_KEY } from '../globalElements/constants.tsx'
+import {MAGE_TYPE, MELEE_TYPE, PLAYER_COUNT_LIMIT, PLAYERS_KEY, RANGE_TYPE } from '../globalElements/constants.tsx'
 import { constWeapons } from "../elementsOfHero/weapons";
 import * as React from "react";
 
@@ -7,10 +7,20 @@ import MageHero from '../classes/MageHero.tsx';
 import RangeHero from '../classes/RangeHero.tsx';
 type HeroSerializer = (hero: any) => HeroInfo;
 const heroesSerializersRegister = new Map<HERO_TYPES, HeroSerializer>([
-    ["Mage", MageHero.fromJSON],
-    ["Melee", MeleeHero.fromJSON],
-    ["Range", RangeHero.fromJSON]
+    [MAGE_TYPE, MageHero.fromJSON],
+    [MELEE_TYPE, MeleeHero.fromJSON],
+    [RANGE_TYPE, RangeHero.fromJSON]
 ]);
+
+const defaultHeroClass: MageHero = new MageHero(
+    "Default",
+    5, 5, 5, [], [],
+    {
+        name: "Staf",
+        damage: 10,
+        heroClassType: "Mage"
+    }, 20, 1
+);
 
 export default class CharacterManager {
     private updateRawPlayer(players: { [key: string]: HeroToJSON }) {
@@ -113,7 +123,9 @@ export default class CharacterManager {
         return countPotion;
     }
 
-    public healtPercent (maxValue:number, currentValue:number): number{
-        return (currentValue/maxValue) * 100;
+    public statPercent (maxValue:number, currentValue?:number): number{
+        let value =currentValue?(currentValue/maxValue) * 100 : 100;
+        return value;
     }
+
 }

@@ -1,38 +1,40 @@
+import { SWORD, MELEE_TYPE, BIG_SWORD, STAF, MAGE_TYPE, BOW, RANGE_TYPE } from "../globalElements/constants";
+
 export const constWeapons = new Map<string, WeaponItem>([
-    ["Sword", {
-        name: "Sword",
+    [SWORD, {
+        name: SWORD,
         damage: 20,
-        heroClassType: "Melee"
+        heroClassType: MELEE_TYPE
     }],
-    ["BigSword", {
-        name: "BigSword",
+    [BIG_SWORD, {
+        name: BIG_SWORD,
         damage: 30,
-        heroClassType: "Melee"
+        heroClassType: MELEE_TYPE
     }],
-    ["Staf", {
-        name: "Staf",
+    [STAF, {
+        name: STAF,
         damage: 15,
-        heroClassType: "Mage"
+        heroClassType: MAGE_TYPE
     }],
-    ["Bow", {
-        name: "Bow",
+    [BOW, {
+        name: BOW,
         damage: 20,
-        heroClassType: "Range"
+        heroClassType: RANGE_TYPE
     }]
 ]);
 
 export const defaultMeleeWeapon: WeaponItem = {
-    name: "Sword",
+    name: SWORD,
     damage: 20,
-    heroClassType: "Melee"
+    heroClassType: MELEE_TYPE
 }
 export const defaultMageWeapon: WeaponItem = {
-    name: "Staf",
+    name: STAF,
     damage: 15,
-    heroClassType: "Mage"
+    heroClassType: MAGE_TYPE
 };
 export const defaultRangeWeapon: WeaponItem = {
-    name: "Bow",
+    name: BOW,
     damage: 20,
-    heroClassType: "Range"
+    heroClassType: RANGE_TYPE
 }

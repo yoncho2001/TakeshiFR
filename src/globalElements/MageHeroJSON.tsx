@@ -8,5 +8,5 @@ type MageHeroJSON = {
     primaryWeapon: string,
     type: HERO_TYPES,
     level: number,
-    mana: number
+    maxMana: number
 }

@@ -23,7 +23,7 @@ export default function FightScreen({ levelName }: FightScreenProps) {
     const [villain, setVillain] = useState<Villain | null>(null);
     const [isGameOver, setIsGameOver] = useState<boolean>(false);
     const [isWin, setisWin] = useState<boolean>(false);
-    const [turn, setTurn] = useState<number>(0);
+    const [, setTurn] = useState<string>('');
 
     useEffect(() => {
         let players = characterManager.getStoredPlayers();
@@ -40,6 +40,7 @@ export default function FightScreen({ levelName }: FightScreenProps) {
         setPlayer(loadedPlayer);
 
         const villain = new Villain(villainInfo, loadedPlayer.getLevel());
+        console.log(villain.getHealth());
         setVillain(villain);
 
         const rootElement = document.getElementById('root');
@@ -55,8 +56,8 @@ export default function FightScreen({ levelName }: FightScreenProps) {
         };
     }, []);
 
-    const endTurn = (player: HeroInfo, villain: Villain) => {
-        setTurn(turn + 1);
+    const endTurn = (player: HeroInfo, villain: Villain, endOf: string) => {
+        setTurn(endOf);
 
         if (villain.getHealth() <= 0) {
             setisWin(true);

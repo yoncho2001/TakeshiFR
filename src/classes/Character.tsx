@@ -1,11 +1,10 @@
+import { MELEE_TYPE, defaultLevel } from "../globalElements/constants";
 import Ability from "./Abilities";
-
-const defaultLevel = 1;
 
 export default class Character {
   protected name: string;
   protected health: number;
-  protected maxHealth:number;
+  protected maxHealth: number;
   protected strength: number;
   protected armor: number;
   protected abilities: Ability[];
@@ -16,7 +15,7 @@ export default class Character {
 
   constructor(name: string, maxHealth: number, strength: number, armor: number
     , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
-    , type: HERO_TYPES = 'Melee', level: number = defaultLevel) {
+    , type: HERO_TYPES = MELEE_TYPE, level: number = defaultLevel) {
     this.name = name;
     this.health = maxHealth;
     this.maxHealth = maxHealth;
@@ -61,7 +60,7 @@ export default class Character {
     return this.potions;
   }
 
-  public setPotions(potions:Potion[]) {
+  public setPotions(potions: Potion[]) {
     this.potions = potions;
   }
 
@@ -80,10 +79,10 @@ export default class Character {
   public getLevel(): number {
     return this.level;
   }
-  public heal(value:number): void {
+  public heal(value: number): void {
     this.health += value;
 
-    if(this.health>this.maxHealth){
+    if (this.health > this.maxHealth) {
       this.health = this.maxHealth;
     }
   }
@@ -99,6 +98,6 @@ export default class Character {
   }
 
   public levelUp?(): void;
-  
+
   protected toJSON?(): HeroToJSON;
 }

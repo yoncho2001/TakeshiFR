@@ -3,8 +3,9 @@ import createPlayer from '../../components/hoc/createPlayerInfo.tsx';
 import { useContext } from 'react';
 import PlayerContext from '../../components/PlayerContext.tsx'
 import { Link } from "react-router-dom";
+import { MELEE_TYPE, MAGE_TYPE, RANGE_TYPE } from '../../globalElements/constants.tsx';
 
-const heroesTypes = ["Mage", "Melee", "Range"];
+const heroesTypes = [MAGE_TYPE, MELEE_TYPE, RANGE_TYPE];
 interface RenderTypesProps {
     playerName: string;
 }

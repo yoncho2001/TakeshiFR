@@ -4,15 +4,16 @@ import MageHero from '../classes/MageHero.tsx';
 import Villain from '../classes/Villain.tsx';
 import RangeHero from '../classes/RangeHero.tsx';
 import MeleeHero from '../classes/MeleeHero.tsx';
+import { HEALTH_POINTS, MANA_POINTS, STRENGHT_POINTS } from '../globalElements/constants.tsx';
 
 type PotionEffectHandler = (character: Character, value: number) => void;
 type AllCharacters = HeroInfo | Villain
 
-const potionEffects: Record<POTION_FIELDS, PotionEffectHandler> = {
-    'HealthPoints': (character, value) => character.heal(value),
-    'Mana': (character, value) => character instanceof MageHero && character.healMana(value),
-    'Strength': (character, value) => character.heal(value),
-};
+const potionEffects = new Map<POTION_FIELDS, PotionEffectHandler>([
+    [HEALTH_POINTS, (character: Character, value: number) => character.heal(value)],
+    [MANA_POINTS, (character: Character, value: number) => character instanceof MageHero && character.healMana(value)],
+    [STRENGHT_POINTS, (character: Character, value: number) => character.heal(value)],
+]);
 
 export default class FightLogicManager {
     private selectRandomAbility(abilities: Ability[]): Ability | null {
@@ -37,7 +38,7 @@ export default class FightLogicManager {
         return abilities[abilities.length - 1];
     }
 
-    private villainTurn(player: HeroInfo, villain: Villain, showAlert: (message: string) => void) {
+    private villainTurn(player: HeroInfo, villain: Villain) {
         const abilities = villain.getAbilities();
         let selectAbility: Ability | null = null;
 
@@ -46,25 +47,22 @@ export default class FightLogicManager {
         } while (selectAbility?.getCooldownCount() !== 0);
 
         if (selectAbility) {
-            this.useAbilityEffect(selectAbility, villain, player, showAlert);
+            this.useAbilityEffect(selectAbility, villain, player);
         }
     }
 
     private useAbilityEffect(ability: Ability, character: AllCharacters,
-        characterToDie: AllCharacters, showAlert: (message: string) => void) {
-
+        characterToDie: AllCharacters) {
         if (ability.getCooldownCount() === 0) {
             const dmg = ability.use(character, characterToDie);
             console.log(dmg);
             characterToDie.takeDamage(dmg);
             this.updateCooldowns(character);
             ability.setcooldownCount();
-        } else if (!(character instanceof Villain)) {
-            showAlert('This ability is on cooldown');
         }
     }
 
-    private haveMana(character: AllCharacters, ability: Ability, showAlert: (message: string) => void): boolean {
+    private haveMana(character: AllCharacters, ability: Ability,showAlert: (message: string) => void): boolean {
         const cost = ability.getCost();
         const isMageHero = character instanceof MageHero
         let check = true;
@@ -93,18 +91,6 @@ export default class FightLogicManager {
         return check;
     }
 
-    private isRedy(ability: Ability, showAlert: (message: string) => void): boolean {
-        let check = true;
-
-        if (ability.getCooldownCount() > 0) {
-            showAlert('This ability is on cooldown');
-            check = false;
-        }
-
-        return check;
-    }
-
-
     private updateCooldowns(character: HeroInfo | Villain) {
         character.getAbilities().map((ability) => (
             ability.lowerCooldown()
@@ -123,12 +109,8 @@ export default class FightLogicManager {
         villain: Villain,
         ability: Ability,
         callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
-        endTurn: (player: HeroInfo, villain: Villain) => void,
+        endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
         showAlert: (message: string) => void) {
-
-        if (!this.isRedy(ability, showAlert)){
-            return;
-        }
 
         if (!this.haveMana(player, ability, showAlert)){
             return;
@@ -139,12 +121,15 @@ export default class FightLogicManager {
         } 
 
         if (villain.getHealth() <= 0 || player.getHealth() <= 0) {
-            endTurn(player, villain);
+            endTurn(player, villain, 'player');
         } else {
-
-            this.useAbilityEffect(ability, player, villain, showAlert);
-            this.villainTurn(player, villain, showAlert);
-            endTurn(player, villain);
+            this.useAbilityEffect(ability, player, villain);
+            endTurn(player, villain, 'player');
+            setTimeout(() => {
+                this.villainTurn(player, villain);
+                endTurn(player, villain, 'villain');
+            }, 1000);
+           
         }
 
         this.handleClose(callbackFunction);
@@ -156,23 +141,23 @@ export default class FightLogicManager {
         ));
     }
 
-    public swapWeapons(character: HeroInfo, villain: Villain, callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>, endTurn: (player: HeroInfo, villain: Villain) => void, showAlert: (message: string) => void) {
+    public swapWeapons(character: HeroInfo, villain: Villain, callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>, endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void) {
         const isMeleeHero = character instanceof MeleeHero;
 
         if (isMeleeHero) {
             character.swapWeapon();
-            this.villainTurn(character, villain, showAlert);
+            this.villainTurn(character, villain);
             this.handleClose(callbackFunction);
-            endTurn(character, villain);
+            endTurn(character, villain, 'player');
         }
     }
 
-    public usePotion(character: HeroInfo, potionType: string, villain: Villain, callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>, endTurn: (player: HeroInfo, villain: Villain) => void, showAlert: (message: string) => void) {
+    public usePotion(character: HeroInfo, potionType: string, villain: Villain, callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>, endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void) {
         const potionIndex = character.getPotions().findIndex(p => p.name === potionType);
         const potion = character.getPotions()[potionIndex];
 
         if (potionIndex !== -1 && potion) {
-            const effect = potionEffects[potion.affectingField];
+            const effect = potionEffects.get(potion.affectingField);
 
             if (effect) {
                 effect(character, potion.affectingValue);
@@ -180,8 +165,8 @@ export default class FightLogicManager {
 
             const updatedPotions = character.getPotions().filter((_, index) => index !== potionIndex);
             character.setPotions(updatedPotions);
-            this.villainTurn(character, villain, showAlert);
-            endTurn(character, villain);
+            this.villainTurn(character, villain);
+            endTurn(character, villain, 'villain')
         }
 
         this.handleClose(callbackFunction);

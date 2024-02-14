@@ -3,26 +3,32 @@ import Character from './Character.tsx';
 import { constAbilities } from '../elementsOfHero/abilities.tsx';
 import { constPotions } from '../elementsOfHero/potions.tsx';
 import { constWeapons, defaultMeleeWeapon } from '../elementsOfHero/weapons.tsx';
+import { BASIC_ATTACK, HEAVY_ATTACK, BREATHE, HEALTH_POTION, SWORD, MELEE_TYPE
+  , BIG_SWORD } from '../globalElements/constants.tsx';
+
 const defaultLevel = 1;
 const addMaxHealth = 60;
 const addStrength = 15;
 const addArmor = 10;
 
-
 export default class MeleeHero extends Character {
   private secondaryWeapon: WeaponItem;
-  
+
   private addStats(): void {
-    this.maxHealth += addMaxHealth;
-    this.strength += addStrength;
-    this.armor += addArmor;
+    this.maxHealth += this.scaleStats(addMaxHealth);
+    this.strength += this.scaleStats(addStrength);
+    this.armor += this.scaleStats(addArmor);
+  }
+
+  private scaleStats (addStat:number):number{
+    return addStat * (1 + this.level * 0.5);
   }
 
   constructor(name: string, maxHealth: number, strength: number, armor: number
     , abilities: Ability[], potions: Potion[], primaryWeapon: WeaponItem
     , level: number = defaultLevel, secondaryWeapon: WeaponItem) {
     super(name, maxHealth, strength, armor, abilities, potions, primaryWeapon
-      , "Melee", level);
+      , MELEE_TYPE, level);
     this.secondaryWeapon = secondaryWeapon;
   }
 
@@ -35,7 +41,7 @@ export default class MeleeHero extends Character {
   }
 
   public levelUp(): void {
-    this.level ++;
+    this.level++;
     const healthPotion = constPotions.get("HealthPotion");
 
     if (healthPotion) {
@@ -59,7 +65,8 @@ export default class MeleeHero extends Character {
     let secondaryWeapon: WeaponItem = constWeapons.has(json.secondaryWeapon)
       ? (constWeapons.get(json.secondaryWeapon) || defaultMeleeWeapon) : defaultMeleeWeapon;
 
-    return new MeleeHero(json.name, json.maxHealth, json.strength, json.armor, abilities, potions, primaryWeapon, json.level, secondaryWeapon);
+    return new MeleeHero(json.name, json.maxHealth, json.strength, json.armor,
+              abilities, potions, primaryWeapon, json.level, secondaryWeapon);
   }
 
   public toJSON(): MeleeHeroJSON {
@@ -83,12 +90,12 @@ export default class MeleeHero extends Character {
       maxHealth: 100,
       strength: 15,
       armor: 30,
-      abilities: ["BasicAttack", "HeavyAttack", "Breathe"],
-      potions: ['HealthPotion', 'HealthPotion', 'HealthPotion'],
-      primaryWeapon: 'Sword',
-      type: 'Melee',
-      level: 1,
-      secondaryWeapon: 'BigSword'
+      abilities: [BASIC_ATTACK, HEAVY_ATTACK, BREATHE],
+      potions: [HEALTH_POTION, HEALTH_POTION, HEALTH_POTION],
+      primaryWeapon: SWORD,
+      type: MELEE_TYPE,
+      level: defaultLevel,
+      secondaryWeapon: BIG_SWORD
     }
   }
 } 

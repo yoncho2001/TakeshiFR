@@ -1,12 +1,14 @@
+import { HEALTH_POTION, HEALTH_POINTS, MANA_POTION, MANA_POINTS } from "../globalElements/constants";
+
 export const constPotions = new Map<string, Potion>([
-    ["HealthPotion", {
-        name: "HealthPotion",
-        affectingField: "HealthPoints",
+    [HEALTH_POTION, {
+        name: HEALTH_POTION,
+        affectingField: HEALTH_POINTS,
         affectingValue: 50
     }],
-    ["ManaPotion", {
-        name: "ManaPotion",
-        affectingField: "Mana",
+    [MANA_POTION, {
+        name: MANA_POTION,
+        affectingField: MANA_POINTS ,
         affectingValue: 50
     }],
 ]);

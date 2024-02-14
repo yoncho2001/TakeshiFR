@@ -13,7 +13,12 @@ interface ButtonProps {
 
 export default function Button({ content, icon, onClick, style, ...restProps }: ButtonProps) {
     return (
-        <MuiButton startIcon={icon} onClick={onClick} {...restProps} style={style}>
+        <MuiButton 
+            startIcon={icon} 
+            onClick={onClick} 
+            {...restProps} 
+            style={style}
+        >
             {content}
         </MuiButton>
     );

@@ -15,17 +15,41 @@ export default function FightScene({ player, villain }: FightSceneProps) {
         <div id="scene">
             <div id='statsHero'>
                 <div className='stats'>
-                    <LinearProgress className="statProgress" variant="determinate" color="success" value={characterManager.healtPercent(player.getMaxHealth(), player.getHealth())} />
-                    <LinearProgress className="statProgress" variant="determinate" color="error" value={player.getArmor()} />
-                    {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.getMana()} />}
+                    <LinearProgress 
+                        className="statProgress" 
+                        variant="determinate" 
+                        color="success" 
+                        value={characterManager.statPercent(player.getMaxHealth(), player.getHealth())} 
+                    />
+                    <LinearProgress 
+                        className="statProgress"
+                        variant="determinate" 
+                        color="error" 
+                        value={characterManager.statPercent(player.getArmor())} 
+                    />
+                    {'mana' in player && <LinearProgress 
+                                            className="statProgress" 
+                                            variant="determinate" 
+                                            value={characterManager.statPercent(player.getMaxMana(), player.getMana())} 
+                                        />
+                    }
                 </div>
                 <img id="heroImg" src={`../../../public/Picture${player.getType()}.svg`} alt="icon" />
             </div>
 
             <div id='statsVillain' className='stats'>
                 <div className='stats'>
-                    <LinearProgress className="statProgress" variant="determinate" color="success" value={characterManager.healtPercent(villain.getMaxHealth(), villain.getHealth())} />
-                    <LinearProgress className="statProgress" variant="determinate" color="error" value={villain.getArmor()} />
+                    <LinearProgress 
+                       className="statProgress" 
+                       variant="determinate" color="success" 
+                       value={characterManager.statPercent(villain.getMaxHealth(), villain.getHealth())}
+                    />
+                    <LinearProgress 
+                    className="statProgress" 
+                    variant="determinate" 
+                    color="error" 
+                    value={characterManager.statPercent(player.getArmor())} 
+                    />
                 </div>
                 <img id="villainImg" src={`../../../public/PictureBoss${villain.getName()}.svg`} alt="icon" />
             </div>

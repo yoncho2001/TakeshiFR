@@ -30,7 +30,11 @@ export default function LevelLink({ children, className, to, level, levelName, s
                     <img src={`../../../lock-icon.png`} alt="Locked" style={{ zIndex: 1 }} />
                 </div>
             )}
-            <MuiLink to={to} onClick={handleClick} style={{ pointerEvents: isLocked ? 'none' : 'auto' }}>
+            <MuiLink 
+                to={to} 
+                onClick={handleClick} 
+                style={{ pointerEvents: isLocked ? 'none' : 'auto' }}
+            >
                 {children}
             </MuiLink>
         </div>

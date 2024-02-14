@@ -6,6 +6,7 @@ import PlayerContext from '../../components/PlayerContext.tsx';
 import RenderItems from "./renderItems.tsx";
 import LinearProgress from '@mui/material/LinearProgress';
 import CharacterManager from '../../functions/characterManager.tsx';
+//import Mage from '../../../public/PictureMelee.svg';
 
 export default function PlayerScreen() {
   let characterManager = new CharacterManager();
@@ -40,9 +41,24 @@ export default function PlayerScreen() {
               <b>lv {player.level}  {player.type}</b>
             </div>
             <div id='stats'>
-              <LinearProgress className="statProgress" variant="determinate" color="success" value={characterManager.healtPercent(player.maxHealth, player.maxHealth)} />
-              <LinearProgress className="statProgress" variant="determinate" color="error" value={player.armor} />
-              {'mana' in player && <LinearProgress className="statProgress" variant="determinate" value={player.mana} />}
+              <LinearProgress 
+                className="statProgress" 
+                variant="determinate" 
+                color="success" 
+                value={characterManager.statPercent(player.maxHealth)} 
+              />
+              <LinearProgress 
+                className="statProgress"
+                variant="determinate" 
+                color="error" 
+                value={characterManager.statPercent(player.armor)}
+              />
+              {'maxMana' in player && <LinearProgress 
+                                        className="statProgress" 
+                                        variant="determinate" 
+                                        value={characterManager.statPercent(player.maxMana)} 
+                                      />
+              }
             </div>
           </div>
           <div id='items'>
@@ -52,9 +68,15 @@ export default function PlayerScreen() {
         </div>
       </section>
       <section id='navButtons'>
-        <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'< Go to Heroes'} /></Link>
-        <Link to='/' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Delete'} onClick={deleteHero} /></Link>
-        <Link to='/levels' className="buttonLink"><Button variant='outlined' className='emptyButton' content={'Next >'} /></Link>
+        <Link to='/' className="buttonLink">
+          <Button variant='outlined' className='emptyButton' content={'< Go to Heroes'} />
+        </Link>
+        <Link to='/' className="buttonLink">
+          <Button variant='outlined' className='emptyButton' content={'Delete'} onClick={deleteHero} />
+        </Link>
+        <Link to='/levels' className="buttonLink">
+          <Button variant='outlined' className='emptyButton' content={'Next >'} />
+        </Link>
       </section>
     </>
   );

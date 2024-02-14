@@ -7,7 +7,6 @@ export default function StartScreen() {
     <>
       <Stack className="players" direction="column" spacing={2}>
         < Players />
-
       </Stack>
     </>
   );
