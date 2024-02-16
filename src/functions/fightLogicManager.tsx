@@ -38,31 +38,59 @@ export default class FightLogicManager {
         return abilities[abilities.length - 1];
     }
 
-    private villainTurn(player: HeroInfo, villain: Villain) {
+    private villainTurn(player: HeroInfo, villain: Villain,
+        endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
+        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
         const abilities = villain.getAbilities();
         let selectAbility: Ability | null = null;
+        
+        if (villain.getHealth() <= 0) {
+            endTurn(player,villain,'villain');
+            return;
+        }
 
         do {
             selectAbility = this.selectRandomAbility(abilities);
         } while (selectAbility?.getCooldownCount() !== 0);
 
         if (selectAbility) {
-            this.useAbilityEffect(selectAbility, villain, player);
+            this.useAbilityEffect(selectAbility, villain, player, endTurn, handleShowSketch);
         }
     }
 
     private useAbilityEffect(ability: Ability, character: AllCharacters,
-        characterToDie: AllCharacters) {
+        characterToDie: AllCharacters,
+        endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
+        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
+        const isRangeHero = character instanceof RangeHero;
+        const isVilain = character instanceof Villain;
+        let abilityName = "";
+
         if (ability.getCooldownCount() === 0) {
-            const dmg = ability.use(character, characterToDie);
-            console.log(dmg);
-            characterToDie.takeDamage(dmg);
-            this.updateCooldowns(character);
-            ability.setcooldownCount();
+
+            if (isRangeHero) {
+                abilityName = ability.getName() + "Range";
+            } else {
+                abilityName = ability.getName();
+            }
+
+            handleShowSketch(abilityName, isVilain);
+
+            setTimeout(() => {
+                const dmg = ability.use(character, characterToDie);
+                console.log(dmg);
+                characterToDie.takeDamage(dmg);
+                this.updateCooldowns(character);
+                ability.setcooldownCount();
+
+                isVilain ?
+                    endTurn(characterToDie as HeroInfo, character, 'villain' + ability.getName())
+                    : endTurn(character, characterToDie as Villain, 'player'+ ability.getName());
+            }, 1000);
         }
     }
 
-    private haveMana(character: AllCharacters, ability: Ability,showAlert: (message: string) => void): boolean {
+    private haveMana(character: AllCharacters, ability: Ability, showAlert: (message: string) => void): boolean {
         const cost = ability.getCost();
         const isMageHero = character instanceof MageHero
         let check = true;
@@ -110,26 +138,24 @@ export default class FightLogicManager {
         ability: Ability,
         callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
         endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
-        showAlert: (message: string) => void) {
+        showAlert: (message: string) => void,
+        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
 
-        if (!this.haveMana(player, ability, showAlert)){
+        if (!this.haveMana(player, ability, showAlert)) {
             return;
         }
 
         if (!this.haveAmmo(player, showAlert)) {
             return;
-        } 
-
+        }
         if (villain.getHealth() <= 0 || player.getHealth() <= 0) {
             endTurn(player, villain, 'player');
         } else {
-            this.useAbilityEffect(ability, player, villain);
-            endTurn(player, villain, 'player');
+            this.useAbilityEffect(ability, player, villain, endTurn, handleShowSketch);
+
             setTimeout(() => {
-                this.villainTurn(player, villain);
-                endTurn(player, villain, 'villain');
-            }, 1000);
-           
+                this.villainTurn(player, villain, endTurn, handleShowSketch);
+            }, 2000);
         }
 
         this.handleClose(callbackFunction);
@@ -141,18 +167,23 @@ export default class FightLogicManager {
         ));
     }
 
-    public swapWeapons(character: HeroInfo, villain: Villain, callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>, endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void) {
+    public swapWeapons(character: HeroInfo, villain: Villain,
+        callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
+        endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
+        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
         const isMeleeHero = character instanceof MeleeHero;
 
         if (isMeleeHero) {
             character.swapWeapon();
-            this.villainTurn(character, villain);
+            this.villainTurn(character, villain, endTurn, handleShowSketch);
             this.handleClose(callbackFunction);
-            endTurn(character, villain, 'player');
         }
     }
 
-    public usePotion(character: HeroInfo, potionType: string, villain: Villain, callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>, endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void) {
+    public usePotion(character: HeroInfo, potionType: string, villain: Villain,
+        callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
+        endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
+        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
         const potionIndex = character.getPotions().findIndex(p => p.name === potionType);
         const potion = character.getPotions()[potionIndex];
 
@@ -165,8 +196,7 @@ export default class FightLogicManager {
 
             const updatedPotions = character.getPotions().filter((_, index) => index !== potionIndex);
             character.setPotions(updatedPotions);
-            this.villainTurn(character, villain);
-            endTurn(character, villain, 'villain')
+            this.villainTurn(character, villain, endTurn, handleShowSketch);
         }
 
         this.handleClose(callbackFunction);

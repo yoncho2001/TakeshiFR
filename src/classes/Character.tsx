@@ -80,7 +80,7 @@ export default class Character {
     return this.level;
   }
   public heal(value: number): void {
-    this.health += value;
+    this.health += value * (this.level * 0.5);
 
     if (this.health > this.maxHealth) {
       this.health = this.maxHealth;

@@ -4,7 +4,7 @@ export const constPotions = new Map<string, Potion>([
     [HEALTH_POTION, {
         name: HEALTH_POTION,
         affectingField: HEALTH_POINTS,
-        affectingValue: 50
+        affectingValue: 80
     }],
     [MANA_POTION, {
         name: MANA_POTION,

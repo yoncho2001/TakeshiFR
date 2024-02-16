@@ -10,7 +10,7 @@ export const defaultHero: MageHeroJSON = {
     primaryWeapon: 'Staf',
     type: "Mage",
     level: 1,
-    mana: 5
+    maxMana: 5
 }
 
 //Hero constants

@@ -7,6 +7,8 @@ import PlayerScreen from '../screens/playerScreen/playerScreen.tsx';
 import LevelsScreen from '../screens/levelsScreen/levelsScreen.tsx';
 import FightScreen from '../screens/fightScreen/fightScreen.tsx';
 
+import SketchComponent from '../animation/SketchComponent';
+
 export default function App(){
     const [currentPlayer, setCurrentPlayer] = useState<string>("");
     const [currentLevel, setCurrentLevel] = useState<string>("");
