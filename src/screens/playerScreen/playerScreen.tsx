@@ -6,6 +6,7 @@ import PlayerContext from '../../components/PlayerContext.tsx';
 import RenderItems from "./renderItems.tsx";
 import LinearProgress from '@mui/material/LinearProgress';
 import CharacterManager from '../../functions/characterManager.tsx';
+import { Tooltip } from '@mui/material';
 //import Mage from '../../../public/PictureMelee.svg';
 
 export default function PlayerScreen() {
@@ -41,23 +42,30 @@ export default function PlayerScreen() {
               <b>lv {player.level}  {player.type}</b>
             </div>
             <div id='stats'>
-              <LinearProgress 
-                className="statProgress" 
-                variant="determinate" 
-                color="success" 
-                value={characterManager.statPercent(player.maxHealth)} 
-              />
-              <LinearProgress 
-                className="statProgress"
-                variant="determinate" 
-                color="error" 
-                value={characterManager.statPercent(player.armor)}
-              />
-              {'maxMana' in player && <LinearProgress 
-                                        className="statProgress" 
-                                        variant="determinate" 
-                                        value={characterManager.statPercent(player.maxMana)} 
-                                      />
+              <Tooltip className="tooltip" title={player.maxHealth} placement="right">
+                <LinearProgress
+                  className="statProgress"
+                  variant="determinate"
+                  color="success"
+                  value={characterManager.statPercent(player.maxHealth)}
+                />
+              </Tooltip>
+              <Tooltip className="tooltip" title={player.armor} placement="right">
+                <LinearProgress
+                  className="statProgress"
+                  variant="determinate"
+                  color="error"
+                  value={characterManager.statPercent(player.armor)}
+                />
+              </Tooltip>
+              {'maxMana' in player &&
+                <Tooltip className="tooltip" title={player.maxMana} placement="right">
+                  <LinearProgress
+                    className="statProgress"
+                    variant="determinate"
+                    value={characterManager.statPercent(player.maxMana)}
+                  />
+                </Tooltip>
               }
             </div>
           </div>

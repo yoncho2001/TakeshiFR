@@ -2,7 +2,7 @@ import './fightScreen.less';
 import { useState, useEffect } from 'react';
 import Villain from '../../classes/Villain.tsx';
 import { Link } from 'react-router-dom';
-import { Menu, MenuItem } from '@mui/material';
+import { Menu, MenuItem, Tooltip } from '@mui/material';
 import Button from '../../components/button.tsx';
 import Alert from '@mui/material/Alert';
 import CharacterManager from '../../functions/characterManager.tsx';
@@ -45,7 +45,7 @@ export default function FightMenu({ player, villain, endTurn }: FightMenuProps) 
         setAlertInfo({ show: true, message });
     };
 
-    const handleShowSketch = (abilityImg: string, isVilain:boolean) => {
+    const handleShowSketch = (abilityImg: string, isVilain: boolean) => {
         setAbilityImg(abilityImg);
         setShowSketch(true);
         setIsVilain(isVilain);
@@ -86,14 +86,16 @@ export default function FightMenu({ player, villain, endTurn }: FightMenuProps) 
                     onClose={() => { logicManager.handleClose(setAnchorEl); }}
                 >
                     {player.getAbilities().map((ability, index) => (
-                        <MenuItem
-                            key={ability.getName() + index}
-                            className='menuItem'
-                            disabled={ability.getCooldownCount() > 0}
-                            onClick={() => logicManager.makeDMG(player, villain, ability, setAnchorEl, endTurn, showAlert, handleShowSketch)}
-                        >
-                            {`${ability.getName()} ${ability.getCooldownCount() > 0 ? ability.getCooldownCount() + "cool" : ""}`}
-                        </MenuItem>
+                        <Tooltip className="tooltip" title={ability.getEffect()} placement="right">
+                            <MenuItem
+                                key={ability.getName() + index}
+                                className='menuItem'
+                                disabled={ability.getCooldownCount() > 0}
+                                onClick={() => logicManager.makeDMG(player, villain, ability, setAnchorEl, endTurn, showAlert, handleShowSketch)}
+                            >
+                                {`${ability.getName()} ${ability.getCooldownCount() > 0 ? ability.getCooldownCount() + "cool" : ""}`}
+                            </MenuItem>
+                        </Tooltip>
                     ))}
                 </Menu>
                 <Menu
