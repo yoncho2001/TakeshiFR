@@ -1,7 +1,7 @@
 import { constAbilities } from '../elementsOfHero/abilities.tsx';
 import { constPotions } from '../elementsOfHero/potions.tsx';
 import { constWeapons, defaultMageWeapon } from '../elementsOfHero/weapons.tsx';
-import { BASIC_ATTACK, BOLT, HEALTH_POTION, MAGE_TYPE, MANA_POTION, STAF } from '../globalElements/constants.tsx';
+import { BASIC_ATTACK, BOLT, HEAL, HEALTH_POTION, MAGE_TYPE, MANA_POTION, MEDITATE, STAF } from '../globalElements/constants.tsx';
 import Ability from './Abilities.tsx';
 import Character from './Character.tsx';
 
@@ -34,7 +34,7 @@ export default class MageHero extends Character {
     level: number = defaultLevel, maxMana: number = defaultMana) {
     super(name, maxHealth, strength, armor, abilities, potions, primaryWeapon,
       MAGE_TYPE, level);
-    
+
     this.mana = maxMana;
     this.maxMana = maxMana;
   }
@@ -90,7 +90,7 @@ export default class MageHero extends Character {
       ? (constWeapons.get(json.primaryWeapon) || defaultMageWeapon) : defaultMageWeapon;
 
     return new MageHero(json.name, json.maxHealth, json.strength, json.armor,
-                 abilities, potions, primaryWeapon, json.level, json.maxMana);
+      abilities, potions, primaryWeapon, json.level, json.maxMana);
   }
 
   public toJSON(): MageHeroJSON {
@@ -114,7 +114,7 @@ export default class MageHero extends Character {
       maxHealth: 100,
       strength: 10,
       armor: 20,
-      abilities: [BASIC_ATTACK, BOLT],
+      abilities: [BASIC_ATTACK, BOLT, MEDITATE, HEAL],
       potions: [HEALTH_POTION, HEALTH_POTION, MANA_POTION],
       primaryWeapon: STAF,
       type: MAGE_TYPE,

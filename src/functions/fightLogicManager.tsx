@@ -40,12 +40,12 @@ export default class FightLogicManager {
 
     private villainTurn(player: HeroInfo, villain: Villain,
         endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
-        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
+        handleShowSketch: (abilityImg: string, isVilain: boolean) => void) {
         const abilities = villain.getAbilities();
         let selectAbility: Ability | null = null;
-        
+
         if (villain.getHealth() <= 0) {
-            endTurn(player,villain,'villain');
+            endTurn(player, villain, 'player');
             return;
         }
 
@@ -61,7 +61,7 @@ export default class FightLogicManager {
     private useAbilityEffect(ability: Ability, character: AllCharacters,
         characterToDie: AllCharacters,
         endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
-        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
+        handleShowSketch: (abilityImg: string, isVilain: boolean) => void) {
         const isRangeHero = character instanceof RangeHero;
         const isVilain = character instanceof Villain;
         let abilityName = "";
@@ -84,8 +84,8 @@ export default class FightLogicManager {
                 ability.setcooldownCount();
 
                 isVilain ?
-                    endTurn(characterToDie as HeroInfo, character, 'villain' + ability.getName())
-                    : endTurn(character, characterToDie as Villain, 'player'+ ability.getName());
+                    endTurn(characterToDie as HeroInfo, character, 'villain')
+                    : endTurn(character, characterToDie as Villain, 'player');
             }, 1000);
         }
     }
@@ -119,7 +119,7 @@ export default class FightLogicManager {
         return check;
     }
 
-    private updateCooldowns(character: HeroInfo | Villain) {
+    private updateCooldowns(character: AllCharacters) {
         character.getAbilities().map((ability) => (
             ability.lowerCooldown()
         ));
@@ -139,7 +139,7 @@ export default class FightLogicManager {
         callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
         endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
         showAlert: (message: string) => void,
-        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
+        handleShowSketch: (abilityImg: string, isVilain: boolean) => void) {
 
         if (!this.haveMana(player, ability, showAlert)) {
             return;
@@ -149,7 +149,7 @@ export default class FightLogicManager {
             return;
         }
         if (villain.getHealth() <= 0 || player.getHealth() <= 0) {
-            endTurn(player, villain, 'player');
+            endTurn(player, villain, 'end');
         } else {
             this.useAbilityEffect(ability, player, villain, endTurn, handleShowSketch);
 
@@ -170,20 +170,23 @@ export default class FightLogicManager {
     public swapWeapons(character: HeroInfo, villain: Villain,
         callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
         endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
-        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
+        handleShowSketch: (abilityImg: string, isVilain: boolean) => void) {
         const isMeleeHero = character instanceof MeleeHero;
 
         if (isMeleeHero) {
             character.swapWeapon();
-            this.villainTurn(character, villain, endTurn, handleShowSketch);
+            this.updateCooldowns(character);
             this.handleClose(callbackFunction);
+            endTurn(character, villain, 'player');
+
+            this.villainTurn(character, villain, endTurn, handleShowSketch);
         }
     }
 
     public usePotion(character: HeroInfo, potionType: string, villain: Villain,
         callbackFunction: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
         endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
-        handleShowSketch: (abilityImg: string, isVilain:boolean) => void) {
+        handleShowSketch: (abilityImg: string, isVilain: boolean) => void) {
         const potionIndex = character.getPotions().findIndex(p => p.name === potionType);
         const potion = character.getPotions()[potionIndex];
 
@@ -196,6 +199,9 @@ export default class FightLogicManager {
 
             const updatedPotions = character.getPotions().filter((_, index) => index !== potionIndex);
             character.setPotions(updatedPotions);
+            this.updateCooldowns(character);
+            endTurn(character, villain, 'player');
+
             this.villainTurn(character, villain, endTurn, handleShowSketch);
         }
 

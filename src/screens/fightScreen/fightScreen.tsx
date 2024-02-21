@@ -23,7 +23,8 @@ export default function FightScreen({ levelName }: FightScreenProps) {
     const [villain, setVillain] = useState<Villain | null>(null);
     const [isGameOver, setIsGameOver] = useState<boolean>(false);
     const [isWin, setisWin] = useState<boolean>(false);
-    const [, setTurn] = useState<string>('');
+    const [levelCount, setLevelCount] = useState<number>(0);
+    const [turn, setTurn] = useState<string>('villain');
 
     useEffect(() => {
         let players = characterManager.getStoredPlayers();
@@ -70,19 +71,22 @@ export default function FightScreen({ levelName }: FightScreenProps) {
         }
     }
 
+    console.log(turn);
+
     if (!player || !villain) {
         return null;
     }
 
-    if (isGameOver && isWin) {
+    if (isGameOver && isWin && levelCount === 0) {
         player.levelUp();
         characterManager.updatePlayer(player.toJSON());
+        setLevelCount(levelCount + 1);
     }
 
     return (
         <>
             <FightScene player={player} villain={villain} />
-            <FightMenu player={player} villain={villain} endTurn={endTurn} />
+            <FightMenu player={player} villain={villain} endTurn={endTurn} turn={turn} />
             {isGameOver && <WinScene isWin={isWin} levelName={levelName} />}
         </>
     );

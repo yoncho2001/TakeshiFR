@@ -15,8 +15,10 @@ declare global {
     type levelInfo = {
         name: string,
         levelToReech: number
-        vilainStats: {health:number,
-                    strenght:number,
-                    armorr:number}
+        vilainStats: {
+            health: number,
+            strenght: number,
+            armorr: number
+        }
     }
 }

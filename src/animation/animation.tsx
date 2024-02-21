@@ -15,7 +15,7 @@ export default class AbilityImg {
         this.name = name;
         this.yPos = y;
         this.xPos = isVillain ? 550 : 0;
-        this.xSpeed = 10;
+        this.xSpeed = 12;
         this.img = p5.loadImage(this.name);
         this.visible = showSketch;
         this.isVillain = isVillain;

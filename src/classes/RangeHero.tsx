@@ -3,7 +3,7 @@ import Character from './Character.tsx';
 import { constAbilities } from '../elementsOfHero/abilities.tsx';
 import { constPotions } from '../elementsOfHero/potions.tsx';
 import { constWeapons, defaultMeleeWeapon } from '../elementsOfHero/weapons.tsx';
-import { RANGE_TYPE, HEALTH_POTION, BASIC_ATTACK, BOW } from '../globalElements/constants.tsx';
+import { RANGE_TYPE, HEALTH_POTION, BASIC_ATTACK, BOW, HEAVY_ATTACK } from '../globalElements/constants.tsx';
 const defaultLevel = 1;
 const defaultAmmo = 10;
 
@@ -22,7 +22,7 @@ export default class RangeHero extends Character {
     this.ammo += addAmmo;
   }
 
-  private scaleStats (addStat:number):number{
+  private scaleStats(addStat: number): number {
     return addStat * (1 + this.level * 0.5);
   }
 
@@ -55,7 +55,7 @@ export default class RangeHero extends Character {
       ? (constWeapons.get(json.primaryWeapon) || defaultMeleeWeapon) : defaultMeleeWeapon;
 
     return new RangeHero(json.name, json.maxHealth, json.strength, json.armor,
-                    abilities, potions, primaryWeapon, json.level, json.ammo);
+      abilities, potions, primaryWeapon, json.level, json.ammo);
   }
 
   public levelUp(): void {
@@ -89,7 +89,7 @@ export default class RangeHero extends Character {
       maxHealth: 100,
       strength: 20,
       armor: 30,
-      abilities: [BASIC_ATTACK],
+      abilities: [BASIC_ATTACK, HEAVY_ATTACK],
       potions: [HEALTH_POTION, HEALTH_POTION, HEALTH_POTION, HEALTH_POTION],
       primaryWeapon: BOW,
       type: RANGE_TYPE,

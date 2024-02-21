@@ -1,8 +1,10 @@
 import Ability from "../classes/Abilities";
 import Character from "../classes/Character";
 import { basicAttack, heavyAttack, breathe } from "../elementsOfHero/abilities";
-import { BASIC_ATTACK, MELEE_TYPE, MAGE_TYPE, RANGE_TYPE, BASIC_ATTACK_EFFECT
-       , HEAVY_ATTACK, HEAVY_ATTACK_EFFECT, BREATHE, BREATHE_EFFECT } from "../globalElements/constants";
+import {
+  BASIC_ATTACK, MELEE_TYPE, MAGE_TYPE, RANGE_TYPE, BASIC_ATTACK_EFFECT
+  , HEAVY_ATTACK, HEAVY_ATTACK_EFFECT, BREATHE, BREATHE_EFFECT
+} from "../globalElements/constants";
 
 const defaultLevel = 1;
 

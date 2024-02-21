@@ -1,4 +1,4 @@
-import {MAGE_TYPE, MELEE_TYPE, PLAYER_COUNT_LIMIT, PLAYERS_KEY, RANGE_TYPE } from '../globalElements/constants.tsx'
+import { MAGE_TYPE, MELEE_TYPE, PLAYER_COUNT_LIMIT, PLAYERS_KEY, RANGE_TYPE } from '../globalElements/constants.tsx'
 import { constWeapons } from "../elementsOfHero/weapons";
 import * as React from "react";
 
@@ -123,8 +123,8 @@ export default class CharacterManager {
         return countPotion;
     }
 
-    public statPercent (maxValue:number, currentValue?:number): number{
-        let value =currentValue?(currentValue/maxValue) * 100 : 100;
+    public statPercent(maxValue: number, currentValue?: number): number {
+        let value = currentValue ? (currentValue / maxValue) * 100 : 100;
         return value;
     }
 

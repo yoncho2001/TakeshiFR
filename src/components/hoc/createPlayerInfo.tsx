@@ -41,7 +41,7 @@ function createHero(type: HERO_TYPES, playerName: string, callbackFunction: Reac
 
     if (defaultPlayerSerializer) {
         playerInfo = defaultPlayerSerializer(playerNameToSave);
-        
+
     }
 
     characterManager.savePlayer(playerInfo, callbackFunction);

@@ -9,7 +9,7 @@ interface BadgeProps {
 
 export default function Badge({ className, badgeContent, children }: BadgeProps) {
     return (
-        <MuiBadge 
+        <MuiBadge
             className={className} badgeContent={badgeContent} color="primary"
             anchorOrigin={{
                 vertical: 'bottom',

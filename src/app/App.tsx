@@ -7,9 +7,7 @@ import PlayerScreen from '../screens/playerScreen/playerScreen.tsx';
 import LevelsScreen from '../screens/levelsScreen/levelsScreen.tsx';
 import FightScreen from '../screens/fightScreen/fightScreen.tsx';
 
-import SketchComponent from '../animation/SketchComponent';
-
-export default function App(){
+export default function App() {
     const [currentPlayer, setCurrentPlayer] = useState<string>("");
     const [currentLevel, setCurrentLevel] = useState<string>("");
 
@@ -17,14 +15,14 @@ export default function App(){
         <div>
             <h1>Yoncho Takeshi</h1>
             <PlayerContext.Provider value={{ currentPlayer, setCurrentPlayer }}>
-            <Routes>
-                <Route path="/" element={ <StartScreen /> }/>
-                <Route path="/create" element={ <CreateScreen /> }/>
-                <Route path="/player" element={ <PlayerScreen /> }/>
-                <Route path="/levels" element={ <LevelsScreen setLevel= {setCurrentLevel} /> }/>
-                <Route path="/fight" element={ <FightScreen levelName={currentLevel}/> }/>
-            </Routes>
+                <Routes>
+                    <Route path="/" element={<StartScreen />} />
+                    <Route path="/create" element={<CreateScreen />} />
+                    <Route path="/player" element={<PlayerScreen />} />
+                    <Route path="/levels" element={<LevelsScreen setLevel={setCurrentLevel} />} />
+                    <Route path="/fight" element={<FightScreen levelName={currentLevel} />} />
+                </Routes>
             </PlayerContext.Provider>
         </div>
-    )    
+    )
 }

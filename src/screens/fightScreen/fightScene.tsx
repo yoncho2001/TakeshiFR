@@ -1,7 +1,7 @@
 import Character from '../../classes/Character';
 import CharacterManager from '../../functions/characterManager';
 import './fightScreen.less';
-import { LinearProgress, Tooltip } from '@mui/material';
+import LinearProgress from '../../components/linearProgress.tsx';
 
 interface FightSceneProps {
     player: HeroInfo,
@@ -22,52 +22,43 @@ export default function FightScene({ player, villain }: FightSceneProps) {
         <div id="scene">
             <div id='statsHero'>
                 <div className='stats'>
-                    <Tooltip className="tooltip" title={player.getHealth()} placement="right">
-                        <LinearProgress
-                            className="statProgress"
-                            variant="determinate"
-                            color="success"
-                            value={playerTempHealth}
-                        />
-                    </Tooltip>
-                    <Tooltip className="tooltip" title={player.getArmor()} placement="right">
-                        <LinearProgress
-                            className="statProgress"
-                            variant="determinate"
-                            color="error"
-                            value={playerTempArmor}
-                        />
-                    </Tooltip>
+                    <LinearProgress
+                        className="linearProgress"
+                        color="success"
+                        value={playerTempHealth}
+                        title={player.getHealth()}
+                    />
+                    <LinearProgress
+                        className="linearProgress"
+                        color="error"
+                        value={playerTempArmor}
+                        title={player.getArmor()}
+                    />
                     {'mana' in player &&
-                        <Tooltip className="tooltip" title={player.getMana()} placement="right">
-                            <LinearProgress
-                                className="statProgress"
-                                variant="determinate"
-                                value={playerTempMana}
-                            />
-                        </Tooltip>
+                        <LinearProgress
+                            className="linearProgress"
+                            value={playerTempMana}
+                            title={player.getMana()}
+                        />
                     }
                 </div>
                 <img id="heroImg" src={`../../../public/Picture${player.getType()}.svg`} alt="icon" />
             </div>
 
-            <div id='statsVillain' className='stats'>
+            <div id='statsVillain'>
                 <div className='stats'>
-                    <Tooltip className="tooltip" title={villainTempHealth} placement="right">
-                        <LinearProgress
-                            className="statProgress"
-                            variant="determinate" color="success"
-                            value={villainTempHealth}
-                        />
-                    </Tooltip>
-                    <Tooltip className="tooltip" title={villainTempArmor} placement="right">
-                        <LinearProgress
-                            className="statProgress"
-                            variant="determinate"
-                            color="error"
-                            value={villainTempArmor}
-                        />
-                    </Tooltip>
+                    <LinearProgress
+                        className="linearProgressVilain"
+                        color="success"
+                        value={villainTempHealth}
+                        title={villain.getHealth()}
+                    />
+                    <LinearProgress
+                        className="linearProgressVilain"
+                        color="error"
+                        value={villainTempArmor}
+                        title={villain.getArmor()}
+                    />
                 </div>
                 <img id="villainImg" src={`../../../public/PictureBoss${villain.getName()}.svg`} alt="icon" />
             </div>

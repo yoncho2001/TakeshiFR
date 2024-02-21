@@ -14,16 +14,17 @@ interface FightMenuProps {
     player: HeroInfo,
     villain: Villain,
     endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
+    turn: string
 }
 
-export default function FightMenu({ player, villain, endTurn }: FightMenuProps) {
+export default function FightMenu({ player, villain, endTurn, turn }: FightMenuProps) {
     const logicManager = new FightLogicManager();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const openAbilities = Boolean(anchorEl?.id === "abilitiesButton");
     const openItems = Boolean(anchorEl?.id === "itemsButton");
     const [alertInfo, setAlertInfo] = useState({ show: false, message: '' });
     const [showSketch, setShowSketch] = useState(false);
-    const [isVilain, setIsVilain] = useState(false);
+    const [isVillain, setIsVillain] = useState(false);
     const [abilityImg, setAbilityImg] = useState('Arrow');
 
     let characterManager = new CharacterManager();
@@ -31,7 +32,6 @@ export default function FightMenu({ player, villain, endTurn }: FightMenuProps) 
     let countManaP = characterManager.countPotions(player.getPotions(), MANA_POTION);
 
     useEffect(() => {
-
         if (alertInfo.show) {
             const timer = setTimeout(() => {
                 setAlertInfo({ ...alertInfo, show: false });
@@ -45,13 +45,13 @@ export default function FightMenu({ player, villain, endTurn }: FightMenuProps) 
         setAlertInfo({ show: true, message });
     };
 
-    const handleShowSketch = (abilityImg: string, isVilain: boolean) => {
+    const handleShowSketch = (abilityImg: string, isVillain: boolean) => {
         setAbilityImg(abilityImg);
         setShowSketch(true);
-        setIsVilain(isVilain);
+        setIsVillain(isVillain);
         setTimeout(() => {
             setShowSketch(false);
-        }, 1200);
+        }, 900);
     };
 
     return (
@@ -86,14 +86,21 @@ export default function FightMenu({ player, villain, endTurn }: FightMenuProps) 
                     onClose={() => { logicManager.handleClose(setAnchorEl); }}
                 >
                     {player.getAbilities().map((ability, index) => (
-                        <Tooltip className="tooltip" title={ability.getEffect()} placement="right">
+                        <Tooltip key={ability.getName() + index + "tooltip"} title={ability.getEffect()} placement="right">
                             <MenuItem
                                 key={ability.getName() + index}
                                 className='menuItem'
-                                disabled={ability.getCooldownCount() > 0}
+                                disabled={ability.getCooldownCount() > 0 || turn !== 'villain'}
                                 onClick={() => logicManager.makeDMG(player, villain, ability, setAnchorEl, endTurn, showAlert, handleShowSketch)}
                             >
-                                {`${ability.getName()} ${ability.getCooldownCount() > 0 ? ability.getCooldownCount() + "cool" : ""}`}
+                                <div className='abilityWrap'>
+                                    <b>{`${ability.getName()}`}</b>
+                                    <small className='smallText'>
+                                        {` ${ability.getCooldownCount() > 0 ? ability.getCooldownCount() + "cooldown"
+                                            : ` ${ability.getCooldown() > 0 ? ability.getCooldown() + "cooldown" : ""}`
+                                            + ` ${ability.getCost() > 0 ? ability.getCost() + " mana" : ""}`}`}
+                                    </small>
+                                </div>
                             </MenuItem>
                         </Tooltip>
                     ))}
@@ -112,18 +119,33 @@ export default function FightMenu({ player, villain, endTurn }: FightMenuProps) 
                     onClose={() => { logicManager.handleClose(setAnchorEl); }}
                 >
                     {countHealtP > 0 &&
-                        <MenuItem onClick={() => { logicManager.usePotion(player, HEALTH_POTION, villain, setAnchorEl, endTurn, handleShowSketch); }}>{`HealthPotion x${countHealtP}`}</MenuItem>
+                        <MenuItem
+                            disabled={turn !== 'villain'}
+                            onClick={() => { logicManager.usePotion(player, HEALTH_POTION, villain, setAnchorEl, endTurn, handleShowSketch); }}
+                        >
+                            {`HealthPotion x${countHealtP}`}
+                        </MenuItem>
                     }
                     {countManaP > 0 &&
-                        <MenuItem onClick={() => { logicManager.usePotion(player, MANA_POTION, villain, setAnchorEl, endTurn, handleShowSketch); }}>{`ManaPotion x${countManaP}`}</MenuItem>
+                        <MenuItem
+                            disabled={turn !== 'villain'}
+                            onClick={() => { logicManager.usePotion(player, MANA_POTION, villain, setAnchorEl, endTurn, handleShowSketch); }}
+                        >
+                            {`ManaPotion x${countManaP}`}
+                        </MenuItem>
                     }
                     {'secondaryWeapon' in player &&
-                        <MenuItem onClick={() => { logicManager.swapWeapons(player, villain, setAnchorEl, endTurn, handleShowSketch); }}>{player.getSecondaryWeapon().name}</MenuItem>
+                        <MenuItem
+                            disabled={turn !== 'villain'}
+                            onClick={() => { logicManager.swapWeapons(player, villain, setAnchorEl, endTurn, handleShowSketch); }}
+                        >
+                            {player.getSecondaryWeapon().name}
+                        </MenuItem>
                     }
                 </Menu>
 
                 <Link to='/levels' className="buttonLink"><Button variant='contained' className='emptyButton' content={'<Flee'} /></Link>
-                {showSketch && <SketchComponent abilityImgRaw={`../../../public/Picture${abilityImg}.svg`} showSketch={showSketch} isVilain={isVilain} />}
+                {showSketch && <SketchComponent abilityImgRaw={`../../../public/Picture${abilityImg}.svg`} showSketch={showSketch} isVillain={isVillain} />}
                 {alertInfo.show && (
                     <Alert severity="error" id="alert" >
                         {alertInfo.message}

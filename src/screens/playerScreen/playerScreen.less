@@ -32,19 +32,29 @@
         display: flex;
         flex-direction: column;
         margin-right: 1em;
+        margin-bottom: 1em;
     }
 
     #statsInfo {
         display: flex;
         flex-direction: row;
-        margin-bottom: 1.5em;
+        margin-bottom: 1em;
 
         #stats {
             width: 10em;
 
+
             .statProgress {
-                margin-bottom: 1em;
                 border-radius: 0.5em;
+                width: 10em;
+            }
+
+            .linearProgress {
+                font-size: 0.8em;
+                line-height: 1.8;
+                display: flex;
+                align-items: center;
+                justify-content: space-between
             }
         }
     }
