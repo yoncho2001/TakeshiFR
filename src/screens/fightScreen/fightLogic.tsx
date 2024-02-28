@@ -47,11 +47,14 @@ export default function FightLogic({ levelName }: FightLogicProps) {
         const villain = new Villain(villainInfo, loadedPlayer.getLevel());
         setVillain(villain);
 
+    }, []);
+
+    useEffect(()=>{
         const rootElement = document.getElementById('background')as HTMLElement;
 
         if (rootElement) {
             if (!discoChek) {
-                rootElement.style.backgroundImage = `url(../../../public/Picture${villain.getName()}.svg)`;
+                rootElement.style.backgroundImage = `url(../../../public/Picture${levelName}.svg)`;
             }
             else {
                 const discoBackground = `discoBackground`;
@@ -80,7 +83,8 @@ export default function FightLogic({ levelName }: FightLogicProps) {
                 rootElement.classList.remove('discoBackground');
             }
         };
-    }, [discoChek]);
+
+    },[discoChek]);
 
     const endTurn = (player: HeroInfo, villain: Villain, endOf: string) => {
         setTurn(endOf);
