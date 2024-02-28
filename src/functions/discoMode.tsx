@@ -21,7 +21,7 @@ export function startDiscoColor() {
             elements.forEach((element) => {
                 (element as HTMLElement).style.color = getRandomColor();
             });
-        }, 100);
+        }, 150);
     }
 }
 
@@ -45,7 +45,7 @@ export function startDiscoBackground() {
             elements.forEach((element) => {
                 (element as HTMLElement).style.backgroundColor = getRandomColor();
             });
-        }, 100);
+        }, 150);
     }
 }
 
