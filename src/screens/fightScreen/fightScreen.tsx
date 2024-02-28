@@ -14,6 +14,8 @@ interface FightScreenProps {
     levelName: string
 }
 
+let discoBackgroundColor: number | null = null;
+
 export default function FightScreen({ levelName }: FightScreenProps) {
     const logicManager = new FightLogicManager();
     const characterManager = new CharacterManager();
@@ -25,6 +27,8 @@ export default function FightScreen({ levelName }: FightScreenProps) {
     const [isWin, setisWin] = useState<boolean>(false);
     const [levelCount, setLevelCount] = useState<number>(0);
     const [turn, setTurn] = useState<string>('villain');
+
+    const [discoChek, setDiscoChek] = useState(false);
 
     useEffect(() => {
         let players = characterManager.getStoredPlayers();
@@ -41,21 +45,61 @@ export default function FightScreen({ levelName }: FightScreenProps) {
         setPlayer(loadedPlayer);
 
         const villain = new Villain(villainInfo, loadedPlayer.getLevel());
-        console.log(villain.getHealth());
         setVillain(villain);
 
         const rootElement = document.getElementById('root');
+        let styleElement;
 
         if (rootElement) {
-            rootElement.style.backgroundImage = `url(../../../public/Picture${villain.getName()}.svg)`;
+            if (!discoChek) {
+                rootElement.style.backgroundImage = `url(../../../public/Picture${villain.getName()}.svg)`;
+            }
+            else {
+                const discoBackground = `discoBackground`;
+                rootElement.classList.add(discoBackground);
+
+                const cssString = `
+            .${discoBackground}::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../../../public/Picture${villain.getName()}.svg');
+            background-size: cover;
+            background-position: center;
+            filter: hue-rotate(${Math.floor(Math.random() * 360)}deg);
+            z-index: -1;
+            }
+    
+            .${discoBackground} {
+            position: relative;
+            }`;
+
+                styleElement = document.createElement('style');
+                styleElement.setAttribute('class', 'discoBackground');
+                styleElement.appendChild(document.createTextNode(cssString));
+                rootElement.appendChild(styleElement);
+            }
         }
 
         return () => {
             if (rootElement) {
                 rootElement.style.backgroundImage = 'none';
+                rootElement.classList.remove('discoBackground');
             }
         };
-    }, []);
+    }, [discoChek]);
+
+    /*const backgroundElement = document.querySelector('.discoBackground')as HTMLElement;
+    if (backgroundElement) {
+        discoBackgroundColor = setInterval(() => {
+            const hue = Math.floor(Math.random() * 360);
+            backgroundElement.style.filter = `hue-rotate(${hue}deg)`
+            
+        }, 100);
+    }*/
 
     const endTurn = (player: HeroInfo, villain: Villain, endOf: string) => {
         setTurn(endOf);
@@ -71,8 +115,6 @@ export default function FightScreen({ levelName }: FightScreenProps) {
         }
     }
 
-    console.log(turn);
-
     if (!player || !villain) {
         return null;
     }
@@ -85,8 +127,8 @@ export default function FightScreen({ levelName }: FightScreenProps) {
 
     return (
         <>
-            <FightScene player={player} villain={villain} />
-            <FightMenu player={player} villain={villain} endTurn={endTurn} turn={turn} />
+            <FightScene player={player} villain={villain} discoChek={discoChek} />
+            <FightMenu player={player} villain={villain} endTurn={endTurn} turn={turn} setDiscoChek={setDiscoChek} discoChek={discoChek} />
             {isGameOver && <WinScene isWin={isWin} levelName={levelName} />}
         </>
     );

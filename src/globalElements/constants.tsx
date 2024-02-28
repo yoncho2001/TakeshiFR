@@ -13,6 +13,9 @@ export const defaultHero: MageHeroJSON = {
     maxMana: 5
 }
 
+export const discoColor = 'discoColor';
+export const discoBackground = 'discoBackground';
+
 //Hero constants
 export const defaultLevel = 1;
 export const MELEE_TYPE = 'Melee';

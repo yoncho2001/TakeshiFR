@@ -29,9 +29,9 @@ export default class AbilityImg {
             
             if (this.isVillain) {
                 p5.scale(-1, 1); 
-                p5.image(this.img, -this.img.width, 0);
+                p5.image(this.img, -this.img.width, 0,100,100);
             } else {
-                p5.image(this.img, 0, 0);
+                p5.image(this.img, 0, 0,100,100);
             }
 
             p5.pop();

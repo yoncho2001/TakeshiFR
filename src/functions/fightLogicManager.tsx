@@ -74,6 +74,10 @@ export default class FightLogicManager {
                 abilityName = ability.getName();
             }
 
+            if (!isVilain) {
+                endTurn(character, characterToDie as Villain, 'player');
+            }
+
             handleShowSketch(abilityName, isVilain);
 
             setTimeout(() => {
@@ -83,9 +87,11 @@ export default class FightLogicManager {
                 this.updateCooldowns(character);
                 ability.setcooldownCount();
 
-                isVilain ?
-                    endTurn(characterToDie as HeroInfo, character, 'villain')
-                    : endTurn(character, characterToDie as Villain, 'player');
+                if (isVilain) {
+                    endTurn(characterToDie as HeroInfo, character, 'villain');
+                } else{
+                    endTurn(character, characterToDie as Villain, 'playerEnd');
+                }
             }, 1000);
         }
     }
@@ -174,10 +180,10 @@ export default class FightLogicManager {
         const isMeleeHero = character instanceof MeleeHero;
 
         if (isMeleeHero) {
+            endTurn(character, villain, 'player');
             character.swapWeapon();
             this.updateCooldowns(character);
             this.handleClose(callbackFunction);
-            endTurn(character, villain, 'player');
 
             this.villainTurn(character, villain, endTurn, handleShowSketch);
         }
@@ -191,6 +197,7 @@ export default class FightLogicManager {
         const potion = character.getPotions()[potionIndex];
 
         if (potionIndex !== -1 && potion) {
+            endTurn(character, villain, 'player');
             const effect = potionEffects.get(potion.affectingField);
 
             if (effect) {
@@ -200,7 +207,6 @@ export default class FightLogicManager {
             const updatedPotions = character.getPotions().filter((_, index) => index !== potionIndex);
             character.setPotions(updatedPotions);
             this.updateCooldowns(character);
-            endTurn(character, villain, 'player');
 
             this.villainTurn(character, villain, endTurn, handleShowSketch);
         }

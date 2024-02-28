@@ -2,14 +2,14 @@ import Character from '../../classes/Character';
 import CharacterManager from '../../functions/characterManager';
 import './fightScreen.less';
 import LinearProgress from '../../components/linearProgress.tsx';
-
 interface FightSceneProps {
     player: HeroInfo,
     villain: Character,
     background?: string,
+    discoChek?:boolean
 }
 
-export default function FightScene({ player, villain }: FightSceneProps) {
+export default function FightScene({ player, villain, discoChek}: FightSceneProps) {
     const characterManager = new CharacterManager();
     const villainTempHealth = characterManager.statPercent(villain.getMaxHealth(), villain.getHealth());
     const villainTempArmor = characterManager.statPercent(villain.getArmor());
@@ -42,7 +42,7 @@ export default function FightScene({ player, villain }: FightSceneProps) {
                         />
                     }
                 </div>
-                <img id="heroImg" src={`../../../public/Picture${player.getType()}.svg`} alt="icon" />
+                <img id="heroImg" src={`../../../public/Picture${player.getType()}${discoChek ? 'Disco' : ''}.svg`} alt="icon" />
             </div>
 
             <div id='statsVillain'>
@@ -60,7 +60,7 @@ export default function FightScene({ player, villain }: FightSceneProps) {
                         title={villain.getArmor()}
                     />
                 </div>
-                <img id="villainImg" src={`../../../public/PictureBoss${villain.getName()}.svg`} alt="icon" />
+                <img id="villainImg" src={`../../../public/PictureBoss${villain.getName()}${discoChek ? 'Disco' : ''}.svg`} alt="icon" />
             </div>
         </div>
     );

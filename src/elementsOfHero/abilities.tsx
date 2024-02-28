@@ -35,7 +35,6 @@ export function heavyAttack(dealer: AllCharacters, tanker: AllCharacters): numbe
 }
 
 export function bolt(dealer: AllCharacters, tanker: AllCharacters): number {
-    console.log("bolt");
     return 3 * calkStrength(dealer) - tanker.getArmor();
 }
 
@@ -44,7 +43,6 @@ export function meditate(dealer: AllCharacters, tanker: AllCharacters): number {
         dealer.healMana(healMana);
     }
 
-    console.log("meditate");
     return 0;
 }
 
@@ -53,7 +51,6 @@ export function heal(dealer: AllCharacters, tanker: AllCharacters): number {
         dealer.heal(2 * dealer.getPrimaryWeapon().damage);
     }
 
-    console.log("heal");
     return 0;
 }
 

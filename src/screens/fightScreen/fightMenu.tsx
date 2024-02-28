@@ -2,22 +2,25 @@ import './fightScreen.less';
 import { useState, useEffect } from 'react';
 import Villain from '../../classes/Villain.tsx';
 import { Link } from 'react-router-dom';
-import { Menu, MenuItem, Tooltip } from '@mui/material';
+import { Checkbox, FormControlLabel, Menu, MenuItem, Tooltip } from '@mui/material';
 import Button from '../../components/button.tsx';
 import Alert from '@mui/material/Alert';
 import CharacterManager from '../../functions/characterManager.tsx';
 import FightLogicManager from '../../functions/fightLogicManager.tsx';
-import { HEALTH_POTION, MANA_POTION } from '../../globalElements/constants.tsx';
+import { DISCO_BOSS, HEALTH_POTION, MANA_POTION, discoBackground, discoColor } from '../../globalElements/constants.tsx';
 import SketchComponent from '../../animation/SketchComponent.tsx';
+import { startDiscoBackground, startDiscoColor, stopDiscoBackground, stopDiscoColor } from '../../functions/discoMode.tsx';
 
 interface FightMenuProps {
     player: HeroInfo,
     villain: Villain,
     endTurn: (player: HeroInfo, villain: Villain, endOf: string) => void,
-    turn: string
+    turn: string,
+    setDiscoChek: React.Dispatch<React.SetStateAction<boolean>>,
+    discoChek: boolean
 }
 
-export default function FightMenu({ player, villain, endTurn, turn }: FightMenuProps) {
+export default function FightMenu({ player, villain, endTurn, turn, setDiscoChek, discoChek }: FightMenuProps) {
     const logicManager = new FightLogicManager();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const openAbilities = Boolean(anchorEl?.id === "abilitiesButton");
@@ -35,7 +38,7 @@ export default function FightMenu({ player, villain, endTurn, turn }: FightMenuP
         if (alertInfo.show) {
             const timer = setTimeout(() => {
                 setAlertInfo({ ...alertInfo, show: false });
-            }, 2500);
+            }, 2700);
 
             return () => clearTimeout(timer);
         }
@@ -51,7 +54,18 @@ export default function FightMenu({ player, villain, endTurn, turn }: FightMenuP
         setIsVillain(isVillain);
         setTimeout(() => {
             setShowSketch(false);
-        }, 900);
+        }, 1400);
+    };
+
+    const checkDisco = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDiscoChek(event.target.checked);
+        if (event.target.checked) {
+            startDiscoColor();
+            startDiscoBackground();
+        } else {
+            stopDiscoColor();
+            stopDiscoBackground();
+        }
     };
 
     return (
@@ -60,7 +74,7 @@ export default function FightMenu({ player, villain, endTurn, turn }: FightMenuP
                 <Button
                     variant='contained'
                     id="abilitiesButton"
-                    className='emptyButton'
+                    className={'emptyButton ' + discoBackground}
                     content={'Abilities'}
                     onClick={(event) => { logicManager.handleClick(event, setAnchorEl) }}
                 >
@@ -68,7 +82,7 @@ export default function FightMenu({ player, villain, endTurn, turn }: FightMenuP
                 <Button
                     variant='contained'
                     id="itemsButton"
-                    className='emptyButton'
+                    className={'emptyButton ' + discoBackground}
                     content={'Items'}
                     onClick={(event) => { logicManager.handleClick(event, setAnchorEl) }}
                 ></Button>
@@ -143,9 +157,22 @@ export default function FightMenu({ player, villain, endTurn, turn }: FightMenuP
                         </MenuItem>
                     }
                 </Menu>
-
-                <Link to='/levels' className="buttonLink"><Button variant='contained' className='emptyButton' content={'<Flee'} /></Link>
-                {showSketch && <SketchComponent abilityImgRaw={`../../../public/Picture${abilityImg}.svg`} showSketch={showSketch} isVillain={isVillain} />}
+                <Link to='/levels' className="buttonLink">
+                    <Button variant='contained' className={'emptyButton ' + discoBackground} content={'<Flee'} />
+                </Link>
+                {DISCO_BOSS == villain.getName() &&
+                    <FormControlLabel
+                        value="bottom"
+                        className={'discoChek ' + discoColor}
+                        control={<Checkbox
+                            onChange={checkDisco}
+                            inputProps={{ 'aria-label': 'controlled' }}
+                        />}
+                        label="Disko Mode"
+                        labelPlacement="bottom"
+                    />
+                }
+                {showSketch && <SketchComponent abilityImgRaw={`../../../public/Picture${abilityImg}${discoChek ? 'Disco' : ''}.svg`} showSketch={showSketch} isVillain={isVillain} />}
                 {alertInfo.show && (
                     <Alert severity="error" id="alert" >
                         {alertInfo.message}

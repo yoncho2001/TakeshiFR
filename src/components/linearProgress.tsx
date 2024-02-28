@@ -1,4 +1,5 @@
 import { LinearProgress as MuiLinearProgress } from "@mui/material";
+import { discoBackground, discoColor } from "../globalElements/constants";
 
 interface LinearProgressProps {
     className?: string;
@@ -11,12 +12,12 @@ export default function LinearProgress({ className, color, value, title }: Linea
     return (
         <div className={className}>
             <MuiLinearProgress
-                className="statProgress"
+                className={"statProgress " + discoBackground}
                 variant="determinate"
                 color={color}
                 value={value}
             />
-            <b>{title}</b>
+            <b className= {discoColor}>{title}</b>
         </div>
     );
 }
