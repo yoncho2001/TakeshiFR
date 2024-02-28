@@ -20,7 +20,7 @@ export default function SketchComponent({ abilityImgRaw, showSketch, isVillain }
             };
 
             p5.setup = () => {
-                const canvas = p5.createCanvas(650, 600);
+                const canvas = p5.createCanvas(615, 600);
                 canvas.parent("root");
                 abilityImg.createAbilityImg();
             };
