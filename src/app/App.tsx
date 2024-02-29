@@ -6,7 +6,7 @@ import CreateScreen from '../screens/createScreen/createScreen.tsx';
 import PlayerScreen from '../screens/playerScreen/playerScreen.tsx';
 import LevelsScreen from '../screens/levelsScreen/levelsScreen.tsx';
 import FightScreen from '../screens/fightScreen/fightScreen.tsx';
-import { discoColor } from '../globalElements/constants.tsx';
+import { DISCO_BOSS, discoColor } from '../globalElements/constants.tsx';
 
 export default function App() {
     const [currentPlayer, setCurrentPlayer] = useState<string>("");
@@ -14,7 +14,7 @@ export default function App() {
 
     return (
         <div>
-            <h1 className= {discoColor}>Yoncho Takeshi</h1>
+            <h1 className= {currentLevel === DISCO_BOSS ? discoColor : ""}>Yoncho Takeshi</h1>
             <PlayerContext.Provider value={{ currentPlayer, setCurrentPlayer }}>
                 <Routes>
                     <Route path="/" element={<StartScreen />} />

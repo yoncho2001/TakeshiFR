@@ -158,7 +158,7 @@ export default function FightMenu({ player, villain, endTurn, turn, setDiscoChek
                     }
                 </Menu>
                 <Link to='/levels' className="buttonLink">
-                    <Button variant='contained' className={'emptyButton ' + discoBackground} content={'<Flee'} />
+                    <Button onClick={()=>{stopDiscoColor()}} variant='contained' className={'emptyButton ' + discoBackground} content={'<Flee'} />
                 </Link>
                 {DISCO_BOSS == villain.getName() &&
                     <FormControlLabel

@@ -6,6 +6,7 @@ import { useContext, useEffect } from 'react';
 import PlayerContext from '../../components/PlayerContext.tsx';
 import { useNavigate } from 'react-router-dom';
 import CharacterManager from '../../functions/characterManager.tsx';
+import { DESERT_BOSS, MOUNTAIN_BOSS, DISCO_BOSS, CASTLE_BOSS } from '../../globalElements/constants.tsx';
 type InsertNameProps = {
     setLevel: (input: string) => void
 }
@@ -31,16 +32,16 @@ export default function LevelsScreen({ setLevel }: InsertNameProps) {
         <>
             <h2>Chose level</h2>
             <div className="levelsStack" >
-                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='DesertDead' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName= {DESERT_BOSS} setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureDesertDead.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='MountainGiant' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName={MOUNTAIN_BOSS} setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureMountainGiant.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='DiscoCrawler' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName={DISCO_BOSS} setLevel={setLevel}>
                     <img className='levelImg' src={`../../../PictureDiscoCrawler.svg`} alt="icon" />
                 </LevelLink>
-                <LevelLink className="levelLink" to='/fight' level={player.level} levelName='CastleJuggerknight' setLevel={setLevel}>
+                <LevelLink className="levelLink" to='/fight' level={player.level} levelName={CASTLE_BOSS} setLevel={setLevel}>
                     <img className="levelImg" src={`../../../PictureCastleJuggerknight.svg`} alt="icon" />
                 </LevelLink>
             </div>
