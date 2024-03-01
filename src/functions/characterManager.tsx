@@ -42,7 +42,7 @@ export default class CharacterManager {
 
         const heroCount = Object.keys(players).length;
 
-        if (heroCount < PLAYER_COUNT_LIMIT) {
+        if (heroCount <= PLAYER_COUNT_LIMIT) {
             players[player.name] = player;
             console.log(player);
             this.updateRawPlayer(players);
@@ -53,7 +53,7 @@ export default class CharacterManager {
 
     public savePlayer(player: HeroToJSON, callbackFunction: React.Dispatch<React.SetStateAction<string>>) {
         let heroCount = this.updatePlayer(player);
-        if (heroCount < PLAYER_COUNT_LIMIT) {
+        if (heroCount <= PLAYER_COUNT_LIMIT) {
             this.saveCurrentPlayer(player.name, callbackFunction);
         }
     }
