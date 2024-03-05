@@ -12,5 +12,8 @@ export default function TextField({ className, id, label, inputLeters, ...restPr
         id={id}
         className={className}
         label={label}{...restProps}
+        inputProps={{
+            maxLength: inputLeters
+          }}
     />;
 }
