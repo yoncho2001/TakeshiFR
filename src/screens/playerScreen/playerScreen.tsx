@@ -6,8 +6,6 @@ import PlayerContext from '../../components/PlayerContext.tsx';
 import RenderItems from "./renderItems.tsx";
 import LinearProgress from '../../components/linearProgress.tsx';
 import CharacterManager from '../../functions/characterManager.tsx';
-import { Tooltip } from '@mui/material';
-//import Mage from '../../../public/PictureMelee.svg';
 
 export default function PlayerScreen() {
   let characterManager = new CharacterManager();

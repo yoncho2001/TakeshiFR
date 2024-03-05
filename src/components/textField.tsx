@@ -5,10 +5,10 @@ interface TextFieldProps {
     id?: string,
     label: string,
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    inputLeters:number
 }
 
-export default function TextField({ className, id, label, ...restProps }: TextFieldProps) {
-    return <MuiTextField
+export default function TextField({ className, id, label, inputLeters, ...restProps }: TextFieldProps) {    return <MuiTextField
         id={id}
         className={className}
         label={label}{...restProps}

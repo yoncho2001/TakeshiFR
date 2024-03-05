@@ -8,7 +8,10 @@ export default function InsertName({ onChange }: InsertNameProps) {
         <>
             <section className="textField">
                 <h2>NAME:</h2>
-                <TextField id="playerName" label="Enter Name"
+                <TextField 
+                    id="playerName" 
+                    label="Enter Name"
+                    inputLeters = {15}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         onChange(event.target.value);
                     }}

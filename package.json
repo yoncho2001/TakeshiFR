@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "react-scripts test"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -18,10 +19,12 @@
     "p5": "^1.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3",
+    "react-router-dom": "^6.22.2",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.2.1",
+    "@types/jest": "^29.5.12",
     "@types/p5": "^1.7.6",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",

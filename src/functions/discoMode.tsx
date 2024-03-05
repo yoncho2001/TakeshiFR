@@ -9,17 +9,16 @@ function getRandomColor() {
     return color;
 }
 
-let discoIntervalColor:number | null= null;
-let discoIntervalBbackground:number | null= null;
+let discoIntervalColor:NodeJS.Timeout | null= null;
+let discoIntervalBbackground:NodeJS.Timeout | null= null;
 
 
 export function startDiscoColor() {
-    const elements = document.querySelectorAll('.' + discoColor);
-    if (elements.length > 0) {
-        stopDiscoColor(); 
+    const elements:NodeListOf<HTMLElement> = document.querySelectorAll('.' + discoColor);
+    if (elements.length > 0) { 
         discoIntervalColor = setInterval(() => {
             elements.forEach((element) => {
-                (element as HTMLElement).style.color = getRandomColor();
+                (element).style.color = getRandomColor();
             });
         }, 150);
     }
@@ -30,9 +29,9 @@ export function stopDiscoColor(originalColor: string = "") {
         clearInterval(discoIntervalColor);
         discoIntervalColor = null;
 
-        const elements = document.querySelectorAll('.' + discoColor);
+        const elements:NodeListOf<HTMLElement> = document.querySelectorAll('.' + discoColor);
         elements.forEach((element) => {
-            (element as HTMLElement).style.color = originalColor;
+            (element).style.color = originalColor;
         });
     }
 }
@@ -40,7 +39,6 @@ export function stopDiscoColor(originalColor: string = "") {
 export function startDiscoBackground() {
     const elements = document.querySelectorAll('.' + discoBackground);
     if (elements.length > 0) {
-        stopDiscoBackground();
         discoIntervalBbackground = setInterval(() => {
             elements.forEach((element) => {
                 (element as HTMLElement).style.backgroundColor = getRandomColor();

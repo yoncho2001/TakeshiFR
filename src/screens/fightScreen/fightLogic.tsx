@@ -14,7 +14,7 @@ interface FightLogicProps {
     levelName: string
 }
 
-let discoBackgroundColor: number | undefined = undefined;
+let discoBackgroundColor: NodeJS.Timeout | undefined = undefined;
 
 export default function FightLogic({ levelName }: FightLogicProps) {
     const logicManager = new FightLogicManager();
@@ -63,7 +63,10 @@ export default function FightLogic({ levelName }: FightLogicProps) {
         }
 
         if (!discoChek) {
-            clearInterval(discoBackgroundColor);
+            if (discoBackgroundColor !== null) {
+                clearInterval(discoBackgroundColor);
+            }
+
             discoBackgroundColor = undefined;
             rootElement.style.filter = `hue-rotate(0deg)`;
 

@@ -14,9 +14,9 @@ export default function SketchComponent({ abilityImgRaw, showSketch, isVillain }
 
         const sketch = (p5: P5) => {
             const abilityImg = new AbilityImg(p5, abilityImgRaw, showSketch, isVillain, 380);
-            let img;
+
             p5.preload = () => {
-                img = p5.loadImage(abilityImgRaw);
+               p5.loadImage(abilityImgRaw);
             };
 
             p5.setup = () => {
