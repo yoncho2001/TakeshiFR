@@ -11,8 +11,8 @@ const defaultLevel = 1;
 export default class Villain extends Character {
   constructor(levelInfo: levelInfo, level: number = defaultLevel) {
     super(levelInfo.name, level* 1.5 * levelInfo.vilainStats.health
-      , level * levelInfo.vilainStats.strenght
-      , level * levelInfo.vilainStats.armorr,
+      , level* 1.5 * levelInfo.vilainStats.strenght
+      , level* 1.5 * levelInfo.vilainStats.armorr,
       [new Ability(BASIC_ATTACK, [MELEE_TYPE, MAGE_TYPE, RANGE_TYPE], 0, 0, BASIC_ATTACK_EFFECT, basicAttack),
       new Ability(HEAVY_ATTACK, [MELEE_TYPE, RANGE_TYPE], 2, 0, HEAVY_ATTACK_EFFECT, heavyAttack),
       new Ability(BREATHE, [MELEE_TYPE, MAGE_TYPE, RANGE_TYPE], 0, 0, BREATHE_EFFECT, breathe)

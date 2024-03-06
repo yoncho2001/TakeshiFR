@@ -54,7 +54,7 @@ export default function FightLogic({ levelName }: FightLogicProps) {
 
         if (rootElement) {
             if (!discoChek) {
-                rootElement.style.backgroundImage = `url(../../../public/Picture${levelName}.svg)`;
+                rootElement.style.backgroundImage = `url(../../../Picture${levelName}.svg)`;
             }
             else {
                 const discoBackground = `discoBackground`;
@@ -117,7 +117,7 @@ export default function FightLogic({ levelName }: FightLogicProps) {
         <>
             <FightScene player={player} villain={villain} discoChek={discoChek} />
             <FightMenu player={player} villain={villain} endTurn={endTurn} turn={turn} setDiscoChek={setDiscoChek} discoChek={discoChek} />
-            {isGameOver && <WinScene isWin={isWin} levelName={levelName} />}
+            {isGameOver && <WinScene isWin={isWin} levelName={levelName} player={player}/>}
         </>
     );
 }

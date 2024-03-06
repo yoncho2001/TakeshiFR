@@ -42,7 +42,7 @@ export default function FightScene({ player, villain, discoChek}: FightSceneProp
                         />
                     }
                 </div>
-                <img id="heroImg" src={`../../../public/Picture${player.getType()}${discoChek ? 'Disco' : ''}.svg`} alt="icon" />
+                <img id="heroImg" src={`../../../Picture${player.getType()}${discoChek ? 'Disco' : ''}.svg`} alt="icon" />
             </div>
 
             <div id='statsVillain'>
@@ -60,7 +60,7 @@ export default function FightScene({ player, villain, discoChek}: FightSceneProp
                         title={villain.getArmor()}
                     />
                 </div>
-                <img id="villainImg" src={`../../../public/PictureBoss${villain.getName()}${discoChek ? 'Disco' : ''}.svg`} alt="icon" />
+                <img id="villainImg" src={`../../../PictureBoss${villain.getName()}${discoChek ? 'Disco' : ''}.svg`} alt="icon" />
             </div>
         </div>
     );

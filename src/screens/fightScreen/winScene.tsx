@@ -8,9 +8,10 @@ import { stopDiscoColor } from "../../functions/discoMode";
 interface WinSceneProps {
     isWin: boolean,
     levelName: string,
+    player: HeroInfo,
 }
 
-export default function WinScene({ isWin, levelName }: WinSceneProps) {
+export default function WinScene({ isWin, levelName, player }: WinSceneProps) {
     const villainInfo = villainsRegister.get(levelName) || { name: DESERT_BOSS, levelToReech: 1 };
 
     return (
@@ -22,9 +23,16 @@ export default function WinScene({ isWin, levelName }: WinSceneProps) {
             >
                 <div className="game-over-screen">
                     <h1 className="winTytle">{isWin ? "Win" : "Defeat"}</h1>
-                    <p>{isWin ? `You won level ${villainInfo?.name}!` : "You have been defeated!"} </p>
+                    <p className="winTytle">{isWin ? `You won level ${villainInfo?.name}!` : "You have been defeated!"} </p>
+
+                    {isWin &&
+                        <> 
+                            <p className="winTytle"> {`You level up to level ${player.getLevel()}`} </p>
+                            
+                        </>
+                    }
                     <Link to='/levels' className="buttonLink">
-                        <Button onClick={()=>{stopDiscoColor()}} variant='contained' className='emptyButton' content={'Return to levels'} />
+                        <Button onClick={() => { stopDiscoColor() }} variant='contained' className='emptyButton' content={'Return to levels'} />
                     </Link>
                 </div>
             </Modal>

@@ -1,6 +1,7 @@
 import { Link as MuiLink } from "react-router-dom";
 import React from "react";
 import { villainsRegister } from "../elementsOfHero/villains";
+import { Tooltip } from "@mui/material";
 
 interface LinkProps {
     className?: string;
@@ -25,11 +26,13 @@ export default function LevelLink({ children, className, to, level, levelName, s
 
     return (
         <div className={className}>
-            {isLocked && (
-                <div id="lockImg">
-                    <img src={`../../../lock-icon.png`} alt="Locked" style={{ zIndex: 1 }} />
-                </div>
-            )}
+            {isLocked &&
+                <Tooltip title={`Need to be level ${villainInfo?.levelToReech}`} placement="top">
+                    <div id="lockImg">
+                        <img src={`../../../lock-icon.png`} alt="Locked" style={{ zIndex: 1 }} />
+                    </div>
+                </Tooltip>
+            }
             <MuiLink
                 to={to}
                 onClick={handleClick}

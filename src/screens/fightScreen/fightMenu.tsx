@@ -172,7 +172,7 @@ export default function FightMenu({ player, villain, endTurn, turn, setDiscoChek
                         labelPlacement="bottom"
                     />
                 }
-                {showSketch && <SketchComponent abilityImgRaw={`../../../public/Picture${abilityImg}${discoChek ? 'Disco' : ''}.svg`} showSketch={showSketch} isVillain={isVillain} />}
+                {showSketch && <SketchComponent abilityImgRaw={`../../../Picture${abilityImg}${discoChek ? 'Disco' : ''}.svg`} showSketch={showSketch} isVillain={isVillain} />}
                 {alertInfo.show && (
                     <Alert severity="error" id="alert" >
                         {alertInfo.message}

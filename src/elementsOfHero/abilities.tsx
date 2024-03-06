@@ -1,11 +1,8 @@
 import {
-    BASIC_ATTACK, MELEE_TYPE, MAGE_TYPE, RANGE_TYPE
-    , BASIC_ATTACK_EFFECT, HEAVY_ATTACK, BOLT, BOLT_EFFECT, BREATHE
-    , BREATHE_EFFECT,
-    MEDITATE,
-    HEAL,
-    HEAL_EFFECT,
-    MEDITATE_EFFECT
+    BASIC_ATTACK, MELEE_TYPE, MAGE_TYPE, RANGE_TYPE,
+    BASIC_ATTACK_EFFECT, HEAVY_ATTACK, BOLT, BOLT_EFFECT, BREATHE,
+    BREATHE_EFFECT, MEDITATE, HEAL, HEAL_EFFECT, MEDITATE_EFFECT,
+    HEAVY_ATTACK_EFFECT
 } from '../globalElements/constants.tsx';
 import Ability from '../classes/Abilities.tsx';
 
@@ -14,7 +11,7 @@ const healMana = 20;
 
 export const constAbilities = new Map<string, Ability>([
     [BASIC_ATTACK, new Ability(BASIC_ATTACK, [MELEE_TYPE, MAGE_TYPE, RANGE_TYPE], 0, 0, BASIC_ATTACK_EFFECT, basicAttack)],
-    [HEAVY_ATTACK, new Ability(HEAVY_ATTACK, [MELEE_TYPE, RANGE_TYPE], 2, 0, BASIC_ATTACK_EFFECT, heavyAttack)],
+    [HEAVY_ATTACK, new Ability(HEAVY_ATTACK, [MELEE_TYPE, RANGE_TYPE], 2, 0, HEAVY_ATTACK_EFFECT, heavyAttack)],
     [BOLT, new Ability(BOLT, [MAGE_TYPE], 3, 20, BOLT_EFFECT, bolt)],
     [MEDITATE, new Ability(MEDITATE, [MAGE_TYPE], 1, 0, MEDITATE_EFFECT, meditate)],
     [HEAL, new Ability(HEAL, [MAGE_TYPE], 2, 10, HEAL_EFFECT, heal)],
