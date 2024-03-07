@@ -1,14 +1,29 @@
 import { Routes, Route } from 'react-router-dom';
-import StartScreen from '../startScreen/startScreen.tsx';
-import PlayerScreen from '../playerScreen/playerScreen.tsx';
+import { useState } from 'react';
+import PlayerContext from '../components/PlayerContext.tsx';
+import StartScreen from '../screens/startScreen/startScreen.tsx';
+import CreateScreen from '../screens/createScreen/createScreen.tsx';
+import PlayerScreen from '../screens/playerScreen/playerScreen.tsx';
+import LevelsScreen from '../screens/levelsScreen/levelsScreen.tsx';
+import FightScreen from '../screens/fightScreen/fightScreen.tsx';
+import { DISCO_BOSS, discoColor } from '../globalElements/constants.tsx';
 
-export default function App(){
+export default function App() {
+    const [currentPlayer, setCurrentPlayer] = useState<string>("");
+    const [currentLevel, setCurrentLevel] = useState<string>("");
+
     return (
         <div>
-            <Routes>
-                <Route path="/" element={ <StartScreen /> }/>
-                <Route path="/player" element={ <PlayerScreen /> }/>
-            </Routes>
+            <h1 className= {currentLevel === DISCO_BOSS ? discoColor : ""}>Yoncho Takeshi</h1>
+            <PlayerContext.Provider value={{ currentPlayer, setCurrentPlayer }}>
+                <Routes>
+                    <Route path="/" element={<StartScreen />} />
+                    <Route path="/create" element={<CreateScreen />} />
+                    <Route path="/player" element={<PlayerScreen />} />
+                    <Route path="/levels" element={<LevelsScreen setLevel={setCurrentLevel} />} />
+                    <Route path="/fight" element={<FightScreen levelName={currentLevel} />} />
+                </Routes>
+            </PlayerContext.Provider>
         </div>
-    )    
+    )
 }
