@@ -35,7 +35,7 @@ export function bolt(dealer: AllCharacters, tanker: AllCharacters): number {
     return 3 * calkStrength(dealer) - tanker.getArmor();
 }
 
-export function meditate(dealer: AllCharacters, tanker: AllCharacters): number {
+export function meditate(dealer: AllCharacters): number {
     if ('mana' in dealer) {
         dealer.healMana(healMana);
     }
@@ -43,7 +43,7 @@ export function meditate(dealer: AllCharacters, tanker: AllCharacters): number {
     return 0;
 }
 
-export function heal(dealer: AllCharacters, tanker: AllCharacters): number {
+export function heal(dealer: AllCharacters): number {
     if ('mana' in dealer) {
         dealer.heal(2 * dealer.getPrimaryWeapon().damage);
     }
@@ -51,6 +51,6 @@ export function heal(dealer: AllCharacters, tanker: AllCharacters): number {
     return 0;
 }
 
-export function breathe(player: AllCharacters, tanker: AllCharacters): number {
+export function breathe(): number {
     return 0;
 }
