@@ -1,6 +1,6 @@
 export const PLAYER_COUNT_LIMIT = 3;
 export const PLAYERS_KEY = 'players';
-export const defaultHero: MageHeroJSON = {
+export const defaultMage: MageHeroJSON = {
     name: "Default",
     maxHealth: 5,
     strength: 5,
@@ -11,6 +11,32 @@ export const defaultHero: MageHeroJSON = {
     type: "Mage",
     level: 1,
     maxMana: 5
+}
+
+export const defaultMelee: MeleeHeroJSON = {
+    name: "Default",
+    maxHealth: 5,
+    strength: 5,
+    armor: 5,
+    abilities: [],
+    potions: [],
+    primaryWeapon: 'Sword',
+    type: "Melee",
+    level: 1,
+    secondaryWeapon: 'BigSword'
+}
+
+export const defaultRange: RangeHeroJSON = {
+    name: "Default",
+    maxHealth: 5,
+    strength: 5,
+    armor: 5,
+    abilities: [],
+    potions: [],
+    primaryWeapon: 'Bow',
+    type: "Range",
+    level: 1,
+    ammo: 5
 }
 
 export const discoColor = 'discoColor';

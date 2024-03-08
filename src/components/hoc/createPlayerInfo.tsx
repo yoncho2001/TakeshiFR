@@ -3,7 +3,7 @@ import MeleeHero from '../../classes/MeleeHero.tsx';
 import RangeHero from '../../classes/RangeHero.tsx';
 import CharacterManager from '../../functions/characterManager.tsx'
 import Button from '../button.tsx';
-import { MAGE_TYPE, MELEE_TYPE, RANGE_TYPE, defaultHero } from '../../globalElements/constants.tsx'
+import { MAGE_TYPE, MELEE_TYPE, RANGE_TYPE, defaultMage } from '../../globalElements/constants.tsx'
 
 type DefaultHeroSerializer = (playerName: string) => HeroToJSON;
 const createHeroMap = new Map<HERO_TYPES, DefaultHeroSerializer>([
@@ -37,7 +37,7 @@ function createHero(type: HERO_TYPES, playerName: string, callbackFunction: Reac
     const defaultPlayerSerializer: DefaultHeroSerializer | undefined =
         createHeroMap.get(type);
 
-    let playerInfo: HeroToJSON = defaultHero;
+    let playerInfo: HeroToJSON = defaultMage;
 
     if (defaultPlayerSerializer) {
         playerInfo = defaultPlayerSerializer(playerNameToSave);
